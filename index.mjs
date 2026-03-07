@@ -9,8 +9,8 @@ app.use(express.static("public"));
 // Setup Routes
 // Root
 app.get('/', (req, res) => {
-    res.send("Hello Express App!"); // Root
-});
+    res.render("sort"); 
+}); // Root
 
 // Listen on port 3000
 app.listen(3000, () => {
