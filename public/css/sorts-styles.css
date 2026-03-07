@@ -1,0 +1,17 @@
+/* Array Styles */
+#arrayDiv {
+    background-color: black;
+    display: flex;
+    align-items: flex-end;
+    height: 500px;
+}
+
+.element {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.cursor {
+    background-color: red;
+}
