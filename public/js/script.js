@@ -19,8 +19,25 @@ function allowUpdate() {
  *  and fills arrayDiv based on selected array type.
  */
 async function generateArray() {
+    // Get array size
+    arraySize = document.getElementById("arraySize").value;
+    
+    // Convert Array Size to Number
+    try {
+        arraySize = Number(arraySize);
+    } catch(err) {
+        console.log("Not a number!");
+        return;
+    }
+    
+    // Check if array size is valid
+    if(arraySize < 1 || arraySize > arrayDiv.clientHeight) {
+        console.log("Out of bounds.");
+        return;
+    }
+    
     // Clear Current array
-    resetArray();
+    array = new Array(arraySize);
 
     // Clear arrayDiv
     document.getElementById("arrayDiv").innerHTML = "";
@@ -153,60 +170,38 @@ async function generateRandomDuplicates() {
  * Duplicates are not allowed.
  */
 async function generateRandomNoDuplicates() {
-    console.log("Generating Random (Duplicates Allowed) Array");
+    console.log("Generating Random (No Duplicates Allowed) Array");
 
     // Get element box width
     let width = Math.max(1, arrayDiv.clientWidth / arraySize);
 
-    // Fill arrayDiv with boxes
-    for(let i = 0; i < arraySize; i++) {
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: 0px; width: ${width}px;'
-        >
-        </div>`;
+    // Create and fill temp array
+    let tempArray = new Array(arraySize);
+    for(let i = 0; i < tempArray.length; i++) {
+        tempArray[i] = i + 1;
     }
 
-    let num = 1;
     for(let i = 0; i < arraySize; i++) {
         // Update Page
         await allowUpdate();
 
-        // Get random index
-        let index = Math.floor(Math.random() * arraySize);
+        // Get and splice random number from tempArray
+        let index = Math.floor(Math.random() * tempArray.length)
+        let num = tempArray[index];
+        tempArray.splice(index, 1);
 
-        // Update array element at i (using linear probing)
-        while(array[index] != 0) {
-            if(index >= arraySize) {
-                index = 0;
-            } else {
-                index++;
-            }
-        }
-        array[index] = num;
+        // Update array element
+        array[i] = num;
 
         // Get element box height
         let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
 
-        // Update box at index
-        document.getElementById(`element${index}`).style.height = `${height}px`;
-
-        // Increment Num
-        num++;
-    }
-}
-
-/**
- * Fills array with zeroes.
- */
-function resetArray() {
-    // Create new empty array
-    array = new Array(arraySize);
-
-    // Fill array with 0
-    for(let i = 0; i < arraySize; i++) {
-        array[i] = 0;
+        // Add box on webpage
+        arrayDiv.innerHTML += `<div
+        id='element${i}'
+        class='element' 
+        style='height: ${height}px; width: ${width}px;'
+        >
+        </div>`;
     }
 }
