@@ -37,6 +37,9 @@ async function bubbleSort() {
         }
     }
 
+    // Clear Cursors
+    clearCursors();
+
     // Enable Controls
     enableGeneration();
     enableSort();
