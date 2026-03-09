@@ -43,8 +43,14 @@ async function generateArray() {
         case "alternating":
             await generateAlternating();
             break;
+        case "bell-curve":
+            await generateBellCurve();
+            break;
         case "descending":
             await generateDescending();
+            break;
+        case "pyramid":
+            await generatePyramid();
             break;
         case "random-duplicates":
             await generateRandomDuplicates();
@@ -166,6 +172,43 @@ async function generateDescending() {
 
         // Decrement num
         num--;
+    }
+}
+
+/**
+ * Generates an array with the shape of a pyramid.
+ */
+async function generatePyramid() {
+    // Get element box width
+    let width = Math.max(1, arrayDiv.clientWidth / arraySize);
+
+    let num = 1;
+    for(let i = 0; i < arraySize; i++) {
+        // Update Page
+        await allowUpdate();
+
+        // Update array element at i
+        array[i] = num;
+
+        // Get element box height
+        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
+
+        // Add box on webpage
+        arrayDiv.innerHTML += `<div
+        id='element${i}'
+        class='element' 
+        style='height: ${height}px; width: ${width}px;'
+        >
+        </div>`;
+
+
+        // Increment num
+        if(i < arraySize / 2) {
+            num += 2;
+        } else {
+            num -= 2;
+        }
+        
     }
 }
 

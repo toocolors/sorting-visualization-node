@@ -13,8 +13,8 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
     text = Number(text);
 
     // Check if value in within bounds
-    if(text < 2) {
-        event.target.value = 2;
+    if(text < 1) {
+        event.target.value = 1;
     } else if (text > document.getElementById("arrayDiv").clientHeight) {
         event.target.value = document.getElementById("arrayDiv").clientHeight;
     }
