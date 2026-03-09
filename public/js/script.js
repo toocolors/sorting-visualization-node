@@ -1,6 +1,7 @@
 // Global Variables
-let arraySize = 100;
+let arraySize = 500;
 let array = [];
+const arrayDiv = document.getElementById("arrayDiv");
 
 // Set Event Listeners
 document.getElementById("generateButton").addEventListener("click", generateArray);
@@ -33,7 +34,7 @@ async function generateArray() {
             await generateAscending();
             break;
         case "descending":
-            generateDescending();
+            await generateDescending();
             break;
         case "random":
         default:
@@ -48,9 +49,6 @@ async function generateArray() {
 async function generateAscending() {
     console.log("Generating Ascending Array");
 
-    // Get arrayDiv
-    let arrayDiv = document.getElementById("arrayDiv");
-
     // Get element box width
     let width = Math.max(1, arrayDiv.clientWidth / arraySize);
 
@@ -63,7 +61,7 @@ async function generateAscending() {
         array[i] = num;
 
         // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / (i + 1)));
+        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
 
         // Add box on webpage
         arrayDiv.innerHTML += `<div
@@ -82,8 +80,35 @@ async function generateAscending() {
 /**
  * Generates a descending array.
  */
-function generateDescending() {
+async function generateDescending() {
+    console.log("Generating Descending Array");
 
+    // Get element box width
+    let width = Math.max(1, arrayDiv.clientWidth / arraySize);
+
+    let num = arraySize;
+    for(let i = 0; i < arraySize; i++) {
+        // Update Page
+        await allowUpdate();
+
+        // Update array element at i
+        array[i] = num;
+
+        // Get element box height
+        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
+
+        // Add box on webpage
+        arrayDiv.innerHTML += `<div
+        id='element${i}'
+        class='element' 
+        style='height: ${height}px; width: ${width}px;'
+        >
+        </div>`;
+
+
+        // Decrement num
+        num--;
+    }
 }
 
 /**
