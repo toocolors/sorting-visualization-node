@@ -19,26 +19,16 @@ async function bubbleSort() {
             await allowUpdate();
 
             // Check if elements j and j - 1 are sorted
-            if(array[j - 1] > array[j]) {
+            if(isGreater(j - 1, j)) {
                 // Update sorted
                 sorted = false;
 
                 // Update cursor boxes
-                let previous = document.getElementsByClassName("cursor");
-                for(let i = 0; i < previous.length; i++) {
-                    previous[i].classList.remove("cursor");
-                }
-                document.getElementById(`element${j}`).classList.add("cursor");
+                clearCursors();
+                setCursor(j);
 
-                // Update sorted and swap elements
-                let temp = array[j - 1];
-                array[j - 1] = array[j];
-                array[j] = temp;
-
-                // Update boxes
-                document.getElementById(`element${j}`).style.height = `${Math.max(1, arrayDiv.clientHeight / (arraySize / array[j]))}px`;
-                document.getElementById(`element${j - 1}`).style.height = `${Math.max(1, arrayDiv.clientHeight / (arraySize / array[j - 1]))}px`;
-
+                // Swap elements
+                swap(j, j - 1);
             }
         }
     }
