@@ -50,6 +50,9 @@ async function generateArray() {
         case "ascending":
             await generateAscending();
             break;
+        case "alternating":
+            await generateAlternating();
+            break;
         case "descending":
             await generateDescending();
             break;
@@ -94,6 +97,47 @@ async function generateAscending() {
 
         // Increment num
         num++;
+    }
+}
+
+/**
+ * Generates an array that alternates between high and low values.
+ */
+async function generateAlternating() {
+    console.log("Generating Alternating Array");
+
+    // Get element box width
+    let width = Math.max(1, arrayDiv.clientWidth / arraySize);
+
+    let low = 1;
+    let high = arraySize;
+    for(let i = 0; i < arraySize; i++) {
+        // Update Page
+        await allowUpdate();
+
+        // Get num and update high/low
+        let num;
+        if(i % 2 == 1) {
+            num = low;
+            low++;
+        } else {
+            num = high;
+            high--;
+        }
+
+        // Update array element at i
+        array[i] = num;
+
+        // Get element box height
+        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
+
+        // Add box on webpage
+        arrayDiv.innerHTML += `<div
+        id='element${i}'
+        class='element' 
+        style='height: ${height}px; width: ${width}px;'
+        >
+        </div>`;
     }
 }
 
