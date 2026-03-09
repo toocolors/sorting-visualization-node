@@ -89,3 +89,11 @@ function clearCursors() {
         previous[i].classList.remove("cursor");
     }
 }
+
+/**
+ * Sets the box at the listed array as a cursor.
+ * @param {Number} index An array index.
+ */
+function setCursor(index) {
+    document.getElementById(`element${index}`).classList.add("cursor");
+}
