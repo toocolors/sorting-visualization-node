@@ -22,14 +22,14 @@ async function bubbleSort() {
             // Update page
             await allowUpdate();
 
+            // Update cursor boxes
+            clearCursors();
+            setCursor(j);
+
             // Check if elements j and j - 1 are sorted
             if(isGreater(j - 1, j)) {
                 // Update sorted
                 sorted = false;
-
-                // Update cursor boxes
-                clearCursors();
-                setCursor(j);
 
                 // Swap elements
                 swap(j, j - 1);
