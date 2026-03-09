@@ -142,6 +142,45 @@ async function generateAlternating() {
 }
 
 /**
+ * Generates an array in the shape of a bell-curve.
+ */
+async function generateBellCurve() {
+    // Get element box width
+    let width = Math.max(1, arrayDiv.clientWidth / arraySize);
+
+    let center = arraySize / 2;
+    let spread = arraySize / 6; // controls curve width
+
+    let num = 1;
+    for(let i = 0; i < arraySize; i++) {
+        // Update Page
+        await allowUpdate();
+
+        // Gaussian curve formula
+        let x = i - center;
+        let num = Math.exp(-(x * x) / (2 * spread * spread));
+
+        // scale value
+        num *= arraySize;
+        num = Math.max(1, Math.floor(num));
+
+        // Update array element at i
+        array[i] = num;
+
+        // Get element box height
+        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
+
+        // Add box on webpage
+        arrayDiv.innerHTML += `<div
+        id='element${i}'
+        class='element' 
+        style='height: ${height}px; width: ${width}px;'
+        >
+        </div>`;
+    }
+}
+
+/**
  * Generates a descending array.
  */
 async function generateDescending() {
@@ -208,7 +247,6 @@ async function generatePyramid() {
         } else {
             num -= 2;
         }
-        
     }
 }
 
