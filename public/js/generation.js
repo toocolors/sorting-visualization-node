@@ -19,26 +19,12 @@ function allowUpdate() {
  *  and fills arrayDiv based on selected array type.
  */
 async function generateArray() {
-    // Get array size
-    arraySize = document.getElementById("arraySize").value;
-    
-    // Convert Array Size to Number
-    try {
-        arraySize = Number(arraySize);
-    } catch(err) {
-        console.log("Not a number!");
-        return;
-    }
-    
-    // Check if array size is valid
-    if(arraySize < 1 || arraySize > arrayDiv.clientHeight) {
-        console.log("Out of bounds.");
-        return;
-    }
-
     // Disable Controls
     disableGeneration();
     disableSort();
+    
+    // Get array size
+    arraySize = Number(document.getElementById("arraySize").value);
     
     // Clear Current array
     array = new Array(arraySize);
