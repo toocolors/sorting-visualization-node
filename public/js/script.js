@@ -1,16 +1,23 @@
 // Global Variables
-let arraySize = 10;
+let arraySize = 100;
 let array = [];
 
 // Set Event Listeners
 document.getElementById("generateButton").addEventListener("click", generateArray);
 
 // Functions
+// helper function to use a setTimeout as a promise.
+function allowUpdate() {
+    return new Promise((f) => {
+        setTimeout(f, 0);
+    });
+}
+
 /**
  * Clears current array and arrayDiv, then generates array
  *  and fills arrayDiv based on selected array type.
  */
-function generateArray() {
+async function generateArray() {
     // Clear Current array
     array = [];
 
@@ -23,7 +30,7 @@ function generateArray() {
     // Generate array
     switch (arrayType) {
         case "ascending":
-            generateAscending();
+            await generateAscending();
             break;
         case "descending":
             generateDescending();
@@ -38,7 +45,7 @@ function generateArray() {
 /**
  * Generates an ascending array.
  */
-function generateAscending() {
+async function generateAscending() {
     console.log("Generating Ascending Array");
 
     // Get arrayDiv
@@ -49,6 +56,9 @@ function generateAscending() {
 
     let num = 1;
     for(let i = 0; i < arraySize; i++) {
+        // Update Page
+        await allowUpdate();
+
         // Update array element at i
         array[i] = num;
 
