@@ -1,10 +1,10 @@
 // Global Variables
-let arraySize = 500;
+let arraySize;
 let array = [];
 const arrayDiv = document.getElementById("arrayDiv");
 
 // Set Event Listeners
-document.getElementById("generateButton").addEventListener("click", generateArray);
+document.getElementById("generateEnabled").addEventListener("click", generateArray);
 
 // Functions
 // helper function to use a setTimeout as a promise.
@@ -35,6 +35,10 @@ async function generateArray() {
         console.log("Out of bounds.");
         return;
     }
+
+    // Disable Controls
+    disableGeneration();
+    disableSort();
     
     // Clear Current array
     array = new Array(arraySize);
@@ -64,6 +68,10 @@ async function generateArray() {
             await generateRandomNoDuplicates();
             break;
     }
+
+    // Enable Controls
+    enableGeneration();
+    enableSort();
 }
 
 /**

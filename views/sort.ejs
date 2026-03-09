@@ -22,14 +22,17 @@
             <option value="descending">Descending</option>
             
         </select>
-        <button id="generateButton">Generate Array</button>
+        <button id="generateEnabled" >Generate Array</button>
+        <button id="generateDisabled" class="hide">Generate Array</button>
 
         <!-- Array Visualization -->
         <div id="arrayDiv"></div>
 
-        <button id="sortButton">Sort</button>
+        <button id="sortEnabled" class="hide">Sort</button>
+        <button id="sortDisabled">Sort</button>
     </main>
 
+    <script src="/js/controls.js" type="text/javascript"></script>
     <script src="/js/generation.js" type="text/javascript"></script>
     <script src="/js/operations.js" type="text/javascript"></script>
     <script src="/js/sorts/bubble.js" type="text/javascript"></script>

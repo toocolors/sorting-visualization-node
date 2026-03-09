@@ -18,3 +18,20 @@
 .cursor {
     background-color: red;
 }
+
+/* Button Styles */
+#generateDisabled, #sortDisabled {
+    background-color: gray;
+}
+
+button {
+    background-color: blue;
+}
+
+button:hover:not(hide) {
+    background-color: darkblue;
+}
+
+.hide {
+    display: none;
+}

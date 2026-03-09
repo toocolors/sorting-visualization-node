@@ -1,5 +1,5 @@
 // Set Event Listeners
-document.getElementById("sortButton").addEventListener("click", bubbleSort);
+document.getElementById("sortEnabled").addEventListener("click", bubbleSort);
 
 // Functions
 /**
@@ -7,6 +7,10 @@ document.getElementById("sortButton").addEventListener("click", bubbleSort);
  */
 async function bubbleSort() {
     console.log("Starting Bubble Sort");
+
+    // Disable Controls
+    disableGeneration();
+    disableSort();
 
     let sorted = false;
     for(let i = 0; !sorted && i < arraySize; i++) {
@@ -32,6 +36,10 @@ async function bubbleSort() {
             }
         }
     }
+
+    // Enable Controls
+    enableGeneration();
+    enableSort();
 
     console.log("Finished Bubble Sort");
 }
