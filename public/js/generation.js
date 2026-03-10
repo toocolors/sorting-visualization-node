@@ -1,8 +1,3 @@
-// Global Variables
-let arraySize;
-let array = [];
-const arrayDiv = document.getElementById("arrayDiv");
-
 // Set Event Listeners
 document.getElementById("generateEnabled").addEventListener("click", generateArray);
 
