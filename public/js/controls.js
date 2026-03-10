@@ -19,6 +19,22 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
         event.target.value = document.getElementById("arrayDiv").clientHeight;
     }
 });
+document.getElementById("play").addEventListener("click", () => {
+    // Update sortstate
+    sortstate = 2;
+});
+document.getElementById("step").addEventListener("click", () => {
+    // Update sortstate
+    sortstate = 1;
+});
+document.getElementById("pause").addEventListener("click", () => {
+    // Update sortstate
+    sortstate = 0;
+});
+document.getElementById("stop").addEventListener("click", () => {
+    // Update sortstate
+    sortstate = -1;
+});
 
 // Functions
 function enableGeneration() {
