@@ -19,13 +19,26 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
         event.target.value = document.getElementById("arrayDiv").clientHeight;
     }
 });
+document.getElementById("sortEnabled").addEventListener("click", async () => {
+    if(!sorting) {
+        sorting = true;
+        sortstate = 2;
+        await beginSort();
+        sorting = false;
+    }
+});
 document.getElementById("play").addEventListener("click", () => {
     // Update sortstate
     sortstate = 2;
 });
-document.getElementById("step").addEventListener("click", () => {
+document.getElementById("step").addEventListener("click", async () => {
     // Update sortstate
     sortstate = 1;
+    if(!sorting) {
+        sorting = true;
+        await beginSort();
+        sorting = false;
+    }
 });
 document.getElementById("pause").addEventListener("click", () => {
     // Update sortstate

@@ -1,6 +1,7 @@
 // ************************************************************************************************
 // Array Access Functions
 // ************************************************************************************************
+
 /**
  * Gets the element at the given index.
  * @param {Number} index The index of the array element to get.
@@ -79,6 +80,27 @@ function isGreater(a, b) {
 // ************************************************************************************************
 // Helper Functions
 // ************************************************************************************************
+
+/**
+ * Checks the current value of sortstate, then updates and/or returns a boolean.
+ */
+async function checkSortstate() {
+    switch(sortstate) {
+        case 2: // play
+            return true;
+        case 1: // step
+            sortstate = 0;
+            return true;
+        case 0: // pause
+            while(sortstate == 0) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            return checkSortstate();
+        case -1: // stop
+        default:
+            return false;
+    }
+}
 
 /**
  * Removes all elements in the cursor class.
