@@ -41,6 +41,7 @@ async function bubbleSort() {
 async function bubbleStep(index) {
     // Update page
     await allowUpdate();
+    playAudio(array[index]);
 
     // Update cursor boxes
     clearCursors();

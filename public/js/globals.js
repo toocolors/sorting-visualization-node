@@ -5,9 +5,20 @@
 let array = [];
 const arrayDiv = document.getElementById("arrayDiv");
 let arraySize;
+const audio = new (window.AudioContext || window.webkitAudioContext)();
+const gain = audio.createGain();
 const maxSpeed = 1000;
 let sortstate = -1; // -1 = stop/no sorting active, 0 = pause, 1 = step, 2 = play
+const oscillator = audio.createOscillator();
 let sorting = false;
+
+// ************************************************************************************************
+// Startup Code
+// ************************************************************************************************
+oscillator.connect(gain);
+gain.connect(audio.destination);
+gain.gain.value = 0.0;
+oscillator.start();
 
 // ************************************************************************************************
 // Functions
@@ -25,4 +36,15 @@ function allowUpdate() {
     return new Promise((f) => {
         setTimeout(f, 1000 - speed);
     });
+}
+
+function playAudio(value) {
+    // Get frequency
+    const frequency = 220 * Math.pow(2, value / arraySize * 3);
+    oscillator.frequency.value = frequency;
+    oscillator.type = "sine"; // sine, square, triangle, sawtooth
+
+    // Start Sound
+    gain.gain.setValueAtTime(0.1, audio.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + 0.05);
 }

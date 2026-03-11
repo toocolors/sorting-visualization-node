@@ -60,6 +60,24 @@ document.getElementById("stop").addEventListener("click", () => {
     disableButton("stop");
 });
 
+document.getElementById("unmute").addEventListener("click", (event) => {
+    // resume audio
+    audio.resume();
+
+    // Disable unmute, enable mute
+    event.target.classList.add("hide");
+    document.getElementById("mute").classList.remove("hide");
+});
+
+document.getElementById("mute").addEventListener("click", (event) => {
+    // resume audio
+    audio.suspend();
+
+    // Disable unmute, enable mute
+    event.target.classList.add("hide");
+    document.getElementById("unmute").classList.remove("hide");
+});
+
 // ************************************************************************************************
 // Functions
 // ************************************************************************************************
