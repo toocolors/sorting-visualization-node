@@ -85,13 +85,13 @@ async function beginSort() {
     enableButton("step");
     disableButton("pause");
     disableButton("stop");
+    
+    // Reset sorting
+    sorting = false;
 
     // Update Page
     clearCursors();
     allowUpdate();
-    
-    // Reset sorting
-    sorting = false;
 }
 
 function enableButton(button) {
