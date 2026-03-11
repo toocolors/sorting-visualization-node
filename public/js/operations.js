@@ -103,13 +103,17 @@ async function checkSortstate() {
 }
 
 /**
- * Removes all elements in the cursor class.
+ * Removes all elements in the passed in class.
  */
-function clearCursors() {
-    let previous = document.getElementsByClassName("cursor");
-    for(let i = 0; i < previous.length; i++) {
-        previous[i].classList.remove("cursor");
+function clearClass(className) {
+    let classElements = document.querySelectorAll(`.${className}`);
+    for(let i = 0; i < classElements.length; i++) {
+        classElements[i].classList.remove(className);
     }
+}
+
+function setComplete(index) {
+    document.getElementById(`element${index}`).classList.add("complete");
 }
 
 /**

@@ -89,7 +89,7 @@ async function bubbleStep(index, offset = 1) {
     playAudio(array[index]);
 
     // Update cursor boxes
-    clearCursors();
+    clearClass("cursor");
     setCursor(index);
 
     // Check if elements j and j - 1 are sorted
@@ -108,7 +108,7 @@ async function cocktailStep(index) {
     playAudio(array[index]);
 
     // Update cursor boxes
-    clearCursors();
+    clearClass("cursor");
     setCursor(index);
 
     // Check if elements j and j - 1 are sorted

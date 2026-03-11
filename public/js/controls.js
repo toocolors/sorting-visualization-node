@@ -81,6 +81,31 @@ document.getElementById("mute").addEventListener("click", (event) => {
 // ************************************************************************************************
 // Functions
 // ************************************************************************************************
+
+/**
+ * Loops through the array while turning each element green. Clears colors after.
+ */
+async function arrayCompleteLoop() {
+    // Enable/Disable Controls
+    disableButton("play");
+    disableButton("step");
+    disableButton("pause");
+    enableButton("stop");
+    
+    // Loop through array
+    for(let i = 0; sortstate == 2 && i < arraySize; i++) {
+        setComplete(i);
+        await allowUpdate();
+        playAudio(array[i]);
+    }
+    
+    // Clear complete class
+    clearClass("complete");
+}
+
+/**
+ * Sorts the array using the currently selected sort.
+ */
 async function beginSort() {
     // Update sorting
     sorting = true;
@@ -101,6 +126,14 @@ async function beginSort() {
         }
     }
 
+    // Clear Cursors
+    clearClass("cursor");
+
+    // Loop through array to show completion
+    if(sortstate == 2) {
+        await arrayCompleteLoop();
+    }
+
     // Enable/Disable Buttons
     enableButton("generate");
     enableButton("play");
@@ -112,7 +145,6 @@ async function beginSort() {
     sorting = false;
 
     // Update Page
-    clearCursors();
     allowUpdate();
 }
 
