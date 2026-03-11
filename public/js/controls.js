@@ -95,7 +95,11 @@ async function beginSort() {
     }
     
     // Start Sort
-    await bubbleSort();
+    for(let i = 0; i < sortList.length; i++) {
+        if(sortList[i][0] === document.getElementById("sortSelect").value) {
+            await sortList[i][1]();
+        }
+    }
 
     // Enable/Disable Buttons
     enableButton("generate");
