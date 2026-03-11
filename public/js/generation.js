@@ -89,6 +89,8 @@ async function generateAscending() {
         >
         </div>`;
 
+        // Play Sound
+        playAudio(num);
 
         // Increment num
         num++;
@@ -133,6 +135,9 @@ async function generateAlternating() {
         style='height: ${height}px; width: ${width}px;'
         >
         </div>`;
+
+        // Play Sound
+        playAudio(num);
     }
 }
 
@@ -172,6 +177,9 @@ async function generateBellCurve() {
         style='height: ${height}px; width: ${width}px;'
         >
         </div>`;
+
+        // Play Sound
+        playAudio(num);
     }
 }
 
@@ -203,6 +211,8 @@ async function generateDescending() {
         >
         </div>`;
 
+        // Play Sound
+        playAudio(num);
 
         // Decrement num
         num--;
@@ -235,6 +245,8 @@ async function generatePyramid() {
         >
         </div>`;
 
+        // Play Sound
+        playAudio(num);
 
         // Increment num
         if(i < arraySize / 2) {
@@ -275,6 +287,9 @@ async function generateRandomDuplicates() {
         style='height: ${height}px; width: ${width}px;'
         >
         </div>`;
+
+        // Play Sound
+        playAudio(num);
     }
 
 }
@@ -317,5 +332,8 @@ async function generateRandomNoDuplicates() {
         style='height: ${height}px; width: ${width}px;'
         >
         </div>`;
+
+        // Play Sound
+        playAudio(num);
     }
 }
