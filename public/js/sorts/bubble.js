@@ -1,20 +1,18 @@
+// ************************************************************************************************
 // Script variables
+// ************************************************************************************************
 let sorted;
 
+// ************************************************************************************************
 // Functions
-async function beginSort() {
-    await bubbleSort();
-}
+// ************************************************************************************************
+
 
 /**
  * Sorts array using bubble sort.
  */
 async function bubbleSort() {
     console.log("Starting Bubble Sort");
-
-    // Disable Controls
-    disableGeneration();
-    disableSort();
 
     sorted = false;
     for(let i = 0; !sorted && i < arraySize; i++) {
@@ -31,16 +29,6 @@ async function bubbleSort() {
             await bubbleStep(j);
         }
     }
-
-    // Clear Cursors
-    clearCursors();
-
-    // Enable Controls
-    enableGeneration();
-    enableSort();
-
-    // Reset sortstate
-    sortstate = 0;
 
     console.log("Finished Bubble Sort");
 }

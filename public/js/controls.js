@@ -1,4 +1,6 @@
+// ************************************************************************************************
 // Add Event Listeners
+// ************************************************************************************************
 document.getElementById("arraySize").addEventListener("input", (event) => {
     // Get arraySize text
     let text = event.target.value;
@@ -19,65 +21,79 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
         event.target.value = document.getElementById("arrayDiv").clientHeight;
     }
 });
-document.getElementById("sortEnabled").addEventListener("click", async () => {
-    if(!sorting) {
-        sorting = true;
-        sortstate = 2;
-        await beginSort();
-        sorting = false;
-    }
-});
+
 document.getElementById("play").addEventListener("click", () => {
     // Update sortstate
     sortstate = 2;
+    if(!sorting) {
+        beginSort();
+    }
 });
-document.getElementById("step").addEventListener("click", async () => {
+
+document.getElementById("step").addEventListener("click", () => {
     // Update sortstate
     sortstate = 1;
     if(!sorting) {
-        sorting = true;
-        await beginSort();
-        sorting = false;
+        beginSort();
     }
 });
+
 document.getElementById("pause").addEventListener("click", () => {
     // Update sortstate
     sortstate = 0;
 });
+
 document.getElementById("stop").addEventListener("click", () => {
     // Update sortstate
     sortstate = -1;
 });
 
+// ************************************************************************************************
 // Functions
-function enableGeneration() {
-    // Enable generateEnabled
-    document.getElementById("generateEnabled").classList.remove("hide");
+// ************************************************************************************************
+async function beginSort() {
+    // Update sorting
+    sorting = true;
 
-    // Disable generateDisabled
-    document.getElementById("generateDisabled").classList.add("hide");
+    // Enable/Disable Buttons
+    disableButton("generate");
+    if(sortstate == 2) { // play
+        disableButton("play");
+        disableButton("step");
+        enableButton("pause");
+        enableButton("stop");
+    }
+    
+    // Start Sort
+    await bubbleSort();
+
+    // Enable/Disable Buttons
+    enableButton("generate");
+    enableButton("play");
+    enableButton("step");
+    disableButton("pause");
+    disableButton("stop");
+
+    // Update Page
+    clearCursors();
+    allowUpdate();
+    
+    // Reset sorting
+    sorting = false;
 }
 
-function enableSort() {
-    // Enable sortEnabled
-    document.getElementById("sortEnabled").classList.remove("hide");
+function enableButton(button) {
+    // Enable button
+    document.getElementById(button).classList.remove("hide");
 
-    // Disable sortDisabled
-    document.getElementById("sortDisabled").classList.add("hide");
+    // Disable grayed button
+    document.getElementById(`${button}Grayed`).classList.add("hide");
 }
 
-function disableGeneration() {
-    // Disable generateEnabled
-    document.getElementById("generateEnabled").classList.add("hide");
+function disableButton(button) {
+    // Disable button
+    document.getElementById(button).classList.add("hide");
 
-    // Enable generateDisabled
-    document.getElementById("generateDisabled").classList.remove("hide");
-}
-
-function disableSort() {
-    // Disable sortEnabled
-    document.getElementById("sortEnabled").classList.add("hide");
-
-    // Enable sortDisabled
-    document.getElementById("sortDisabled").classList.remove("hide");
+    // Enable grayed button
+    document.getElementById(`${button}Grayed`).classList.remove("hide");
 }

@@ -20,7 +20,7 @@
 }
 
 /* Button Styles */
-#generateDisabled, #sortDisabled {
+.grayed {
     background-color: gray;
 }
 

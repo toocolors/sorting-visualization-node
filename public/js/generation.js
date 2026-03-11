@@ -1,13 +1,11 @@
+// ************************************************************************************************
 // Set Event Listeners
-document.getElementById("generateEnabled").addEventListener("click", generateArray);
+// ************************************************************************************************
+document.getElementById("generate").addEventListener("click", generateArray);
 
+// ************************************************************************************************
 // Functions
-// helper function to use a setTimeout as a promise.
-function allowUpdate() {
-    return new Promise((f) => {
-        setTimeout(f, 0);
-    });
-}
+// ************************************************************************************************
 
 /**
  * Clears current array and arrayDiv, then generates array
@@ -15,8 +13,9 @@ function allowUpdate() {
  */
 async function generateArray() {
     // Disable Controls
-    disableGeneration();
-    disableSort();
+    disableButton("generate");
+    disableButton("play");
+    disableButton("step");
     
     // Get array size
     arraySize = Number(document.getElementById("arraySize").value);
@@ -57,8 +56,9 @@ async function generateArray() {
     }
 
     // Enable Controls
-    enableGeneration();
-    enableSort();
+    enableButton("generate");
+    enableButton("play");
+    enableButton("step");
 }
 
 /**
