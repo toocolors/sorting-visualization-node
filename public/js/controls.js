@@ -27,6 +27,9 @@ document.getElementById("play").addEventListener("click", () => {
     sortstate = 2;
     if(!sorting) {
         beginSort();
+    } else {
+        disableButton("step");
+        enableButton("pause");
     }
 });
 
@@ -41,11 +44,20 @@ document.getElementById("step").addEventListener("click", () => {
 document.getElementById("pause").addEventListener("click", () => {
     // Update sortstate
     sortstate = 0;
+    // Update Buttons
+    enableButton("play");
+    enableButton("step");
+    disableButton("pause");
 });
 
 document.getElementById("stop").addEventListener("click", () => {
     // Update sortstate
     sortstate = -1;
+    // Update Buttons
+    disableButton("play");
+    disableButton("step");
+    disableButton("pause");
+    disableButton("stop");
 });
 
 // ************************************************************************************************
@@ -57,11 +69,11 @@ async function beginSort() {
 
     // Enable/Disable Buttons
     disableButton("generate");
+    enableButton("stop");
     if(sortstate == 2) { // play
         disableButton("play");
         disableButton("step");
         enableButton("pause");
-        enableButton("stop");
     }
     
     // Start Sort
