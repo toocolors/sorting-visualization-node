@@ -2,9 +2,9 @@
 // Script variables
 // ************************************************************************************************
 let sorted;
-const sortList = [
-    ["bubble", bubbleSort], 
-    ["cocktail", cocktailSort]
+const sortList = [ // 0 = id, 1 = name, 2 = main function
+    ["bubble", "Bubble Sort", bubbleSort], 
+    ["cocktail", "Cocktail Sort", cocktailSort]
 ];
 
 // ************************************************************************************************

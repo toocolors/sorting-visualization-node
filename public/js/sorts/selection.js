@@ -3,9 +3,9 @@
 // ************************************************************************************************
 let largest = 0;
 let smallest = 0;
-const sortList = [
-    ["selection", selectionSort], 
-    ["double-selection", doubleSelectionSort]
+const sortList = [ // 0 = id, 1 = name, 2 = main function
+    ["selection", "Selection Sort", selectionSort], 
+    ["double-selection", "Double Selection Sort", doubleSelectionSort]
 ];
 
 // ************************************************************************************************
