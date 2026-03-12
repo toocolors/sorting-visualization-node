@@ -3,7 +3,6 @@
 // ************************************************************************************************
 let largest = 0;
 let smallest = 0;
-let getLargest = false;
 const sortList = [
     ["selection", selectionSort], 
     ["double-selection", doubleSelectionSort]
@@ -16,7 +15,38 @@ const sortList = [
  * Sorts the array using Double Selection Sort.
  */
 async function doubleSelectionSort() {
+    // Outer Loop
+    for(let i = 0, j = arraySize - 1; i < j; i++, j--) {
+        // Initialize Smallest and Largest
+        smallest = i;
+        largest = i;
 
+        // Inner Loop - Get Largest and Smallest Element
+        for(let k = i; k <= j; k++) {
+            // Check sortstate
+            if(!await checkSortstate()) {
+                return;
+            }
+
+            await selectionStep(k, true);
+        }
+
+        // Check sortstate
+            if(!await checkSortstate()) {
+                return;
+        }
+
+        // Swap Smallest and Largest
+        swap(i, smallest);
+        if(largest == i) {
+            largest = smallest;
+        } 
+        swap(j, largest);
+        
+
+        // Update Page
+        await allowUpdate();
+    }
 }
 
 /**
@@ -25,7 +55,7 @@ async function doubleSelectionSort() {
 async function selectionSort() {
     // Outer Loop
     for(let i = 0; i < arraySize; i++) {
-        // Inizialize Smallest
+        // Initialize Smallest
         smallest = i;
 
         // Inner Loop - Get Smallest Element
@@ -58,20 +88,17 @@ async function selectionSort() {
 /**
  * Compares the current index to largest and smallest and updates them if necessary.
  */
-async function selectionStep(index) {
+async function selectionStep(index, getLargest = false) {
     // Update Page, Play Sound
     clearClass("cursor");
     setCursor(index);
     await allowUpdate();
     playAudio(array[index]);
     
-    // Update largest
+    // Update largest and smallest
     if(getLargest && isGreater(index, largest)) {
         largest = index;
-    }
-
-    // Update smallest
-    if(isGreater(smallest, index)) {
+    } else if(isGreater(smallest, index)) {
         smallest = index;
     }
 }
