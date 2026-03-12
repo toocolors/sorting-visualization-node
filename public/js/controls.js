@@ -148,18 +148,26 @@ async function beginSort() {
     allowUpdate();
 }
 
-function enableButton(button) {
-    // Enable button
-    document.getElementById(button).classList.remove("hide");
-
-    // Disable grayed button
-    document.getElementById(`${button}Grayed`).classList.add("hide");
-}
-
+/**
+ * Hides the passed in button, and showes its grayed version.
+ * @param {String} button The id of a button.
+ */
 function disableButton(button) {
     // Disable button
     document.getElementById(button).classList.add("hide");
 
     // Enable grayed button
     document.getElementById(`${button}Grayed`).classList.remove("hide");
+}
+
+/**
+ * Shows the passed in button, and hides its grayed version.
+ * @param {String} button The id of a button.
+ */
+function enableButton(button) {
+    // Enable button
+    document.getElementById(button).classList.remove("hide");
+
+    // Disable grayed button
+    document.getElementById(`${button}Grayed`).classList.add("hide");
 }
