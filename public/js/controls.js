@@ -122,7 +122,7 @@ async function beginSort() {
     // Start Sort
     for(let i = 0; i < sortList.length; i++) {
         if(sortList[i][0] === document.getElementById("sortSelect").value) {
-            await sortList[i][1]();
+            await sortList[i][2]();
         }
     }
 
