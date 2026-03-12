@@ -1,5 +1,12 @@
 import render from 'ejs';
 import express from 'express';
+import { access } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Setup file path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Setup app
 const app = express();
@@ -22,6 +29,21 @@ app.get('/algorithm', (req, res) => {
         algorithmName
     });
 })
+
+// API
+app.get("/get/algorithm", async (req, res) => {
+    // Get algorithm name
+    const filePath = path.join(__dirname, "public/js/sorts", `${req.query.id}.js`);
+
+    // Attempt to send file
+    try {
+        await access(filePath);
+        res.sendFile(filePath);
+    } catch {
+        // Send error
+        res.status(404).json({ error: "Algorithm file not found" });
+    }
+});
 
 // Listen on port 3000
 app.listen(3000, () => {
