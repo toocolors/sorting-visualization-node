@@ -9,8 +9,19 @@ app.use(express.static("public"));
 // Setup Routes
 // Root
 app.get('/', (req, res) => {
-    res.render("sort"); 
+    res.redirect('/algorithm/?id=bubble'); 
 }); // Root
+
+// Algorithm
+app.get('/algorithm', (req, res) => {
+    // Get algorithm name
+    const algorithmName = req.query.id;
+
+    // Render Page
+    res.render("sort", {
+        algorithmName
+    });
+})
 
 // Listen on port 3000
 app.listen(3000, () => {

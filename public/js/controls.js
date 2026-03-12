@@ -1,4 +1,9 @@
 // ************************************************************************************************
+// Call Functions
+// ************************************************************************************************
+fillSortSelect();
+
+// ************************************************************************************************
 // Add Event Listeners
 // ************************************************************************************************
 document.getElementById("arraySize").addEventListener("input", (event) => {
@@ -170,4 +175,28 @@ function enableButton(button) {
 
     // Disable grayed button
     document.getElementById(`${button}Grayed`).classList.add("hide");
+}
+
+/**
+ * Fills sort selection based on the sort script's variables.
+ */
+function fillSortSelect() {
+    // Get sort select
+    const sortSelect = document.getElementById("sortSelect");
+
+    // Reset sort select
+    while(sortSelect.size > 0) {
+        sortSelect.remove(0);
+    }
+
+    // Fill sort select
+    for(let i = 0; i < sortList.length; i++) {
+        // Create Option
+        let option = document.createElement("option");
+        option.value = sortList[i][0];
+        option.innerHTML = sortList[i][1];
+
+        // Add Option
+        sortSelect.add(option);
+    }
 }

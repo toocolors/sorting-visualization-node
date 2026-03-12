@@ -9,6 +9,9 @@
 <body>
     <h1>Sorting Algorithm Visualization</h1>
 
+    <!-- Nav -->
+    <%- include('partials/nav.ejs') %>
+
     <main>
         <!-- Array Generation -->
         Array Size: 
@@ -32,8 +35,6 @@
 
         Sort:
         <select id="sortSelect">
-            <option value="bubble">Bubble Sort</option>
-            <option value="cocktail">Cocktail Shaker Sort</option>
         </select>
         
         <button id="play" class="hide">Play</button>
@@ -53,7 +54,7 @@
 
     <script src="/js/globals.js" type="text/javascript"></script>
     <script src="/js/operations.js" type="text/javascript"></script>
-    <script src="/js/sorts/bubble.js" type="text/javascript"></script>
+    <script src="/js/sorts/<%= algorithmName %>.js" type="text/javascript"></script>
     <script src="/js/controls.js" type="text/javascript"></script>
     <script src="/js/generation.js" type="text/javascript"></script>
 </body>
