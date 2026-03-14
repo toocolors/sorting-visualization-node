@@ -89,11 +89,11 @@ document.getElementById("mute").addEventListener("click", (event) => {
 // ************************************************************************************************
 
 /**
- * Adds an event listener for each algo-link a element that calls getScript.
+ * Adds an event listener for each algoLink a element that calls getScript.
  */
 function addAlgoLinkEvents() {
     // Get Algorithm A Elements
-    const links = document.querySelectorAll('.algo-link');
+    const links = document.querySelectorAll('.algoLink');
     for(let i = 0; i < links.length; i++) {
         links[i].addEventListener('click', (event) => {
             if(!event.target.classList.contains('currentAlgo')) {
