@@ -7,6 +7,7 @@ const arrayDiv = document.getElementById("arrayDiv");
 let arraySize;
 const audio = new (window.AudioContext || window.webkitAudioContext)();
 const gain = audio.createGain();
+let generated = false;
 const maxSpeed = 1000;
 let sortstate = -1; // -1 = stop/no sorting active, 0 = pause, 1 = step, 2 = play
 const oscillator = audio.createOscillator();

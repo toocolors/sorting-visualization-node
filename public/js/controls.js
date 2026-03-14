@@ -260,4 +260,10 @@ async function getScript(element) {
     
     // Update sort select
     fillSortSelect();
+
+    // Enable Buttons
+        if(generated) {
+            enableButton('play');
+            enableButton('step');
+        }
 }

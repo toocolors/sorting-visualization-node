@@ -1,11 +1,6 @@
 // ************************************************************************************************
 // Set Event Listeners
 // ************************************************************************************************
-let generated = false;
-
-// ************************************************************************************************
-// Set Event Listeners
-// ************************************************************************************************
 document.getElementById("generate").addEventListener("click", generateArray);
 
 // ************************************************************************************************
@@ -18,7 +13,7 @@ document.getElementById("generate").addEventListener("click", generateArray);
  */
 async function generateArray() {
     // Update generating
-    generating = false;
+    generated = false;
     
     // Disable Controls
     disableButton("generate");
@@ -64,7 +59,7 @@ async function generateArray() {
     }
 
     // Update generating
-    generating = true;
+    generated = true;
 
     // Enable Controls
     enableButton("generate");
