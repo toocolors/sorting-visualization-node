@@ -55,6 +55,8 @@
     <script>
         let currentAlgorithm = null;
 
+        document.getElementById('<%= algorithmName %>').classList.add('currentAlgo');
+
         getInitialAlgorithm();
 
         async function getInitialAlgorithm() {

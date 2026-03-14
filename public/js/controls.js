@@ -96,7 +96,7 @@ function addAlgoLinkEvents() {
     const links = document.querySelectorAll('.algo-link');
     for(let i = 0; i < links.length; i++) {
         links[i].addEventListener('click', (event) => {
-            if(!event.target.classList.contains('current-algo')) {
+            if(!event.target.classList.contains('currentAlgo')) {
                 getScript(event.target);
             }
         })
@@ -255,8 +255,8 @@ async function getScript(element) {
     currentAlgorithm = module;
     
     // Update current a element
-    clearClass('current-algo');
-    element.classList.add('current-algo');
+    clearClass('currentAlgo');
+    element.classList.add('currentAlgo');
     
     // Update sort select
     fillSortSelect();
