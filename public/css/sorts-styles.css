@@ -1,3 +1,12 @@
+main {
+    display: flex;
+}
+
+/* a Styles */
+.currentAlgo {
+    color: black;
+}
+
 /* Array Styles */
 #arrayDiv {
     background-color: black;

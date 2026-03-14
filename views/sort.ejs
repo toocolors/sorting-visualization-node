@@ -9,47 +9,70 @@
 <body>
     <h1>Sorting Algorithm Visualization</h1>
 
-    <!-- Nav -->
-    <%- include('partials/nav.ejs') %>
-
     <main>
-        <!-- Array Generation -->
-        Array Size: 
-        <input type="number" id="arraySize" value="20">
-        Array Type: 
-        <select id="arrayType">
-            <option value="random-no-duplicates">Random (No Duplicates)</option>
-            <option value="random-duplicates">Random (With Duplicates)</option>
-            <option value="ascending">Ascending</option>
-            <option value="alternating">Alternating</option>
-            <option value="descending">Descending</option>
-            <option value="bell-curve">Bell-Curve</option>
-            <option value="pyramid">Pyramid</option>
-            
-        </select>
-        <button id="generate" >Generate Array</button>
-        <button id="generateGrayed" class="grayed hide">Generate Array</button>
+        <!-- Nav -->
+        <%- include('partials/nav.ejs') %>
 
         <!-- Array Visualization -->
-        <div id="arrayDiv"></div>
+        <div id="visualization">
+            <div id="arrayDiv"></div>
+        </div>
 
-        Sort:
-        <select id="sortSelect">
-        </select>
-        
-        <button id="play" class="hide">Play</button>
-        <button id="playGrayed" class="grayed">Play</button>
-        <button id="step" class="hide">Step</button>
-        <button id="stepGrayed" class="grayed">Step</button>
-        <button id="pause" class="hide">Pause</button>
-        <button id="pauseGrayed" class="grayed">Pause</button>
-        <button id="stop" class="hide">Stop</button>
-        <button id="stopGrayed" class="grayed">Stop</button>
-        Speed: 
-        <input id="speed" type="range" min="500" max="1000" value="1000">
-        <button id="unmute">Unmute</button>
-        <button id="mute" class="hide">Mute</button>
+        <!-- Options Div -->
+        <div id="options">
+            <div id="generation">
+                <!-- Array Generation -->
+                Array Size: 
+                <input type="number" id="arraySize" value="20">
+                <br>
+                
+                Array Type: 
+                <select id="arrayType">
+                    <option value="random-no-duplicates">Random (No Duplicates)</option>
+                    <option value="random-duplicates">Random (With Duplicates)</option>
+                    <option value="ascending">Ascending</option>
+                    <option value="alternating">Alternating</option>
+                    <option value="descending">Descending</option>
+                    <option value="bell-curve">Bell-Curve</option>
+                    <option value="pyramid">Pyramid</option>
+                </select>
+                <br>
 
+                <button id="generate" >Generate Array</button>
+                <button id="generateGrayed" class="grayed hide">Generate Array</button>
+            </div>
+            <div id="playback">
+                Sort:
+                <select id="sortSelect"></select>
+                <br>
+                
+                <!-- Play Button -->
+                <button id="play" class="hide">&#9658;</button>
+                <button id="playGrayed" class="grayed">&#9658;</button>
+                
+                <!-- Step Button -->
+                <button id="step" class="hide">&#8594;</button>
+                <button id="stepGrayed" class="grayed">&#8594;</button>
+                <br>
+                
+                <!-- Pause Button -->
+                <button id="pause" class="hide">&#x23F8;</button>
+                <button id="pauseGrayed" class="grayed">&#x23F8;</button>
+                
+                <!-- Stop Button -->
+                <button id="stop" class="hide">&#x23F9;</button>
+                <button id="stopGrayed" class="grayed">&#x23F9;</button>
+                <br>
+                
+                Speed: 
+                <input id="speed" type="range" min="500" max="1000" value="1000">
+                <br>
+
+                <!-- Audio Buttons -->
+                <button id="unmute">&#128362;</button>
+                <button id="mute" class="hide">&#128360;</button>
+            </div>
+        </div>
     </main>
     
     <script>
