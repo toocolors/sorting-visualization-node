@@ -243,6 +243,11 @@ async function fillSortSelect() {
     }
 }
 
+/**
+ * Attempts to import a new algorithm script and update currentAlgorithm.
+ * @param {HTML A Element} element The a element that was clicked.
+ * @returns 
+ */
 async function getScript(element) {
     // Get algorithm name
     const algoName = element.id;
