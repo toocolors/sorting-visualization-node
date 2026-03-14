@@ -9,6 +9,8 @@ const audio = new (window.AudioContext || window.webkitAudioContext)();
 const gain = audio.createGain();
 let generated = false;
 const maxSpeed = 1000;
+const maxWindowSize = 4000;
+const minWindowSize = 10;
 let sortstate = -1; // -1 = stop/no sorting active, 0 = pause, 1 = step, 2 = play
 const oscillator = audio.createOscillator();
 let sorting = false;

@@ -28,6 +28,27 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
     }
 });
 
+document.getElementById("windowSize").addEventListener("input", (event) => {
+    // Get arraySize text
+    let text = event.target.value;
+    
+    // Check if value is empty (set it to empty in case it contains non-numbers)
+    if(text == "") {
+        event.target.value = "";
+        return;
+    }
+
+    // Change text to a number
+    text = Number(text);
+
+    // Check if value in within bounds
+    if(text < 1) {
+        event.target.value = 1;
+    } else if (text > maxWindowSize) {
+        event.target.value = maxWindowSize;
+    }
+});
+
 document.getElementById("play").addEventListener("click", () => {
     // Update sortstate
     sortstate = 2;
