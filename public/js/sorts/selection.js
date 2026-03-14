@@ -1,10 +1,9 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
-const algorithmName = 'selection';
 let largest = 0;
 let smallest = 0;
-const sortList = [ // 0 = id, 1 = name, 2 = main function
+export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["selection", "Selection Sort", selectionSort], 
     ["double-selection", "Double Selection Sort", doubleSelectionSort]
 ];
@@ -15,7 +14,7 @@ const sortList = [ // 0 = id, 1 = name, 2 = main function
 /**
  * Sorts the array using Double Selection Sort.
  */
-async function doubleSelectionSort() {
+export async function doubleSelectionSort() {
     // Outer Loop
     for(let i = 0, j = arraySize - 1; i < j; i++, j--) {
         // Initialize Smallest and Largest
@@ -53,7 +52,7 @@ async function doubleSelectionSort() {
 /**
  * Sorts the array using Selection Sort.
  */
-async function selectionSort() {
+export async function selectionSort() {
     // Outer Loop
     for(let i = 0; i < arraySize; i++) {
         // Initialize Smallest

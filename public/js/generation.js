@@ -1,6 +1,11 @@
 // ************************************************************************************************
 // Set Event Listeners
 // ************************************************************************************************
+let generated = false;
+
+// ************************************************************************************************
+// Set Event Listeners
+// ************************************************************************************************
 document.getElementById("generate").addEventListener("click", generateArray);
 
 // ************************************************************************************************
@@ -12,6 +17,9 @@ document.getElementById("generate").addEventListener("click", generateArray);
  *  and fills arrayDiv based on selected array type.
  */
 async function generateArray() {
+    // Update generating
+    generating = false;
+    
     // Disable Controls
     disableButton("generate");
     disableButton("play");
@@ -54,6 +62,9 @@ async function generateArray() {
             await generateRandomNoDuplicates();
             break;
     }
+
+    // Update generating
+    generating = true;
 
     // Enable Controls
     enableButton("generate");

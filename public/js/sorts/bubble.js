@@ -1,9 +1,8 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
-const algorithmName = 'bubble';
 let sorted;
-const sortList = [ // 0 = id, 1 = name, 2 = main function
+export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["bubble", "Bubble Sort", bubbleSort], 
     ["cocktail", "Cocktail Sort", cocktailSort]
 ];
@@ -14,7 +13,7 @@ const sortList = [ // 0 = id, 1 = name, 2 = main function
 /**
  * Sorts array using bubble sort.
  */
-async function bubbleSort() {
+export async function bubbleSort() {
     console.log("Starting Bubble Sort");
 
     sorted = false;
@@ -39,7 +38,7 @@ async function bubbleSort() {
 /**
  * Sorts the array using Cocktail Shaker Sort
  */
-async function cocktailSort() {
+export async function cocktailSort() {
     console.log("Starting Cocktail Shaker Sort");
 
     sorted = false;

@@ -2,6 +2,7 @@
 // Call Functions
 // ************************************************************************************************
 fillSortSelect();
+addAlgoLinkEvents();
 
 // ************************************************************************************************
 // Add Event Listeners
@@ -88,6 +89,21 @@ document.getElementById("mute").addEventListener("click", (event) => {
 // ************************************************************************************************
 
 /**
+ * Adds an event listener for each algo-link a element that calls getScript.
+ */
+function addAlgoLinkEvents() {
+    // Get Algorithm A Elements
+    const links = document.querySelectorAll('.algo-link');
+    for(let i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', (event) => {
+            if(!event.target.classList.contains('current-algo')) {
+                getScript(event.target);
+            }
+        })
+    }
+}
+
+/**
  * Loops through the array while turning each element green. Clears colors after.
  */
 async function arrayCompleteLoop() {
@@ -125,9 +141,9 @@ async function beginSort() {
     }
     
     // Start Sort
-    for(let i = 0; i < sortList.length; i++) {
-        if(sortList[i][0] === document.getElementById("sortSelect").value) {
-            await sortList[i][2]();
+    for(let i = 0; i < currentAlgorithm.sortList.length; i++) {
+        if(currentAlgorithm.sortList[i][0] === document.getElementById("sortSelect").value) {
+            await currentAlgorithm.sortList[i][2]();
         }
     }
 
@@ -180,23 +196,68 @@ function enableButton(button) {
 /**
  * Fills sort selection based on the sort script's variables.
  */
-function fillSortSelect() {
+async function fillSortSelect() {
+    // Wait for currentAlgorithm
+    while(currentAlgorithm === null) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    
     // Get sort select
     const sortSelect = document.getElementById("sortSelect");
 
     // Reset sort select
-    while(sortSelect.size > 0) {
-        sortSelect.remove(0);
+    for(let i = sortSelect.options.length - 1; i >= 0; i--) {
+        sortSelect.remove(i);
     }
 
     // Fill sort select
-    for(let i = 0; i < sortList.length; i++) {
+    for(let i = 0; i < currentAlgorithm.sortList.length; i++) {
         // Create Option
         let option = document.createElement("option");
-        option.value = sortList[i][0];
-        option.innerHTML = sortList[i][1];
+        option.value = currentAlgorithm.sortList[i][0];
+        option.innerHTML = currentAlgorithm.sortList[i][1];
 
         // Add Option
         sortSelect.add(option);
     }
+}
+
+async function getScript(element) {
+    // Get algorithm name
+    const algoName = element.id;
+
+    // Disable Buttons
+    disableButton('play');
+    disableButton('step');
+    disableButton('pause');
+    disableButton('stop');
+
+    // End sorting
+    sortstate = -1;
+    while(sorting) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    // Load Algorithm
+    let module;
+    try {
+        module = await import(`/get/algorithm?id=${algoName}`);
+    } catch {
+        // Reset buttons and return
+        if(generated) {
+            enableButton('play');
+            enableButton('step');
+        }
+        return;
+    }
+
+    /// Update currentAlgorithm
+    currentAlgorithm = module;
+    
+    // Update current a element
+    clearClass('current-algo');
+    element.classList.add('current-algo');
+    
+    // Update sort select
+    fillSortSelect();
 }

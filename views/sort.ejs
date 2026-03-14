@@ -51,10 +51,18 @@
         <button id="mute" class="hide">Mute</button>
 
     </main>
+    
+    <script>
+        let currentAlgorithm = null;
 
+        getInitialAlgorithm();
+
+        async function getInitialAlgorithm() {
+            currentAlgorithm = await import(`/get/algorithm?id=<%= algorithmName %>`);
+        }
+    </script>
     <script src="/js/globals.js" type="text/javascript"></script>
     <script src="/js/operations.js" type="text/javascript"></script>
-    <script id="algorithmScript" src="/js/sorts/<%= algorithmName %>.js" type="text/javascript"></script>
     <script src="/js/controls.js" type="text/javascript"></script>
     <script src="/js/generation.js" type="text/javascript"></script>
 </body>
