@@ -1,6 +1,7 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
+const algorithmName = 'bubble';
 let sorted;
 const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["bubble", "Bubble Sort", bubbleSort], 
