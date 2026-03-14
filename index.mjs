@@ -20,14 +20,21 @@ app.get('/', (req, res) => {
 }); // Root
 
 // Algorithm
-app.get('/algorithm', (req, res) => {
+app.get('/algorithm', async (req, res) => {
     // Get algorithm name
     const algorithmName = req.query.id;
+    const filePath = path.join(__dirname, "public/js/sorts", `${algorithmName}.js`);
 
     // Render Page
-    res.render("sort", {
-        algorithmName
-    });
+    try {
+        await access(filePath);
+        res.render("sort", {
+            algorithmName
+        });
+    } catch {
+        res.redirect('/');
+    }
+    
 })
 
 // API
