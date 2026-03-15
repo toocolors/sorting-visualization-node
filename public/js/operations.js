@@ -112,6 +112,18 @@ function clearClass(className) {
     }
 }
 
+/**
+ * Ends the sorting algorithm.
+ * Waits until sorting is false to return.
+ */
+async function endSorting() {
+    // End sorting
+    sortstate = -1;
+    while(sorting) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+}
+
 function setComplete(index) {
     document.getElementById(`element${index}`).classList.add("complete");
 }
