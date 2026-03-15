@@ -105,6 +105,8 @@ document.getElementById("mute").addEventListener("click", (event) => {
     document.getElementById("unmute").classList.remove("hide");
 });
 
+document.getElementById("windowChange").addEventListener("click", changeWindowSize);
+
 // ************************************************************************************************
 // Functions
 // ************************************************************************************************
@@ -190,6 +192,50 @@ async function beginSort() {
     allowUpdate();
 }
 
+async function changeWindowSize() {
+    // Get Window Size
+    let newSize = Number(document.getElementById("windowSize").value);
+    const oldSize = arrayDiv.clientHeight;
+
+    // Check if array is generated
+    if(generated) {
+        // Check if new size is smaller than the array
+        if(arraySize > newSize) { // new size is smaller than array
+            // End sorting
+            await endSorting();
+
+            // Reset generated
+            generated = false;
+
+            // Empty boxes
+            arrayDiv.innerHTML = '';
+
+            // Disable buttons
+            disableButton('play');
+            disableButton('step');
+        } else { // new size is greater than or equal to array
+            // Update box height and width
+            const newWidth = Math.max(1, newSize / array.length);
+            for(let i = 0; i < array.length; i++) {
+                document.getElementById(`element${i}`).style.height = `
+                ${Math.max(1, newSize / (array.length / array[i]))}px`;
+                document.getElementById(`element${i}`).style.width = `${newWidth}px`;
+            }
+        }
+    }
+
+    // Update arrayDiv width and height
+    arrayDiv.style.height = `${newSize}px`;
+    arrayDiv.style.width = `${newSize}px`;
+
+    // Bind Array Size Input
+    const sizeInput = document.getElementById('arraySize');
+    sizeInput.value = Math.min(Number(sizeInput.value), newSize);
+
+    // Allow page to update
+    allowUpdate();
+}
+
 /**
  * Hides the passed in button, and showes its grayed version.
  * @param {String} button The id of a button.
@@ -259,11 +305,7 @@ async function getScript(element) {
     disableButton('stop');
 
     // End sorting
-    sortstate = -1;
-    while(sorting) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-    }
-
+    await endSorting();
     // Load Algorithm
     let module;
     try {
