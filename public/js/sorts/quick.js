@@ -2,20 +2,27 @@
 // Script variables
 // ************************************************************************************************
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
-    ["quick", "Quick Sort", () => quickSort(0, arraySize - 1)]
+    ["quick", "Quick Sort", async () => {
+        // Get Pivot Type
+        pivotType = document.getElementById("quickOptions").value;
+
+        // Begin Quick Sort
+        await quickSort(0, arraySize - 1);
+    }]
 ];
 export const optionsList = new Object();
 
 // Options
 // quick
 optionsList[sortList[0][0]] = `
-<select id='options'>
+Pivot Options: 
+<select id='quickOptions'>
     <option value='left'>Left</option>
     <option value='middle'>Middle</option>
     <option value='right'>Right</option>
-    <option value='median'>Median</option>
 </select>
 `;
+let pivotType;
 
 // ************************************************************************************************
 // Sorting Functions
@@ -27,13 +34,12 @@ async function quickSort(start, end) {
     }
 
     // Get Pivot
-    const pivotLocation = "left";
-    switch (pivotLocation) {
+    switch (pivotType) {
         case "right":
-            swap(start, end - 1);
+            swap(start, end);
             break;
         case "middle":
-            swap(start, end / 2);
+            swap(start, Math.max(start, Math.floor(start + ((end - start) / 2))));
             break;
         case "left":
         default:
