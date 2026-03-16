@@ -52,6 +52,23 @@ app.get("/get/algorithm", async (req, res) => {
     }
 });
 
+app.get("/get/info", async (req, res) => {
+    // Get algorithm name
+    const id = req.query.id;
+
+    // Attempt to send file
+    try {
+        res.render(`partials/info/${id}Info`), {}, (err, html) => {
+            if(err) {
+                return res.status(404).json({ error: "Info file not found" });
+            }
+        }
+    } catch {
+        // Send error
+        res.status(404).json({ error: "Info file not found" });
+    }
+});
+
 // Listen on port 3000
 app.listen(3000, () => {
     console.log('server started');
