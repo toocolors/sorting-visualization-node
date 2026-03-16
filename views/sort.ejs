@@ -83,6 +83,13 @@
             </div>
         </div>
     </main>
+
+    <!-- Algorithm Information -->
+    <div id="information">
+        <% try { %>
+            <%- include(`partials/info/${algorithmName}Info.ejs`) %>
+        <% } catch {} %>
+    </div>
     
     <script>
         let currentAlgorithm = null;
