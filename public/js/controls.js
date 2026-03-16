@@ -291,6 +291,23 @@ async function fillSortSelect() {
 }
 
 /**
+ * Attempts to get the partial EJS file for the current algorithm.
+ * @param {String} algoName The id of the algorithm.
+ */
+async function getInfo(algoName) {
+    // Get information div
+    const infoDiv = document.getElementById('information');
+    
+    // Try to fetch info ejs
+    try {
+        const response = await fetch(`/get/info?id=${algoName}`);
+        infoDiv.innerHTML = await response.text();
+    } catch {
+        infoDiv.innerHTML = '';
+    }
+}
+
+/**
  * Attempts to fill the options div.
  * @param {Element} element The sort select.
  */
@@ -357,6 +374,9 @@ async function getScript(element) {
             enableButton('play');
             enableButton('step');
         }
+
+    // Get Information
+    await getInfo(algoName);
 }
 
 /**
