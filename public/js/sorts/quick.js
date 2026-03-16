@@ -4,6 +4,18 @@
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["quick", "Quick Sort", () => quickSort(0, arraySize - 1)]
 ];
+export const optionsList = new Object();
+
+// Options
+// quick
+optionsList[sortList[0][0]] = `
+<select id='options'>
+    <option value='left'>Left</option>
+    <option value='middle'>Middle</option>
+    <option value='right'>Right</option>
+    <option value='median'>Median</option>
+</select>
+`;
 
 // ************************************************************************************************
 // Sorting Functions
