@@ -34,7 +34,6 @@ async function quickSort(start, end) {
     let j = end;
 
     // Set Cursors
-    setCursor(pivot);
     setCursor(i);
     setCursor(j);
 
