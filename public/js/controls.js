@@ -305,8 +305,7 @@ function getOptions() {
         optionsDiv.innerHTML = '';
     } else {
         // Fill optionsDiv
-        optionsDiv.innerHTML = "Sort Options: "
-        optionsDiv.innerHTML += currentAlgorithm.optionsList[sortId];
+        optionsDiv.innerHTML = currentAlgorithm.optionsList[sortId];
     }
 }
 
