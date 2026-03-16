@@ -85,14 +85,14 @@ function isGreater(a, b) {
  * Checks the current value of sortstate, then updates and/or returns a boolean.
  */
 async function checkSortstate() {
-    switch(sortstate) {
+    switch (sortstate) {
         case 2: // play
             return true;
         case 1: // step
             sortstate = 0;
             return true;
         case 0: // pause
-            while(sortstate == 0) {
+            while (sortstate == 0) {
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
             return checkSortstate();
@@ -107,9 +107,17 @@ async function checkSortstate() {
  */
 function clearClass(className) {
     let classElements = document.querySelectorAll(`.${className}`);
-    for(let i = 0; i < classElements.length; i++) {
+    for (let i = 0; i < classElements.length; i++) {
         classElements[i].classList.remove(className);
     }
+}
+
+/**
+ * Removes the cursor class from the box at index.
+ * @param {Number} index An array index.
+ */
+function clearCursor(index) {
+    document.getElementById(`element${index}`).classList.remove("cursor");
 }
 
 /**
@@ -119,7 +127,7 @@ function clearClass(className) {
 async function endSorting() {
     // End sorting
     sortstate = -1;
-    while(sorting) {
+    while (sorting) {
         await new Promise(resolve => setTimeout(resolve, 100));
     }
 }
