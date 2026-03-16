@@ -1,8 +1,7 @@
 // ************************************************************************************************
 // Call Functions
 // ************************************************************************************************
-fillSortSelect();
-addAlgoLinkEvents();
+InitializeControls();
 
 // ************************************************************************************************
 // Add Event Listeners
@@ -48,6 +47,8 @@ document.getElementById("windowSize").addEventListener("input", (event) => {
         event.target.value = maxWindowSize;
     }
 });
+
+document.getElementById("sortSelect").addEventListener("change", getOptions);
 
 document.getElementById("play").addEventListener("click", () => {
     // Update sortstate
@@ -290,6 +291,26 @@ async function fillSortSelect() {
 }
 
 /**
+ * Attempts to fill the options div.
+ * @param {Element} element The sort select.
+ */
+function getOptions() {
+    // Get sort name and optionsDiv
+    const sortId = document.getElementById('sortSelect').value;
+    const optionsDiv = document.getElementById('optionsDiv');
+
+    if(currentAlgorithm.optionsList === undefined || 
+        currentAlgorithm.optionsList[sortId] === undefined) {
+        // Empty optionsDiv
+        optionsDiv.innerHTML = '';
+    } else {
+        // Fill optionsDiv
+        optionsDiv.innerHTML = "Sort Options: "
+        optionsDiv.innerHTML += currentAlgorithm.optionsList[sortId];
+    }
+}
+
+/**
  * Attempts to import a new algorithm script and update currentAlgorithm.
  * @param {HTML A Element} element The a element that was clicked.
  * @returns 
@@ -327,11 +348,23 @@ async function getScript(element) {
     element.classList.add('currentAlgo');
     
     // Update sort select
-    fillSortSelect();
+    await fillSortSelect();
+
+    // Update options
+    getOptions();
 
     // Enable Buttons
         if(generated) {
             enableButton('play');
             enableButton('step');
         }
+}
+
+/**
+ * Calls a few functions to initialize certain control elements.
+ */
+async function InitializeControls() {
+    await fillSortSelect();
+    getOptions();
+    addAlgoLinkEvents();
 }
