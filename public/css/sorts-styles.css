@@ -1,10 +1,55 @@
+/* General Styles */
+.centered {
+    text-align: center;
+}
+
+/* Body Styles */
+body {
+    background-color: #D1EAF0;
+    margin: auto;
+    font-size: 1.2em;
+}
+
+/* Main Styles */
 main {
+    background-color: #ADD8E6;
+    margin: 0 10px;
+}
+
+/* Nav Styles */
+nav {
+    float: left;
+}
+
+nav h3 {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+a {
+    padding: 5px;
+    display: block;
+}
+
+.currentAlgo {
+    color: black;
+}
+
+/* flexbox */
+#flexbox {
     display: flex;
 }
 
-/* a Styles */
-.currentAlgo {
-    color: black;
+/* Div Styles */
+#information {
+    width: 70%;
+    margin: auto;
+}
+
+.border {
+    margin: 5px;
+    padding: 5px;
+    border: 5px solid white;
 }
 
 /* Array Styles */
@@ -33,18 +78,32 @@ main {
 }
 
 /* Button Styles */
-.grayed {
-    background-color: gray;
+.sortControl {
+    aspect-ratio: 1/1;
+    width: 40%;
 }
 
 button {
     background-color: blue;
 }
 
-button:hover:not(hide) {
+button:hover {
     background-color: darkblue;
+}
+
+.grayed {
+    background-color: gray;
+}
+
+.grayed:hover {
+    background-color: darkgrey;
 }
 
 .hide {
     display: none;
+}
+
+/* Heading Styles */
+h1 {
+    text-align: center;
 }
