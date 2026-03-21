@@ -1,100 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorting Visualization</title>
     <link rel="stylesheet" href="/css/sorts-styles.css">
 </head>
+
 <body>
     <!-- Heading -->
-    <h1>Sorting Algorithm Visualization</h1>
+    <h1 id="mainHeading">Sorting Algorithm Visualization</h1>
 
-    <!-- Nav -->
-    <%- include('partials/nav.ejs') %>
-    
-    <main>
+    <!-- Container -->
+    <div id="container">
+        <!-- Nav -->
+        <%- include('partials/nav.ejs') %>
 
-        <div id="flexbox">
-            <!-- Array Visualization -->
-            <div id="visualization" class="border">
-                <div id="arrayDiv"></div>
-            </div>
+            <main>
+                <div id="flexbox">
+                    <!-- Array Visualization -->
+                    <div id="visualization" class="border">
+                        <div id="arrayDiv"></div>
+                    </div>
 
-            <!-- Options Div -->
-            <div id="options">
-                <div id="generation" class="border">
-                    <!-- Array Generation -->
-                    Window Size:
-                    <input type="number" id="windowSize" value="50" max="4000">
-                    <button id="windowChange">Change</button>
-                    <button id="windowChangeGrayed" class="grayed hide">Change</button>
-                    <br>
-                    
-                    Array Size: 
-                    <input type="number" id="arraySize" value="20" max="4000">
-                    <br>
-                    
-                    Array Type: 
-                    <select id="arrayType">
-                        <option value="random-no-duplicates">Random (No Duplicates)</option>
-                        <option value="random-duplicates">Random (With Duplicates)</option>
-                        <option value="ascending">Ascending</option>
-                        <option value="alternating">Alternating</option>
-                        <option value="descending">Descending</option>
-                        <option value="bell-curve">Bell-Curve</option>
-                        <option value="pyramid">Pyramid</option>
-                    </select>
-                    <br>
+                    <!-- Options Div -->
+                    <div id="options">
+                        <div id="generation" class="border">
+                            <!-- Array Generation -->
+                            Window Size:
+                            <input type="number" id="windowSize" value="500" max="4000">
+                            <button id="windowChange">Change</button>
+                            <button id="windowChangeGrayed" class="grayed hide">Change</button>
+                            <br>
 
-                    <button id="generate" >Generate Array</button>
-                    <button id="generateGrayed" class="grayed hide">Generate Array</button>
+                            Array Size:
+                            <input type="number" id="arraySize" value="20" max="4000">
+                            <br>
+
+                            Array Type:
+                            <select id="arrayType">
+                                <option value="random-no-duplicates">Random (No Duplicates)</option>
+                                <option value="random-duplicates">Random (With Duplicates)</option>
+                                <option value="ascending">Ascending</option>
+                                <option value="alternating">Alternating</option>
+                                <option value="descending">Descending</option>
+                                <option value="bell-curve">Bell-Curve</option>
+                                <option value="pyramid">Pyramid</option>
+                            </select>
+                            <br>
+
+                            <button id="generate">Generate Array</button>
+                            <button id="generateGrayed" class="grayed hide">Generate Array</button>
+                        </div>
+                        <div id="playback" class="centered border">
+                            Sort:
+                            <select id="sortSelect"></select>
+                            <br>
+
+                            <!-- Sort Options -->
+                            <div id="optionsDiv"></div>
+
+                            <!-- Play Button -->
+                            <button id="play" class="sortControl hide">&#9658;</button>
+                            <button id="playGrayed" class="sortControl grayed">&#9658;</button>
+
+                            <!-- Step Button -->
+                            <button id="step" class="sortControl hide">&#8594;</button>
+                            <button id="stepGrayed" class="sortControl grayed">&#8594;</button>
+                            <br>
+
+                            <!-- Pause Button -->
+                            <button id="pause" class="sortControl hide">&#x23F8;</button>
+                            <button id="pauseGrayed" class="sortControl grayed">&#x23F8;</button>
+
+                            <!-- Stop Button -->
+                            <button id="stop" class="sortControl hide">&#x23F9;</button>
+                            <button id="stopGrayed" class="sortControl grayed">&#x23F9;</button>
+                            <br>
+
+                            Speed:
+                            <input id="speed" type="range" min="500" max="1000" value="1000">
+                            <br>
+
+                            <!-- Audio Buttons -->
+                            <button id="unmute">&#128362;</button>
+                            <button id="mute" class="hide">&#128360;</button>
+                        </div>
+                    </div>
                 </div>
-                <div id="playback" class="centered border">
-                    Sort:
-                    <select id="sortSelect"></select>
-                    <br>
 
-                    <!-- Sort Options -->
-                    <div id="optionsDiv"></div>
-                    
-                    <!-- Play Button -->
-                    <button id="play" class="sortControl hide">&#9658;</button>
-                    <button id="playGrayed" class="sortControl grayed">&#9658;</button>
-                    
-                    <!-- Step Button -->
-                    <button id="step" class="sortControl hide">&#8594;</button>
-                    <button id="stepGrayed" class="sortControl grayed">&#8594;</button>
-                    <br>
-                    
-                    <!-- Pause Button -->
-                    <button id="pause" class="sortControl hide">&#x23F8;</button>
-                    <button id="pauseGrayed" class="sortControl grayed">&#x23F8;</button>
-                    
-                    <!-- Stop Button -->
-                    <button id="stop" class="sortControl hide">&#x23F9;</button>
-                    <button id="stopGrayed" class="sortControl grayed">&#x23F9;</button>
-                    <br>
-                    
-                    Speed: 
-                    <input id="speed" type="range" min="500" max="1000" value="1000">
-                    <br>
-
-                    <!-- Audio Buttons -->
-                    <button id="unmute">&#128362;</button>
-                    <button id="mute" class="hide">&#128360;</button>
+                <!-- Algorithm Information -->
+                <div id="information" class="border">
+                    <% try { %>
+                        <%- include(`partials/info/${algorithmName}Info.ejs`) %>
+                            <% } catch {} %>
                 </div>
-            </div>
-        </div>
+            </main>
+    </div>
 
-            <!-- Algorithm Information -->
-        <div id="information" class="border">
-            <% try { %>
-                <%- include(`partials/info/${algorithmName}Info.ejs`) %>
-            <% } catch {} %>
-        </div>
-    </main>
-    
     <!-- Scripts -->
     <script>
         let currentAlgorithm = null;
@@ -112,4 +116,5 @@
     <script src="/js/controls.js" type="text/javascript"></script>
     <script src="/js/generation.js" type="text/javascript"></script>
 </body>
+
 </html>

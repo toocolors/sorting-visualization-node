@@ -8,17 +8,44 @@ body {
     background-color: #D1EAF0;
     margin: auto;
     font-size: 1.2em;
+    text-align: center;
+}
+
+/* Div Styes */
+#container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-color: #ADD8E6;
+}
+
+#visualization,
+#options {
+    width: 50%;
+}
+
+#information {
+    margin-bottom: 20px;
 }
 
 /* Main Styles */
 main {
-    background-color: #ADD8E6;
-    margin: 0 10px;
+    margin-left: 175px;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+    flex: 1;
 }
 
 /* Nav Styles */
 nav {
-    float: left;
+    width: 150px;
+    position: fixed;
+    top: 90px;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 20px;
 }
 
 nav h3 {
@@ -35,15 +62,18 @@ a {
     color: black;
 }
 
+/* Heading Styles */
+h1 {
+    text-align: center;
+}
+
+#mainHeading {
+    height: 40px;
+}
+
 /* flexbox */
 #flexbox {
     display: flex;
-}
-
-/* Div Styles */
-#information {
-    width: 70%;
-    margin: auto;
 }
 
 .border {
@@ -54,17 +84,17 @@ a {
 
 /* Array Styles */
 #arrayDiv {
-    background-color: black;
+    background-color: white;
     display: flex;
     align-items: flex-end;
     height: 500px;
     width: 500px;
     margin: 10px;
-    border: 10px solid black;
+    border: 10px solid white;
 }
 
 .element {
-    background-color: white;
+    background-color: black;
     margin: 0;
     padding: 0;
 }
