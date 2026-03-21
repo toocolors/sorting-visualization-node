@@ -1,3 +1,8 @@
+/* Variables */
+:root {
+    --max-content-width: calc(100vh - 170px);
+}
+
 /* General Styles */
 .centered {
     text-align: center;
@@ -17,11 +22,19 @@ body {
     justify-content: center;
     height: 100vh;
     background-color: #ADD8E6;
+    overflow-y: auto;
+}
+
+#flexbox {
+    display: flex;
 }
 
 #visualization,
 #options {
     width: 50%;
+    max-height: var(--max-content-width);
+    max-width: var(--max-content-width);
+    aspect-ratio: 1/1;
 }
 
 #visualization {
@@ -30,6 +43,7 @@ body {
 }
 
 #information {
+    max-width: calc(var(--max-content-width) * 2);
     margin-bottom: 20px;
 }
 
@@ -74,11 +88,6 @@ h1 {
 
 #mainHeading {
     height: 40px;
-}
-
-/* flexbox */
-#flexbox {
-    display: flex;
 }
 
 .border {
