@@ -16,7 +16,6 @@ async function generateArray() {
     generated = false;
     
     // Disable Controls
-    disableButton("windowChange");
     disableButton("generate");
     disableButton("play");
     disableButton("step");
@@ -63,7 +62,6 @@ async function generateArray() {
     generated = true;
 
     // Enable Controls
-    enableButton("windowChange");
     enableButton("generate");
     enableButton("play");
     enableButton("step");

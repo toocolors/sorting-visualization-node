@@ -24,6 +24,11 @@ body {
     width: 50%;
 }
 
+#visualization {
+    aspect-ratio: 1/1;
+    padding: 0;
+}
+
 #information {
     margin-bottom: 20px;
 }
@@ -87,10 +92,8 @@ h1 {
     background-color: white;
     display: flex;
     align-items: flex-end;
-    height: 500px;
-    width: 500px;
-    margin: 10px;
-    border: 10px solid white;
+    height: 100%;
+    width: 100%;
 }
 
 .element {

@@ -21,32 +21,32 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
 
     // Check if value in within bounds
     if(text < 1) {
-        event.target.value = 1;
+        event.target.value = '';
     } else if (text > document.getElementById("arrayDiv").clientHeight) {
         event.target.value = document.getElementById("arrayDiv").clientHeight;
     }
 });
 
-document.getElementById("windowSize").addEventListener("input", (event) => {
-    // Get arraySize text
-    let text = event.target.value;
+// window.addEventListener("resize", (event) => {
+//     // Get visualization div size
+//     let newSize;
     
-    // Check if value is empty (set it to empty in case it contains non-numbers)
-    if(text == "") {
-        event.target.value = "";
-        return;
-    }
+//     // Check if value is empty (set it to empty in case it contains non-numbers)
+//     if(text == "") {
+//         event.target.value = "";
+//         return;
+//     }
 
-    // Change text to a number
-    text = Number(text);
+//     // Change text to a number
+//     text = Number(text);
 
-    // Check if value in within bounds
-    if(text < 1) {
-        event.target.value = 1;
-    } else if (text > maxWindowSize) {
-        event.target.value = maxWindowSize;
-    }
-});
+//     // Check if value in within bounds
+//     if(text < 1) {
+//         event.target.value = 1;
+//     } else if (text > maxWindowSize) {
+//         event.target.value = maxWindowSize;
+//     }
+// });
 
 document.getElementById("sortSelect").addEventListener("change", getOptions);
 
@@ -106,7 +106,7 @@ document.getElementById("mute").addEventListener("click", (event) => {
     document.getElementById("unmute").classList.remove("hide");
 });
 
-document.getElementById("windowChange").addEventListener("click", changeWindowSize);
+window.addEventListener("resize", changeWindowSize);
 
 // ************************************************************************************************
 // Functions
@@ -195,8 +195,7 @@ async function beginSort() {
 
 async function changeWindowSize() {
     // Get Window Size
-    let newSize = Number(document.getElementById("windowSize").value);
-    const oldSize = arrayDiv.clientHeight;
+    let newSize = document.getElementById("arrayDiv").clientHeight;
 
     // Check if array is generated
     if(generated) {
@@ -225,13 +224,12 @@ async function changeWindowSize() {
         }
     }
 
-    // Update arrayDiv width and height
-    arrayDiv.style.height = `${newSize}px`;
-    arrayDiv.style.width = `${newSize}px`;
-
     // Bind Array Size Input
     const sizeInput = document.getElementById('arraySize');
     sizeInput.value = Math.min(Number(sizeInput.value), newSize);
+
+    // Update Array Size Placeholder Text
+    updateArraySizePlaceholder();
 
     // Allow page to update
     allowUpdate();
@@ -386,4 +384,12 @@ async function InitializeControls() {
     await fillSortSelect();
     getOptions();
     addAlgoLinkEvents();
+    updateArraySizePlaceholder();
+}
+
+/**
+ * Updates the placeholder of arraySize to '1 - arrayDiv height'.
+ */
+function updateArraySizePlaceholder() {
+    document.getElementById('arraySize').placeholder = `1-${arrayDiv.clientHeight}`;
 }
