@@ -385,8 +385,6 @@ function switchOrientation() {
         viewType = "portrait";
 
         // Move generation div to vertical
-        // document.getElementById("generationHorizontal").removeChild(generationDiv);
-        // document.getElementById("generationVertical").addChild(generationDiv);
         document.getElementById("generationVertical").appendChild(generationDiv);
 
         // Update flexbox direction
@@ -398,8 +396,6 @@ function switchOrientation() {
         viewType = "landscape";
 
         // Move generation div to horizontal
-        // document.getElementById("generationVertical").removeChild(generationDiv);
-        // document.getElementById("generationHorizontal").addChild(generationDiv);
         document.getElementById("generationHorizontal").appendChild(generationDiv);
 
         // Update flexbox direction
