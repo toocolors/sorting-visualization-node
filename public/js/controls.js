@@ -377,6 +377,8 @@ function switchOrientation() {
     // Get generation div, flexbox
     const generationDiv = document.getElementById("generation");
     const flexbox = document.getElementById("flexbox");
+    const visualization = document.getElementById("visualization");
+    const options = document.getElementById("options");
 
     if (viewType === "landscape" &&
         window.innerHeight > window.innerWidth) {
@@ -386,6 +388,10 @@ function switchOrientation() {
 
         // Move generation div to vertical
         document.getElementById("generationVertical").appendChild(generationDiv);
+
+        // Update Widths
+        visualization.style.width = "auto";
+        options.style.width = "auto";
 
         // Update flexbox direction
         flexbox.style.flexDirection = "column";
@@ -397,6 +403,10 @@ function switchOrientation() {
 
         // Move generation div to horizontal
         document.getElementById("generationHorizontal").appendChild(generationDiv);
+
+        // Update Widths
+        visualization.style.width = "50%";
+        options.style.width = "50%";
 
         // Update flexbox direction
         flexbox.style.flexDirection = "row";

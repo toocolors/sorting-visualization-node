@@ -27,6 +27,7 @@ body {
 
 #flexbox {
     display: flex;
+    width: 100%;
 }
 
 #visualization,
@@ -43,12 +44,12 @@ body {
 }
 
 #information {
-    max-width: calc(var(--max-content-width) * 2);
     margin-bottom: 20px;
 }
 
 /* Main Styles */
 main {
+    margin: auto;
     margin-left: 175px;
     padding: 20px;
     height: 100vh;
