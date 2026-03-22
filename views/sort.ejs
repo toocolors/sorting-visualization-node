@@ -19,6 +19,9 @@
 
             <main>
                 <div id="flexbox">
+                    <!-- Generation Div for Portrait -->
+                    <div id="generationVertical"></div>
+
                     <!-- Array Visualization -->
                     <div id="visualization" class="border">
                         <div id="arrayDiv"></div>
@@ -26,27 +29,31 @@
 
                     <!-- Options Div -->
                     <div id="options">
-                        <div id="generation" class="border">
-                            <!-- Array Generation -->
-                            Array Size:
-                            <input type="number" id="arraySize">
-                            <br>
+                        <!-- Generation Div for Landscape -->
+                        <div id="generationHorizontal">
+                            <div id="generation" class="border">
+                                <!-- Array Generation -->
+                                Array Size:
+                                <input type="number" id="arraySize">
+                                <br>
 
-                            Array Type:
-                            <select id="arrayType">
-                                <option value="random-no-duplicates">Random (No Duplicates)</option>
-                                <option value="random-duplicates">Random (With Duplicates)</option>
-                                <option value="ascending">Ascending</option>
-                                <option value="alternating">Alternating</option>
-                                <option value="descending">Descending</option>
-                                <option value="bell-curve">Bell-Curve</option>
-                                <option value="pyramid">Pyramid</option>
-                            </select>
-                            <br>
+                                Array Type:
+                                <select id="arrayType">
+                                    <option value="random-no-duplicates">Random (No Duplicates)</option>
+                                    <option value="random-duplicates">Random (With Duplicates)</option>
+                                    <option value="ascending">Ascending</option>
+                                    <option value="alternating">Alternating</option>
+                                    <option value="descending">Descending</option>
+                                    <option value="bell-curve">Bell-Curve</option>
+                                    <option value="pyramid">Pyramid</option>
+                                </select>
+                                <br>
 
-                            <button id="generate">Generate Array</button>
-                            <button id="generateGrayed" class="grayed hide">Generate Array</button>
+                                <button id="generate">Generate Array</button>
+                                <button id="generateGrayed" class="grayed hide">Generate Array</button>
+                            </div>
                         </div>
+
                         <div id="playback" class="centered border">
                             Sort:
                             <select id="sortSelect"></select>

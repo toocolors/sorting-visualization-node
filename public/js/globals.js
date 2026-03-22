@@ -10,6 +10,7 @@ const gain = audio.createGain();
 let generated = false;
 const maxSpeed = 1000;
 const maxWindowSize = 4000;
+let viewType = "landscape";
 let sortstate = -1; // -1 = stop/no sorting active, 0 = pause, 1 = step, 2 = play
 const oscillator = audio.createOscillator();
 let sorting = false;
@@ -29,7 +30,7 @@ oscillator.start();
 function allowUpdate() {
     // Get Speed
     let speed;
-    if(!sorting || sortstate == 0) {
+    if (!sorting || sortstate == 0) {
         speed = maxSpeed;
     } else {
         speed = Number(document.getElementById("speed").value);

@@ -9,9 +9,9 @@ InitializeControls();
 document.getElementById("arraySize").addEventListener("input", (event) => {
     // Get arraySize text
     let text = event.target.value;
-    
+
     // Check if value is empty (set it to empty in case it contains non-numbers)
-    if(text == "") {
+    if (text == "") {
         event.target.value = "";
         return;
     }
@@ -20,7 +20,7 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
     text = Number(text);
 
     // Check if value in within bounds
-    if(text < 1) {
+    if (text < 1) {
         event.target.value = '';
     } else if (text > document.getElementById("arrayDiv").clientHeight) {
         event.target.value = document.getElementById("arrayDiv").clientHeight;
@@ -32,7 +32,7 @@ document.getElementById("sortSelect").addEventListener("change", getOptions);
 document.getElementById("play").addEventListener("click", () => {
     // Update sortstate
     sortstate = 2;
-    if(!sorting) {
+    if (!sorting) {
         beginSort();
     } else {
         disableButton("step");
@@ -43,7 +43,7 @@ document.getElementById("play").addEventListener("click", () => {
 document.getElementById("step").addEventListener("click", () => {
     // Update sortstate
     sortstate = 1;
-    if(!sorting) {
+    if (!sorting) {
         beginSort();
     }
 });
@@ -97,9 +97,9 @@ window.addEventListener("resize", changeWindowSize);
 function addAlgoLinkEvents() {
     // Get Algorithm A Elements
     const links = document.querySelectorAll('.algoLink');
-    for(let i = 0; i < links.length; i++) {
+    for (let i = 0; i < links.length; i++) {
         links[i].addEventListener('click', (event) => {
-            if(!event.target.classList.contains('currentAlgo')) {
+            if (!event.target.classList.contains('currentAlgo')) {
                 getScript(event.target);
             }
         })
@@ -115,14 +115,14 @@ async function arrayCompleteLoop() {
     disableButton("step");
     disableButton("pause");
     enableButton("stop");
-    
+
     // Loop through array
-    for(let i = 0; sortstate == 2 && i < arraySize; i++) {
+    for (let i = 0; sortstate == 2 && i < arraySize; i++) {
         setComplete(i);
         await allowUpdate();
         playAudio(array[i]);
     }
-    
+
     // Clear complete class
     clearClass("complete");
 }
@@ -137,15 +137,15 @@ async function beginSort() {
     // Enable/Disable Buttons
     disableButton("generate");
     enableButton("stop");
-    if(sortstate == 2) { // play
+    if (sortstate == 2) { // play
         disableButton("play");
         disableButton("step");
         enableButton("pause");
     }
-    
+
     // Start Sort
-    for(let i = 0; i < currentAlgorithm.sortList.length; i++) {
-        if(currentAlgorithm.sortList[i][0] === document.getElementById("sortSelect").value) {
+    for (let i = 0; i < currentAlgorithm.sortList.length; i++) {
+        if (currentAlgorithm.sortList[i][0] === document.getElementById("sortSelect").value) {
             await currentAlgorithm.sortList[i][2]();
         }
     }
@@ -154,7 +154,7 @@ async function beginSort() {
     clearClass("cursor");
 
     // Loop through array to show completion
-    if(sortstate == 2) {
+    if (sortstate == 2) {
         await arrayCompleteLoop();
     }
 
@@ -164,7 +164,7 @@ async function beginSort() {
     enableButton("step");
     disableButton("pause");
     disableButton("stop");
-    
+
     // Reset sorting
     sorting = false;
 
@@ -173,13 +173,16 @@ async function beginSort() {
 }
 
 async function changeWindowSize() {
+    // Update orientation
+    switchOrientation();
+
     // Get Window Size
     let newSize = document.getElementById("arrayDiv").clientHeight;
 
     // Check if array is generated
-    if(generated) {
+    if (generated) {
         // Check if new size is smaller than the array
-        if(arraySize > newSize) { // new size is smaller than array
+        if (arraySize > newSize) { // new size is smaller than array
             // End sorting
             await endSorting();
 
@@ -195,7 +198,7 @@ async function changeWindowSize() {
         } else { // new size is greater than or equal to array
             // Update box height and width
             const newWidth = Math.max(1, newSize / array.length);
-            for(let i = 0; i < array.length; i++) {
+            for (let i = 0; i < array.length; i++) {
                 document.getElementById(`element${i}`).style.height = `
                 ${Math.max(1, newSize / (array.length / array[i]))}px`;
                 document.getElementById(`element${i}`).style.width = `${newWidth}px`;
@@ -243,20 +246,20 @@ function enableButton(button) {
  */
 async function fillSortSelect() {
     // Wait for currentAlgorithm
-    while(currentAlgorithm === null) {
+    while (currentAlgorithm === null) {
         await new Promise(resolve => setTimeout(resolve, 100));
     }
-    
+
     // Get sort select
     const sortSelect = document.getElementById("sortSelect");
 
     // Reset sort select
-    for(let i = sortSelect.options.length - 1; i >= 0; i--) {
+    for (let i = sortSelect.options.length - 1; i >= 0; i--) {
         sortSelect.remove(i);
     }
 
     // Fill sort select
-    for(let i = 0; i < currentAlgorithm.sortList.length; i++) {
+    for (let i = 0; i < currentAlgorithm.sortList.length; i++) {
         // Create Option
         let option = document.createElement("option");
         option.value = currentAlgorithm.sortList[i][0];
@@ -274,7 +277,7 @@ async function fillSortSelect() {
 async function getInfo(algoName) {
     // Get information div
     const infoDiv = document.getElementById('information');
-    
+
     // Try to fetch info ejs
     try {
         const response = await fetch(`/get/info?id=${algoName}`);
@@ -293,7 +296,7 @@ function getOptions() {
     const sortId = document.getElementById('sortSelect').value;
     const optionsDiv = document.getElementById('optionsDiv');
 
-    if(currentAlgorithm.optionsList === undefined || 
+    if (currentAlgorithm.optionsList === undefined ||
         currentAlgorithm.optionsList[sortId] === undefined) {
         // Empty optionsDiv
         optionsDiv.innerHTML = '';
@@ -326,7 +329,7 @@ async function getScript(element) {
         module = await import(`/get/algorithm?id=${algoName}`);
     } catch {
         // Reset buttons and return
-        if(generated) {
+        if (generated) {
             enableButton('play');
             enableButton('step');
         }
@@ -335,11 +338,11 @@ async function getScript(element) {
 
     /// Update currentAlgorithm
     currentAlgorithm = module;
-    
+
     // Update current a element
     clearClass('currentAlgo');
     element.classList.add('currentAlgo');
-    
+
     // Update sort select
     await fillSortSelect();
 
@@ -347,10 +350,10 @@ async function getScript(element) {
     getOptions();
 
     // Enable Buttons
-        if(generated) {
-            enableButton('play');
-            enableButton('step');
-        }
+    if (generated) {
+        enableButton('play');
+        enableButton('step');
+    }
 
     // Get Information
     await getInfo(algoName);
@@ -364,6 +367,44 @@ async function InitializeControls() {
     getOptions();
     addAlgoLinkEvents();
     updateArraySizePlaceholder();
+    switchOrientation();
+}
+
+/**
+ * Attempts to switch the page orientation to landscape/portrait.
+ */
+function switchOrientation() {
+    // Get generation div, flexbox
+    const generationDiv = document.getElementById("generation");
+    const flexbox = document.getElementById("flexbox");
+
+    if (viewType === "landscape" &&
+        window.innerHeight > window.innerWidth) {
+        // Switching to portrait
+        // Update viewType
+        viewType = "portrait";
+
+        // Move generation div to vertical
+        // document.getElementById("generationHorizontal").removeChild(generationDiv);
+        // document.getElementById("generationVertical").addChild(generationDiv);
+        document.getElementById("generationVertical").appendChild(generationDiv);
+
+        // Update flexbox direction
+        flexbox.style.flexDirection = "column";
+    } else if (viewType === "portrait" &&
+        window.innerWidth > window.innerHeight) {
+        // Switching to landscape
+        // Update viewType
+        viewType = "landscape";
+
+        // Move generation div to horizontal
+        // document.getElementById("generationVertical").removeChild(generationDiv);
+        // document.getElementById("generationHorizontal").addChild(generationDiv);
+        document.getElementById("generationHorizontal").appendChild(generationDiv);
+
+        // Update flexbox direction
+        flexbox.style.flexDirection = "row";
+    }
 }
 
 /**
