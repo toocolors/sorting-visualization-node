@@ -3,7 +3,7 @@
 // Global Variables
 // ************************************************************************************************
 let array = [];
-const arrayDiv = document.getElementById("arrayDiv");
+const arrayDiv = document.getElementById("visualization");
 let arraySize;
 const audio = new (window.AudioContext || window.webkitAudioContext)();
 const gain = audio.createGain();
