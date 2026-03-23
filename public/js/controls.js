@@ -421,7 +421,12 @@ function switchOrientation() {
         // Update buttons
         const buttons = document.getElementsByClassName('sortControl')
         for(let i = 0; i < buttons.length; i++) {
-            buttons.item(i).style.width = 'var(--button-width-landscape)';
+            const button = buttons.item(i);
+            if(button.classList.contains("largeLandscape")) {
+                button.style.width = 'var(--button-width-landscape-large)';
+            } else {
+                button.style.width = 'var(--button-width-landscape-small)';
+            }
         }
     }
 }

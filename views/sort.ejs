@@ -9,15 +9,15 @@
 </head>
 
 <body>
-    <!-- Heading -->
-    <h1 id="mainHeading">Sorting Algorithm Visualization</h1>
-
     <!-- Container -->
     <div id="container">
         <!-- Nav -->
         <%- include('partials/nav.ejs') %>
 
             <main>
+                <!-- Heading -->
+                <h1 id="mainHeading">Sorting Algorithm Visualization</h1>
+
                 <div id="flexbox">
                     <!-- Generation Div for Portrait -->
                     <div id="generationVertical"></div>
@@ -64,12 +64,12 @@
                             <div id="optionsDiv"></div>
 
                             <!-- Play Button -->
-                            <button id="play" class="sortControl hide">&#9658;</button>
-                            <button id="playGrayed" class="sortControl grayed">&#9658;</button>
+                            <button id="play" class="sortControl hide largeLandscape">&#9658;</button>
+                            <button id="playGrayed" class="sortControl grayed largeLandscape">&#9658;</button>
 
                             <!-- Step Button -->
-                            <button id="step" class="sortControl hide">&#8594;</button>
-                            <button id="stepGrayed" class="sortControl grayed">&#8594;</button>
+                            <button id="step" class="sortControl hide largeLandscape">&#8594;</button>
+                            <button id="stepGrayed" class="sortControl grayed largeLandscape">&#8594;</button>
 
                             <!-- Pause Button -->
                             <button id="pause" class="sortControl hide">&#x23F8;</button>
@@ -78,14 +78,18 @@
                             <!-- Stop Button -->
                             <button id="stop" class="sortControl hide">&#x23F9;</button>
                             <button id="stopGrayed" class="sortControl grayed">&#x23F9;</button>
-                            <br>
-
-                            Speed:
-                            <input id="speed" type="range" min="500" max="1000" value="1000">
 
                             <!-- Audio Buttons -->
-                            <button id="unmute">&#128362;</button>
-                            <button id="mute" class="hide">&#128360;</button>
+                            <button id="unmute" class="sortControl">&#128362;</button>
+                            <button id="mute" class="sortControl hide">&#128360;</button>
+
+                            <!-- <br id="buttonBreak"> -->
+
+                            <div style="display: inline-block;">
+                                Speed:
+                                <input id="speed" type="range" min="500" max="1000" value="1000">
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,9 @@
 /* Variables */
 :root {
     --max-content-width: calc(100vh - 170px);
-    --button-width-landscape: 40%;
-    --button-width-portrait: 20%;
+    --button-width-landscape-large: 40%;
+    --button-width-landscape-small: 25%;
+    --button-width-portrait: 15%;
 }
 
 /* General Styles */
@@ -64,7 +65,7 @@ main {
 nav {
     width: 150px;
     position: fixed;
-    top: 90px;
+    top: 0px;
     left: 0;
     height: 100vh;
     overflow-y: auto;
@@ -92,6 +93,7 @@ h1 {
 
 #mainHeading {
     height: 40px;
+    margin-bottom: 10px;
 }
 
 .border {
@@ -126,6 +128,11 @@ h1 {
 /* Button Styles */
 .sortControl {
     aspect-ratio: 1/1;
+    width: 25%;
+    margin: 2px;
+}
+
+.largeLandscape {
     width: 40%;
 }
 
