@@ -56,12 +56,13 @@
                         </div>
 
                         <div id="playback" class="centered border">
-                            Sort:
-                            <select id="sortSelect"></select>
-                            <br>
-
                             <!-- Sort Options -->
-                            <div id="optionsDiv"></div>
+                            <div id="sortOptions">
+                                Sort:
+                                <select id="sortSelect"></select>
+                                <div id="optionsDiv" class="inline-block"></div>
+                            </div>
+                            <br>
 
                             <!-- Play Button -->
                             <button id="play" class="sortControl hide largeLandscape">&#9658;</button>
@@ -83,9 +84,7 @@
                             <button id="unmute" class="sortControl">&#128362;</button>
                             <button id="mute" class="sortControl hide">&#128360;</button>
 
-                            <!-- <br id="buttonBreak"> -->
-
-                            <div style="display: inline-block;">
+                            <div id="speedControl">
                                 Speed:
                                 <input id="speed" type="range" min="500" max="1000" value="1000">
                             </div>

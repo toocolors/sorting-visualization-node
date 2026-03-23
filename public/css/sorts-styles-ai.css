@@ -95,6 +95,10 @@ main {
         gap: 10px;
     }
 
+    #sortOptions, #speedControl {
+        flex-basis: 100%;
+    }
+
     .sortControl {
         flex: 1;
         min-width: 50px;
@@ -181,11 +185,18 @@ main {
     display: none;
 }
 
+#generate, #generateGrayed {
+    padding: 10px;
+    border: none;
+}
+
 #generate {
     background: #2f6fff;
     color: white;
-    padding: 10px;
-    border: none;
+}
+
+#generateGrayed {
+    cursor: not-allowed;
 }
 
 #generate:hover {
