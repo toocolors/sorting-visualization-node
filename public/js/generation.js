@@ -32,7 +32,7 @@ async function generateArray() {
     array = new Array(arraySize);
 
     // Clear arrayDiv
-    document.getElementById("arrayDiv").innerHTML = "";
+    arrayDiv.innerHTML = "";
 
     // Get array type
     let arrayType = document.getElementById('arrayType').value;
@@ -86,22 +86,7 @@ async function generateAscending() {
         // Update Page
         await allowUpdate();
 
-        // Update array element at i
-        array[i] = num;
-
-        // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
-
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: ${height}px; width: ${width}px;'
-        >
-        </div>`;
-
-        // Play Sound
-        playAudio(num);
+        createElement(i, num, width)
 
         // Increment num
         num++;
