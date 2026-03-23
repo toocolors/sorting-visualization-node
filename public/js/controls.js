@@ -374,11 +374,13 @@ async function InitializeControls() {
  * Attempts to switch the page orientation to landscape/portrait.
  */
 function switchOrientation() {
-    // Get generation div, flexbox
+    // Get elements
     const generationDiv = document.getElementById("generation");
     const flexbox = document.getElementById("flexbox");
     const visualization = document.getElementById("visualization");
     const options = document.getElementById("options");
+    const buttonBreak = document.getElementById("buttonBreak");
+
 
     if (viewType === "landscape" &&
         window.innerHeight > window.innerWidth) {
@@ -395,6 +397,13 @@ function switchOrientation() {
 
         // Update flexbox direction
         flexbox.style.flexDirection = "column";
+
+        // Update buttons
+        // buttonBreak.style.display = "none";
+        const buttons = document.getElementsByClassName('sortControl')
+        for(let i = 0; i < buttons.length; i++) {
+            buttons.item(i).style.width = 'var(--button-width-portrait)';
+        }
     } else if (viewType === "portrait" &&
         window.innerWidth > window.innerHeight) {
         // Switching to landscape
@@ -410,6 +419,13 @@ function switchOrientation() {
 
         // Update flexbox direction
         flexbox.style.flexDirection = "row";
+
+        // Update buttons
+        // buttonBreak.style.display = "block";
+        const buttons = document.getElementsByClassName('sortControl')
+        for(let i = 0; i < buttons.length; i++) {
+            buttons.item(i).style.width = 'var(--button-width-landscape)';
+        }
     }
 }
 
