@@ -33,24 +33,25 @@
                         <div id="generationHorizontal">
                             <div id="generation" class="border">
                                 <!-- Array Generation -->
-                                Array Size:
-                                <input type="number" id="arraySize">
-                                <br>
+                                <div id="generationOptions">
+                                    Array Size:
+                                    <input type="number" id="arraySize">
+                                    <br>
 
-                                Array Type:
-                                <select id="arrayType">
-                                    <option value="random-no-duplicates">Random (No Duplicates)</option>
-                                    <option value="random-duplicates">Random (With Duplicates)</option>
-                                    <option value="ascending">Ascending</option>
-                                    <option value="alternating">Alternating</option>
-                                    <option value="descending">Descending</option>
-                                    <option value="bell-curve">Bell-Curve</option>
-                                    <option value="pyramid">Pyramid</option>
-                                </select>
-                                <br>
+                                    Array Type:
+                                    <select id="arrayType">
+                                        <option value="random-no-duplicates">Random (No Duplicates)</option>
+                                        <option value="random-duplicates">Random (With Duplicates)</option>
+                                        <option value="ascending">Ascending</option>
+                                        <option value="alternating">Alternating</option>
+                                        <option value="descending">Descending</option>
+                                        <option value="bell-curve">Bell-Curve</option>
+                                        <option value="pyramid">Pyramid</option>
+                                    </select>
+                                </div>
 
-                                <button id="generate">Generate Array</button>
-                                <button id="generateGrayed" class="grayed hide">Generate Array</button>
+                                <button id="generate">Generate<br>Array</button>
+                                <button id="generateGrayed" class="grayed hide">Generate<br>Array</button>
                             </div>
                         </div>
 
@@ -81,7 +82,6 @@
 
                             Speed:
                             <input id="speed" type="range" min="500" max="1000" value="1000">
-                            <br>
 
                             <!-- Audio Buttons -->
                             <button id="unmute">&#128362;</button>

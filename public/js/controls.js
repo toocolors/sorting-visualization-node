@@ -399,7 +399,6 @@ function switchOrientation() {
         flexbox.style.flexDirection = "column";
 
         // Update buttons
-        // buttonBreak.style.display = "none";
         const buttons = document.getElementsByClassName('sortControl')
         for(let i = 0; i < buttons.length; i++) {
             buttons.item(i).style.width = 'var(--button-width-portrait)';
@@ -421,7 +420,6 @@ function switchOrientation() {
         flexbox.style.flexDirection = "row";
 
         // Update buttons
-        // buttonBreak.style.display = "block";
         const buttons = document.getElementsByClassName('sortControl')
         for(let i = 0; i < buttons.length; i++) {
             buttons.item(i).style.width = 'var(--button-width-landscape)';

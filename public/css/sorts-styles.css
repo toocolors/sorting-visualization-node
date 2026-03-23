@@ -153,3 +153,13 @@ button:hover {
 h1 {
     text-align: center;
 }
+
+/* Generation Styles */
+#generation {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#generate, #generateGrayed {
+    margin: auto;
+}
