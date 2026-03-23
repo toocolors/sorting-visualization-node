@@ -3,6 +3,31 @@
 // ************************************************************************************************
 
 /**
+ * Creates a new element in array and arrayDiv.
+ * @param {Number} index The index of the element.
+ * @param {Number} value The value of the element.
+ * @param {Number} width The width of the element.
+ */
+function createElement(index, value, width) {
+    // Write Element
+    array[index] = value;
+
+    // Get element box height
+    const height = Math.max(1, arrayDiv.clientHeight / (arraySize / value));
+
+    // Add box on webpage
+    arrayDiv.innerHTML += `<div
+    id='element${index}'
+    class='element' 
+    style='height: ${height}px; width: ${width}px;'
+    >
+    </div>`;
+
+    // Play Sound
+    playAudio(value);
+}
+
+/**
  * Gets the element at the given index.
  * @param {Number} index The index of the array element to get.
  * @returns Returns the element at the index.
