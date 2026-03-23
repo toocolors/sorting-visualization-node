@@ -47,6 +47,11 @@ main {
     align-items: flex-end;
 }
 
+#sortOptions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .element {
     background-color: black;
 }
