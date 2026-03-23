@@ -207,8 +207,7 @@ async function changeWindowSize() {
     }
 
     // Bind Array Size Input
-    const sizeInput = document.getElementById('arraySize');
-    sizeInput.value = Math.min(Number(sizeInput.value), newSize);
+    document.getElementById('arraySize').value = '';
 
     // Update Array Size Placeholder Text
     updateArraySizePlaceholder();
