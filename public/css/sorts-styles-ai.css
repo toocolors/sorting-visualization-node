@@ -31,13 +31,11 @@ main {
     gap: 15px;
 }
 
-#arrayDiv {
+#visualization {
     height: 100%;
     width: 100%;
     display: flex;
     align-items: flex-end;
-    margin: 0;
-    padding: 0;
 }
 
 .element {
