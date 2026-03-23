@@ -20,6 +20,15 @@ nav {
     overflow-y: auto;
 }
 
+nav a {
+    display: block;
+    margin: 5px auto;
+}
+
+.currentAlgo {
+    color: black;
+}
+
 /* Main content */
 main {
     padding: 20px;
