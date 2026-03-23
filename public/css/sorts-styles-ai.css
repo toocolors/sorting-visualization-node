@@ -1,0 +1,193 @@
+body {
+    margin: 0;
+    font-family: serif;
+    background: #9fc3cf; /* soft blue */
+}
+
+#container {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    height: 100vh;
+}
+
+/* Sidebar */
+nav {
+    background: #8fb7c3;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#flexbox {
+    display: grid;
+    gap: 15px;
+}
+
+#arrayDiv {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.element {
+    background-color: black;
+}
+
+.cursor {
+    background-color: red;
+}
+
+.complete {
+    background-color: green;
+}
+
+/* Shared styling */
+.border {
+    border: 3px solid #d9eaf0;
+    background: #a8ccd6;
+}
+
+#visualization {
+    background: #f5f5f5;
+    min-height: 400px;
+}
+
+/* Portrait Styling */
+@media (orientation: portrait) {
+    #flexbox {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "generation"
+            "visualization"
+            "controls";
+    }
+
+    #generationHorizontal {
+        display: none;
+    }
+
+    #generationVertical {
+        display: block;
+    }
+
+    #visualization {
+        grid-area: visualization;
+    }
+
+    #options {
+        grid-area: controls;
+    }
+
+    /* Buttons: all in ONE row */
+    #playback {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .sortControl {
+        flex: 1;
+        min-width: 50px;
+        height: 60px;
+    }
+}
+
+/* Landscape Styling */
+@media (orientation: landscape) {
+    #flexbox {
+        grid-template-columns: 2fr 1fr;
+        grid-template-areas:
+            "visualization options";
+    }
+
+    #generationVertical {
+        display: none;
+    }
+
+    #generationHorizontal {
+        display: block;
+    }
+
+    #visualization {
+        grid-area: visualization;
+        min-height: 600px;
+    }
+
+    #options {
+        grid-area: options;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* BUTTON LAYOUT MAGIC */
+    #playback {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    /* Large buttons (top row) */
+    .largeLandscape {
+        height: 80px;
+        font-size: 20px;
+    }
+
+    /* Smaller buttons */
+    .sortControl:not(.largeLandscape) {
+        height: 50px;
+    }
+
+    /* Force layout:
+       2 big buttons on top, 3 small below */
+    #play, #step {
+        grid-column: span 1;
+    }
+
+    #pause, #stop, #unmute, #mute {
+        grid-column: span 1;
+    }
+}
+
+/* Universal Button Styles */
+.sortControl {
+    background: #7faec0;
+    border: none;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sortControl:hover {
+    background: #6b9bab;
+}
+
+.grayed {
+    background: #999;
+    cursor: not-allowed;
+}
+
+.hide {
+    display: none;
+}
+
+#generate {
+    background: #2f6fff;
+    color: white;
+    padding: 10px;
+    border: none;
+}
+
+#generate:hover {
+    background: #1f4fcc;
+}
