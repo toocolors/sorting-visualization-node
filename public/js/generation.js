@@ -12,6 +12,14 @@ document.getElementById("generate").addEventListener("click", generateArray);
  *  and fills arrayDiv based on selected array type.
  */
 async function generateArray() {
+    // Get array size
+    arraySize = Number(document.getElementById("arraySize").value);
+
+    // Check array size
+    if(arraySize < 1 || maxArraySize < arraySize) {
+        return;
+    }
+    
     // Update generating
     generated = false;
     
@@ -19,9 +27,6 @@ async function generateArray() {
     disableButton("generate");
     disableButton("play");
     disableButton("step");
-    
-    // Get array size
-    arraySize = Number(document.getElementById("arraySize").value);
     
     // Clear Current array
     array = new Array(arraySize);

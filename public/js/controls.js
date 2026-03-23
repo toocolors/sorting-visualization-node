@@ -178,6 +178,7 @@ async function changeWindowSize() {
 
     // Get Window Size
     let newSize = document.getElementById("arrayDiv").clientHeight;
+    maxArraySize = newSize;
 
     // Check if array is generated
     if (generated) {
