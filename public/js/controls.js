@@ -177,7 +177,7 @@ async function changeWindowSize() {
     switchOrientation();
 
     // Get Window Size
-    let newSize = arrayDiv.clientWidth;
+    let newSize = Math.floor(arrayDiv.clientWidth - 1);
     maxArraySize = newSize;
 
     // Check if array is generated
@@ -363,7 +363,7 @@ async function InitializeControls() {
     await fillSortSelect();
     getOptions();
     addAlgoLinkEvents();
-    updateArraySizePlaceholder();
+    changeWindowSize();
     switchOrientation();
 }
 
@@ -388,7 +388,7 @@ function switchOrientation() {
 
         // Update buttons
         const buttons = document.getElementsByClassName('sortControl')
-        for(let i = 0; i < buttons.length; i++) {
+        for (let i = 0; i < buttons.length; i++) {
             buttons.item(i).style.width = 'var(--button-width-portrait)';
         }
     } else if (viewType === "portrait" &&
@@ -406,5 +406,5 @@ function switchOrientation() {
  * Updates the placeholder of arraySize to '1 - arrayDiv height'.
  */
 function updateArraySizePlaceholder() {
-    document.getElementById('arraySize').placeholder = `1-${arrayDiv.clientWidth}`;
+    document.getElementById('arraySize').placeholder = `1-${maxArraySize}`;
 }
