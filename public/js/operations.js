@@ -157,6 +157,10 @@ async function endSorting() {
     }
 }
 
+function getWidth() {
+    return Math.max(1, arrayDiv.clientWidth / arraySize);
+}
+
 function setComplete(index) {
     document.getElementById(`element${index}`).classList.add("complete");
 }
