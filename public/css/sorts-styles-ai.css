@@ -81,6 +81,8 @@ main {
 #visualization {
     background: #f5f5f5;
     min-height: 400px;
+    padding: 0;
+    overflow: hidden;
 }
 
 /* Portrait Styling */

@@ -34,6 +34,9 @@ async function generateArray() {
     // Clear arrayDiv
     arrayDiv.innerHTML = "";
 
+    // Get arrayDiv height
+    containerHeight = arrayDiv.clientHeight;
+
     // Get array type
     let arrayType = document.getElementById('arrayType').value;
 

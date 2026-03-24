@@ -6,6 +6,7 @@ let array = [];
 const arrayDiv = document.getElementById("visualization");
 let arraySize;
 const audio = new (window.AudioContext || window.webkitAudioContext)();
+let containerHeight;
 const gain = audio.createGain();
 let generated = false;
 let maxArraySize;

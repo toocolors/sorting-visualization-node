@@ -13,15 +13,15 @@ function createElement(index, value, width) {
     array[index] = value;
 
     // Get element box height
-    const height = Math.max(1, arrayDiv.clientHeight / (arraySize / value));
+    const height = Math.max(1, containerHeight / (arraySize / value));
 
     // Add box on webpage
-    arrayDiv.innerHTML += `<div
-    id='element${index}'
-    class='element' 
-    style='height: ${height}px; width: ${width}px;'
-    >
-    </div>`;
+    const el = document.createElement("div");
+    el.id = `element${index}`;
+    el.className = "element";
+    el.style.height = `${height}px`;
+    el.style.width = `${width}px`;
+    arrayDiv.appendChild(el);
 
     // Play Sound
     playAudio(value);
