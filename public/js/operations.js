@@ -200,6 +200,10 @@ async function regenerateArray() {
     }
 }
 
+/**
+ * Sets the element at index as complete.
+ * @param {Number} index An array index.
+ */
 function setComplete(index) {
     document.getElementById(`element${index}`).classList.add("complete");
 }
