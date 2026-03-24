@@ -163,6 +163,23 @@ function getWidth() {
 
 async function regenerateArray() {
     // Pause Sorting
+    let wasSorting = false;
+    if(sorting) {
+        switch(sortstate) {
+            case 2:
+                wasSorting = true;
+                break;
+            case 1:
+            case 0:
+                sortstate = 0;
+                await allowUpdate();
+                break;
+            case -1:
+            default:
+                await endSorting();
+                break;
+        }
+    }
 
     // Reset visualization
     arrayDiv.innerHTML = '';
@@ -178,6 +195,9 @@ async function regenerateArray() {
     }
 
     // Resume Sorting
+    if(wasSorting) {
+        sortstate = 2;
+    }
 }
 
 function setComplete(index) {
