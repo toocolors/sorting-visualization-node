@@ -22,8 +22,8 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
     // Check if value in within bounds
     if (text < 1) {
         event.target.value = '';
-    } else if (text > document.getElementById("arrayDiv").clientHeight) {
-        event.target.value = document.getElementById("arrayDiv").clientHeight;
+    } else if (text > maxArraySize) {
+        event.target.value = maxArraySize;
     }
 });
 
@@ -177,7 +177,7 @@ async function changeWindowSize() {
     switchOrientation();
 
     // Get Window Size
-    let newSize = document.getElementById("arrayDiv").clientHeight;
+    let newSize = arrayDiv.clientWidth;
     maxArraySize = newSize;
 
     // Check if array is generated
@@ -191,6 +191,8 @@ async function changeWindowSize() {
             generated = false;
 
             // Empty boxes
+            arraySize = newSize;
+            array = new Array(newSize);
             arrayDiv.innerHTML = '';
 
             // Disable buttons
@@ -198,12 +200,7 @@ async function changeWindowSize() {
             disableButton('step');
         } else { // new size is greater than or equal to array
             // Update box height and width
-            const newWidth = Math.max(1, newSize / array.length);
-            for (let i = 0; i < array.length; i++) {
-                document.getElementById(`element${i}`).style.height = `
-                ${Math.max(1, newSize / (array.length / array[i]))}px`;
-                document.getElementById(`element${i}`).style.width = `${newWidth}px`;
-            }
+            await regenerateArray();
         }
     }
 
@@ -379,8 +376,6 @@ function switchOrientation() {
     const flexbox = document.getElementById("flexbox");
     const visualization = document.getElementById("visualization");
     const options = document.getElementById("options");
-    const buttonBreak = document.getElementById("buttonBreak");
-
 
     if (viewType === "landscape" &&
         window.innerHeight > window.innerWidth) {
@@ -390,13 +385,6 @@ function switchOrientation() {
 
         // Move generation div to vertical
         document.getElementById("generationVertical").appendChild(generationDiv);
-
-        // Update Widths
-        visualization.style.width = "auto";
-        options.style.width = "auto";
-
-        // Update flexbox direction
-        flexbox.style.flexDirection = "column";
 
         // Update buttons
         const buttons = document.getElementsByClassName('sortControl')
@@ -411,24 +399,6 @@ function switchOrientation() {
 
         // Move generation div to horizontal
         document.getElementById("generationHorizontal").appendChild(generationDiv);
-
-        // Update Widths
-        visualization.style.width = "50%";
-        options.style.width = "50%";
-
-        // Update flexbox direction
-        flexbox.style.flexDirection = "row";
-
-        // Update buttons
-        const buttons = document.getElementsByClassName('sortControl')
-        for(let i = 0; i < buttons.length; i++) {
-            const button = buttons.item(i);
-            if(button.classList.contains("largeLandscape")) {
-                button.style.width = 'var(--button-width-landscape-large)';
-            } else {
-                button.style.width = 'var(--button-width-landscape-small)';
-            }
-        }
     }
 }
 
@@ -436,5 +406,5 @@ function switchOrientation() {
  * Updates the placeholder of arraySize to '1 - arrayDiv height'.
  */
 function updateArraySizePlaceholder() {
-    document.getElementById('arraySize').placeholder = `1-${arrayDiv.clientHeight}`;
+    document.getElementById('arraySize').placeholder = `1-${arrayDiv.clientWidth}`;
 }
