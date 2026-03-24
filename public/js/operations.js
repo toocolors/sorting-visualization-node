@@ -161,6 +161,25 @@ function getWidth() {
     return Math.max(1, arrayDiv.clientWidth / arraySize);
 }
 
+async function regenerateArray() {
+    // Pause Sorting
+
+    // Reset visualization
+    arrayDiv.innerHTML = '';
+
+    await allowUpdate();
+
+    // Calculate width
+    const width = getWidth();
+
+    // Copy temp
+    for(let i = 0; i < arraySize; i++) {
+        createElement(i, array[i], width);
+    }
+
+    // Resume Sorting
+}
+
 function setComplete(index) {
     document.getElementById(`element${index}`).classList.add("complete");
 }
