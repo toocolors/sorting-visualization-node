@@ -35,6 +35,10 @@ main {
     overflow-y: auto;
 }
 
+#information {
+    margin-top: 10px;
+}
+
 #flexbox {
     display: grid;
     gap: 15px;
