@@ -14,7 +14,7 @@ function createElement(index, value, width) {
     el.id = `element${index}`;
     el.className = "element";
     // el.style.height = `${height}px`;
-    el.style.width = `${width}px`;
+    el.style.width = `${100 / arraySize}%`;
     arrayDiv.appendChild(el);
 
     // Write Element
