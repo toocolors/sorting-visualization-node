@@ -3,12 +3,46 @@
 // ************************************************************************************************
 
 /**
+ * Creates a new element in array and arrayDiv.
+ * @param {Number} index The index of the element.
+ * @param {Number} value The value of the element.
+ * @param {Number} width The width of the element.
+ */
+function createElement(index, value, width) {
+    // Add box on webpage
+    const el = document.createElement("div");
+    el.id = `element${index}`;
+    el.className = "element";
+    arrayDiv.appendChild(el);
+
+    // Write Element
+    set(index, value);
+
+    // Play Sound
+    playAudio(value);
+}
+
+/**
  * Gets the element at the given index.
  * @param {Number} index The index of the array element to get.
  * @returns Returns the element at the index.
  */
 function get(index) {
+    incrementOperation("reads");
     return array[index];
+}
+
+/**
+ * Removes an array element and its associated element.
+ * @param {Number} index The index of the array element to remove.
+ */
+function remove(index) {
+    // Delete Element
+    incrementOperation("writes");
+    array.splice(index);
+
+    // Remove Box
+    elements[index].remove();
 }
 
 /**
@@ -18,11 +52,12 @@ function get(index) {
  */
 function set(index, value) {
     // Write element
+    incrementOperation("writes");
     array[index] = value;
 
     // Update box
-    document.getElementById(`element${index}`).style.height = `
-        ${Math.max(1, arrayDiv.clientHeight / (arraySize / array[j]))}px`;
+    elements[index].style.height = `
+        ${(value / arraySize) * 100}%`;
 }
 
 /**
@@ -32,15 +67,9 @@ function set(index, value) {
  */
 function swap(a, b) {
     // Swap elements
-    let temp = array[a];
-    array[a] = array[b];
-    array[b] = temp;
-
-    // Update boxes
-    document.getElementById(`element${a}`).style.height = `
-        ${Math.max(1, arrayDiv.clientHeight / (arraySize / array[a]))}px`;
-    document.getElementById(`element${b}`).style.height = `
-        ${Math.max(1, arrayDiv.clientHeight / (arraySize / array[b]))}px`;
+    const temp = get(a);
+    set(a, get(b));
+    set(b, temp);
 }
 
 // ************************************************************************************************
@@ -54,7 +83,8 @@ function swap(a, b) {
  * @returns true: a == b, false: a != b
  */
 function isEqual(a, b) {
-    return array[a] == array[b];
+    incrementOperation("comparisons");
+    return get(a) == get(b);
 }
 
 /**
@@ -64,7 +94,8 @@ function isEqual(a, b) {
  * @returns true: a == b, false: a != b
  */
 function isEqualOrGreater(a, b) {
-    return array[a] >= array[b]
+    incrementOperation("comparisons");
+    return get(a) >= get(b);
 }
 
 /**
@@ -74,7 +105,8 @@ function isEqualOrGreater(a, b) {
  * @returns true: a > b, false: a < b
  */
 function isGreater(a, b) {
-    return array[a] > array[b];
+    incrementOperation("comparisons");
+    return get(a) > get(b);
 }
 
 // ************************************************************************************************
@@ -117,7 +149,7 @@ function clearClass(className) {
  * @param {Number} index An array index.
  */
 function clearCursor(index) {
-    document.getElementById(`element${index}`).classList.remove("cursor");
+    elements[index].classList.remove("cursor");
 }
 
 /**
@@ -132,8 +164,77 @@ async function endSorting() {
     }
 }
 
+function getWidth() {
+    return Math.max(1, arrayDiv.clientWidth / arraySize);
+}
+
+/**
+ * Increments the passed in operation by 1.
+ * @param {String} operation The name of an operation (without 'Span').
+ */
+function incrementOperation(operation) {
+    const current = Number(document.getElementById(`${operation}Span`).innerHTML);
+    document.getElementById(`${operation}Span`).innerHTML = current + 1;
+    if(operation === "reads" || operation === "writes") {
+        incrementOperation("accesses");
+    }
+}
+
+async function regenerateArray() {
+    // Pause Sorting
+    let wasSorting = false;
+    if(sorting) {
+        switch(sortstate) {
+            case 2:
+                wasSorting = true;
+                break;
+            case 1:
+            case 0:
+                sortstate = 0;
+                await allowUpdate();
+                break;
+            case -1:
+            default:
+                await endSorting();
+                break;
+        }
+    }
+
+    // Reset visualization
+    arrayDiv.innerHTML = '';
+
+    await allowUpdate();
+
+    // Calculate width
+    const width = getWidth();
+
+    // Copy temp
+    for(let i = 0; i < arraySize; i++) {
+        createElement(i, array[i], width);
+    }
+
+    // Resume Sorting
+    if(wasSorting) {
+        sortstate = 2;
+    }
+}
+
+/**
+ * Resets operation count spans to 0.
+ */
+function resetOperationCounts() {
+    document.getElementById("accessesSpan").innerHTML = 0;
+    document.getElementById("comparisonsSpan").innerHTML = 0;
+    document.getElementById("readsSpan").innerHTML = 0;
+    document.getElementById("writesSpan").innerHTML = 0;
+}
+
+/**
+ * Sets the element at index as complete.
+ * @param {Number} index An array index.
+ */
 function setComplete(index) {
-    document.getElementById(`element${index}`).classList.add("complete");
+    elements[index].classList.add("complete");
 }
 
 /**
@@ -141,5 +242,5 @@ function setComplete(index) {
  * @param {Number} index An array index.
  */
 function setCursor(index) {
-    document.getElementById(`element${index}`).classList.add("cursor");
+    elements[index].classList.add("cursor");
 }

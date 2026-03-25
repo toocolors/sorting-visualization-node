@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorting Visualization</title>
-    <link rel="stylesheet" href="/css/sorts-styles.css">
+    <link rel="stylesheet" href="/css/sortStyles.css">
+    <link rel="stylesheet" href="/css/navStyles.css">
 </head>
 
 <body>
@@ -13,10 +14,16 @@
     <div id="container">
         <!-- Nav -->
         <%- include('partials/nav.ejs') %>
+        <div id="overlay"></div>
 
             <main>
-                <!-- Heading -->
-                <h1 id="mainHeading">Sorting Algorithm Visualization</h1>
+                <div id="topBar">
+                    <!-- Hamburger Button -->
+                    <button id="menuToggle">☰</button>
+
+                    <!-- Heading -->
+                    <h1 id="mainHeading"><%= algorithmHeading %> Sort</h1>
+                </div>
 
                 <div id="flexbox">
                     <!-- Generation Div for Portrait -->
@@ -24,7 +31,7 @@
 
                     <!-- Array Visualization -->
                     <div id="visualization" class="border">
-                        <div id="arrayDiv"></div>
+                        <!-- <div id="arrayDiv"></div> -->
                     </div>
 
                     <!-- Options Div -->
@@ -34,20 +41,22 @@
                             <div id="generation" class="border">
                                 <!-- Array Generation -->
                                 <div id="generationOptions">
-                                    Array Size:
-                                    <input type="number" id="arraySize">
-                                    <br>
-
-                                    Array Type:
-                                    <select id="arrayType">
-                                        <option value="random-no-duplicates">Random (No Duplicates)</option>
-                                        <option value="random-duplicates">Random (With Duplicates)</option>
-                                        <option value="ascending">Ascending</option>
-                                        <option value="alternating">Alternating</option>
-                                        <option value="descending">Descending</option>
-                                        <option value="bell-curve">Bell-Curve</option>
-                                        <option value="pyramid">Pyramid</option>
-                                    </select>
+                                    <label>
+                                        Array Size:
+                                        <input type="number" id="arraySize">
+                                    </label>
+                                    <label>
+                                        Array Type:
+                                        <select id="arrayType">
+                                            <option value="random-no-duplicates">Random (No Duplicates)</option>
+                                            <option value="random-duplicates">Random (With Duplicates)</option>
+                                            <option value="ascending">Ascending</option>
+                                            <option value="alternating">Alternating</option>
+                                            <option value="descending">Descending</option>
+                                            <option value="bell-curve">Bell-Curve</option>
+                                            <option value="pyramid">Pyramid</option>
+                                        </select>
+                                    </label>
                                 </div>
 
                                 <button id="generate">Generate<br>Array</button>
@@ -56,12 +65,15 @@
                         </div>
 
                         <div id="playback" class="centered border">
-                            Sort:
-                            <select id="sortSelect"></select>
-                            <br>
-
                             <!-- Sort Options -->
-                            <div id="optionsDiv"></div>
+                            <div id="sortOptions">
+                                <div id="sortSelectDiv">
+                                    Sort:
+                                    <select id="sortSelect"></select>
+                                </div>
+                                <div id="optionsDiv" class="inline-block"></div>
+                            </div>
+                            <br>
 
                             <!-- Play Button -->
                             <button id="play" class="sortControl hide largeLandscape">&#9658;</button>
@@ -83,13 +95,30 @@
                             <button id="unmute" class="sortControl">&#128362;</button>
                             <button id="mute" class="sortControl hide">&#128360;</button>
 
-                            <!-- <br id="buttonBreak"> -->
-
-                            <div style="display: inline-block;">
-                                Speed:
+                            <div id="speedControl">
+                                <span id="speedSpan">Speed:</span>
                                 <input id="speed" type="range" min="500" max="1000" value="1000">
                             </div>
-                            
+                        </div>
+
+                        <!-- Operation Count -->
+                        <div id="operations">
+                            <div id="accesses">
+                                <h3 class="operationHeading">Accesses</h3>
+                                <span id="accessesSpan">0</span>
+                            </div>
+                            <div id="comparisons">
+                                <h3 class="operationHeading">Compares</h3>
+                                <span id="comparisonsSpan">0</span>
+                            </div>
+                            <div id="reads">
+                                <h3 class="operationHeading">Reads</h3>
+                                <span id="readsSpan">0</span>
+                            </div>
+                            <div id="writes">
+                                <h3 class="operationHeading">Writes</h3>
+                                <span id="writesSpan">0</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,7 +136,7 @@
     <script>
         let currentAlgorithm = null;
 
-        document.getElementById('<%= algorithmName %>').classList.add('currentAlgo');
+        document.getElementById('<%= algorithmHeading %>').classList.add('currentAlgo');
 
         getInitialAlgorithm();
 
@@ -119,6 +148,7 @@
     <script src="/js/operations.js" type="text/javascript"></script>
     <script src="/js/controls.js" type="text/javascript"></script>
     <script src="/js/generation.js" type="text/javascript"></script>
+    <script src="/js/sidebar.js" type="text/javascript"></script>
 </body>
 
 </html>

@@ -3,9 +3,11 @@
 // Global Variables
 // ************************************************************************************************
 let array = [];
-const arrayDiv = document.getElementById("arrayDiv");
+const arrayDiv = document.getElementById("visualization");
 let arraySize;
 const audio = new (window.AudioContext || window.webkitAudioContext)();
+let containerHeight;
+const elements = document.getElementsByClassName("element");
 const gain = audio.createGain();
 let generated = false;
 let maxArraySize;

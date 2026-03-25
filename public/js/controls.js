@@ -22,8 +22,8 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
     // Check if value in within bounds
     if (text < 1) {
         event.target.value = '';
-    } else if (text > document.getElementById("arrayDiv").clientHeight) {
-        event.target.value = document.getElementById("arrayDiv").clientHeight;
+    } else if (text > maxArraySize) {
+        event.target.value = maxArraySize;
     }
 });
 
@@ -85,7 +85,7 @@ document.getElementById("mute").addEventListener("click", (event) => {
     document.getElementById("unmute").classList.remove("hide");
 });
 
-window.addEventListener("resize", changeWindowSize);
+window.addEventListener("resize", switchOrientation);
 
 // ************************************************************************************************
 // Functions
@@ -143,6 +143,9 @@ async function beginSort() {
         enableButton("pause");
     }
 
+    // Reset Operation Counts
+    resetOperationCounts();
+
     // Start Sort
     for (let i = 0; i < currentAlgorithm.sortList.length; i++) {
         if (currentAlgorithm.sortList[i][0] === document.getElementById("sortSelect").value) {
@@ -169,51 +172,6 @@ async function beginSort() {
     sorting = false;
 
     // Update Page
-    allowUpdate();
-}
-
-async function changeWindowSize() {
-    // Update orientation
-    switchOrientation();
-
-    // Get Window Size
-    let newSize = document.getElementById("arrayDiv").clientHeight;
-    maxArraySize = newSize;
-
-    // Check if array is generated
-    if (generated) {
-        // Check if new size is smaller than the array
-        if (arraySize > newSize) { // new size is smaller than array
-            // End sorting
-            await endSorting();
-
-            // Reset generated
-            generated = false;
-
-            // Empty boxes
-            arrayDiv.innerHTML = '';
-
-            // Disable buttons
-            disableButton('play');
-            disableButton('step');
-        } else { // new size is greater than or equal to array
-            // Update box height and width
-            const newWidth = Math.max(1, newSize / array.length);
-            for (let i = 0; i < array.length; i++) {
-                document.getElementById(`element${i}`).style.height = `
-                ${Math.max(1, newSize / (array.length / array[i]))}px`;
-                document.getElementById(`element${i}`).style.width = `${newWidth}px`;
-            }
-        }
-    }
-
-    // Bind Array Size Input
-    document.getElementById('arraySize').value = '';
-
-    // Update Array Size Placeholder Text
-    updateArraySizePlaceholder();
-
-    // Allow page to update
     allowUpdate();
 }
 
@@ -343,6 +301,9 @@ async function getScript(element) {
     clearClass('currentAlgo');
     element.classList.add('currentAlgo');
 
+    // Update Main Heading
+    document.getElementById("mainHeading").textContent = `${algoName} Sort`;
+
     // Update sort select
     await fillSortSelect();
 
@@ -366,8 +327,13 @@ async function InitializeControls() {
     await fillSortSelect();
     getOptions();
     addAlgoLinkEvents();
-    updateArraySizePlaceholder();
     switchOrientation();
+    visualizationResize();
+    switchOrientation();
+
+    // Add ResizeObserver for visualization
+    const resizeObserver = new ResizeObserver(visualizationResize);
+    resizeObserver.observe(arrayDiv);
 }
 
 /**
@@ -379,8 +345,6 @@ function switchOrientation() {
     const flexbox = document.getElementById("flexbox");
     const visualization = document.getElementById("visualization");
     const options = document.getElementById("options");
-    const buttonBreak = document.getElementById("buttonBreak");
-
 
     if (viewType === "landscape" &&
         window.innerHeight > window.innerWidth) {
@@ -391,16 +355,9 @@ function switchOrientation() {
         // Move generation div to vertical
         document.getElementById("generationVertical").appendChild(generationDiv);
 
-        // Update Widths
-        visualization.style.width = "auto";
-        options.style.width = "auto";
-
-        // Update flexbox direction
-        flexbox.style.flexDirection = "column";
-
         // Update buttons
         const buttons = document.getElementsByClassName('sortControl')
-        for(let i = 0; i < buttons.length; i++) {
+        for (let i = 0; i < buttons.length; i++) {
             buttons.item(i).style.width = 'var(--button-width-portrait)';
         }
     } else if (viewType === "portrait" &&
@@ -411,24 +368,6 @@ function switchOrientation() {
 
         // Move generation div to horizontal
         document.getElementById("generationHorizontal").appendChild(generationDiv);
-
-        // Update Widths
-        visualization.style.width = "50%";
-        options.style.width = "50%";
-
-        // Update flexbox direction
-        flexbox.style.flexDirection = "row";
-
-        // Update buttons
-        const buttons = document.getElementsByClassName('sortControl')
-        for(let i = 0; i < buttons.length; i++) {
-            const button = buttons.item(i);
-            if(button.classList.contains("largeLandscape")) {
-                button.style.width = 'var(--button-width-landscape-large)';
-            } else {
-                button.style.width = 'var(--button-width-landscape-small)';
-            }
-        }
     }
 }
 
@@ -436,5 +375,21 @@ function switchOrientation() {
  * Updates the placeholder of arraySize to '1 - arrayDiv height'.
  */
 function updateArraySizePlaceholder() {
-    document.getElementById('arraySize').placeholder = `1-${arrayDiv.clientHeight}`;
+    document.getElementById('arraySize').placeholder = `1-${maxArraySize}`;
+}
+
+/**
+ * Called when visualization div is resized.
+ * Updates maxArraySize, array size input, and deletes current array 
+ */
+async function visualizationResize() {
+    // Get Window Size
+    let newSize = Math.floor(arrayDiv.clientWidth - 1);
+    maxArraySize = newSize;
+
+    // Bind Array Size Input
+    document.getElementById('arraySize').value = '';
+
+    // Update Array Size Placeholder Text
+    updateArraySizePlaceholder();
 }

@@ -17,11 +17,15 @@ async function generateArray() {
 
     // Check array size
     if(arraySize < 1 || maxArraySize < arraySize) {
-        return;
+        // Get random array size
+        arraySize = Math.floor(Math.random() * maxArraySize + 1)
     }
     
     // Update generating
     generated = false;
+
+    // Reset Operation Counts
+    resetOperationCounts();
     
     // Disable Controls
     disableButton("generate");
@@ -32,7 +36,10 @@ async function generateArray() {
     array = new Array(arraySize);
 
     // Clear arrayDiv
-    document.getElementById("arrayDiv").innerHTML = "";
+    arrayDiv.innerHTML = "";
+
+    // Get arrayDiv height
+    containerHeight = arrayDiv.clientHeight;
 
     // Get array type
     let arrayType = document.getElementById('arrayType').value;
@@ -86,22 +93,7 @@ async function generateAscending() {
         // Update Page
         await allowUpdate();
 
-        // Update array element at i
-        array[i] = num;
-
-        // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
-
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: ${height}px; width: ${width}px;'
-        >
-        </div>`;
-
-        // Play Sound
-        playAudio(num);
+        createElement(i, num, width)
 
         // Increment num
         num++;
@@ -133,19 +125,8 @@ async function generateAlternating() {
             high--;
         }
 
-        // Update array element at i
-        array[i] = num;
-
-        // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
-
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: ${height}px; width: ${width}px;'
-        >
-        </div>`;
+        // Create Element
+        createElement(i, num, width);
 
         // Play Sound
         playAudio(num);
@@ -175,19 +156,8 @@ async function generateBellCurve() {
         num *= arraySize;
         num = Math.max(1, Math.floor(num));
 
-        // Update array element at i
-        array[i] = num;
-
-        // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
-
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: ${height}px; width: ${width}px;'
-        >
-        </div>`;
+        // Create Element
+        createElement(i, num, width);
 
         // Play Sound
         playAudio(num);
@@ -208,19 +178,8 @@ async function generateDescending() {
         // Update Page
         await allowUpdate();
 
-        // Update array element at i
-        array[i] = num;
-
-        // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
-
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: ${height}px; width: ${width}px;'
-        >
-        </div>`;
+        // Create Element
+        createElement(i, num, width);
 
         // Play Sound
         playAudio(num);
@@ -242,19 +201,8 @@ async function generatePyramid() {
         // Update Page
         await allowUpdate();
 
-        // Update array element at i
-        array[i] = num;
-
-        // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
-
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: ${height}px; width: ${width}px;'
-        >
-        </div>`;
+        // Create Element
+        createElement(i, num, width);
 
         // Play Sound
         playAudio(num);
@@ -285,19 +233,8 @@ async function generateRandomDuplicates() {
         // Get random number
         let num = Math.floor(Math.random() * arraySize) + 1;
 
-        // Update array element at i
-        array[i] = num;
-
-        // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
-
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: ${height}px; width: ${width}px;'
-        >
-        </div>`;
+        // Create Element
+        createElement(i, num, width);
 
         // Play Sound
         playAudio(num);
@@ -330,19 +267,8 @@ async function generateRandomNoDuplicates() {
         let num = tempArray[index];
         tempArray.splice(index, 1);
 
-        // Update array element
-        array[i] = num;
-
-        // Get element box height
-        let height = Math.max(1, arrayDiv.clientHeight / (arraySize / num));
-
-        // Add box on webpage
-        arrayDiv.innerHTML += `<div
-        id='element${i}'
-        class='element' 
-        style='height: ${height}px; width: ${width}px;'
-        >
-        </div>`;
+        // Create Element
+        createElement(i, num, width);
 
         // Play Sound
         playAudio(num);
