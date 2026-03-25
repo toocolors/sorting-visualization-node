@@ -39,6 +39,24 @@ main {
 }
 
 /* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    border: 2px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background: rgba(255,255,255,0.25);
+    text-align: center;
+    border: 1px solid black;
+}
+
 .green {
     background-color: lightgreen;
 }
