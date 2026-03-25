@@ -149,7 +149,7 @@ function clearClass(className) {
  * @param {Number} index An array index.
  */
 function clearCursor(index) {
-    document.getElementById(`element${index}`).classList.remove("cursor");
+    elements[index].classList.remove("cursor");
 }
 
 /**
@@ -234,7 +234,7 @@ function resetOperationCounts() {
  * @param {Number} index An array index.
  */
 function setComplete(index) {
-    document.getElementById(`element${index}`).classList.add("complete");
+    elements[index].classList.add("complete");
 }
 
 /**
@@ -242,5 +242,5 @@ function setComplete(index) {
  * @param {Number} index An array index.
  */
 function setCursor(index) {
-    document.getElementById(`element${index}`).classList.add("cursor");
+    elements[index].classList.add("cursor");
 }
