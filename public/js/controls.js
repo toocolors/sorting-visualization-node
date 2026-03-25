@@ -366,6 +366,9 @@ async function getScript(element) {
     clearClass('currentAlgo');
     element.classList.add('currentAlgo');
 
+    // Update Main Heading
+    document.getElementById("mainHeading").textContent = `${algoName} Sort`;
+
     // Update sort select
     await fillSortSelect();
 

@@ -22,14 +22,16 @@ app.get('/', (req, res) => {
 // Algorithm
 app.get('/algorithm', async (req, res) => {
     // Get algorithm name
-    const algorithmName = req.query.id;
+    const algorithmHeading = req.query.id;
+    const algorithmName = algorithmHeading.toLowerCase();
     const filePath = path.join(__dirname, "public/js/sorts", `${algorithmName}.js`);
 
     // Render Page
     try {
         await access(filePath);
         res.render("sort", {
-            algorithmName
+            algorithmName,
+            algorithmHeading
         });
     } catch {
         res.redirect('/');
@@ -40,6 +42,7 @@ app.get('/algorithm', async (req, res) => {
 // API
 app.get("/get/algorithm", async (req, res) => {
     // Get algorithm name
+    const algoName = req.query.id.toLowerCase();
     const filePath = path.join(__dirname, "public/js/sorts", `${req.query.id}.js`);
 
     // Attempt to send file
