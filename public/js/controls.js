@@ -387,27 +387,6 @@ async function visualizationResize() {
     let newSize = Math.floor(arrayDiv.clientWidth - 1);
     maxArraySize = newSize;
 
-    // // Check if array is generated
-    // if (generated) {
-    //     // Check if new size is smaller than the array
-    //     if (arraySize > newSize) { // new size is smaller than array
-    //         // End sorting
-    //         await endSorting();
-
-    //         // Reset generated
-    //         generated = false;
-
-    //         // Empty boxes
-    //         arraySize = newSize;
-    //         array = new Array(newSize);
-    //         arrayDiv.innerHTML = '';
-
-    //         // Disable buttons
-    //         disableButton('play');
-    //         disableButton('step');
-    //     }
-    // }
-
     // Bind Array Size Input
     document.getElementById('arraySize').value = '';
 
