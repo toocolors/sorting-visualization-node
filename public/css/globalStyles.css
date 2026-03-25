@@ -28,8 +28,11 @@ main {
     z-index: 999;
 }
 
-/* Portrait Styles */
-
+/* Class Styles */
+.border {
+    border: 3px solid #d9eaf0;
+    background: #a8ccd6;
+}
 
 /* Landscape Styles */
 @media (orientation: landscape) {
