@@ -22,8 +22,15 @@ app.get('/', (req, res) => {
 // Algorithm
 app.get('/algorithm', async (req, res) => {
     // Get algorithm name
-    const algorithmHeading = req.query.id;
-    const algorithmName = algorithmHeading.toLowerCase();
+    let algorithmHeading;
+    let algorithmName;
+    try {
+        algorithmHeading = req.query.id;
+        algorithmName = algorithmHeading.toLowerCase();
+    } catch {
+        // Redirect to About
+        res.redirect('/'); 
+    }
     const filePath = path.join(__dirname, "public/js/sorts", `${algorithmName}.js`);
 
     // Render Page
@@ -42,7 +49,13 @@ app.get('/algorithm', async (req, res) => {
 // API
 app.get("/get/algorithm", async (req, res) => {
     // Get algorithm name
-    const algoName = req.query.id.toLowerCase();
+    let algoName;
+    try {
+        algoName = req.query.id.toLowerCase();
+    } catch {
+        // Send error
+        res.status(404).json({ error: "Error getting algorithm file" });
+    }
     const filePath = path.join(__dirname, "public/js/sorts", `${req.query.id}.js`);
 
     // Attempt to send file
