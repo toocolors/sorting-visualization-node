@@ -9,19 +9,16 @@
  * @param {Number} width The width of the element.
  */
 function createElement(index, value, width) {
-    // Write Element
-    array[index] = value;
-
-    // Get element box height
-    const height = Math.max(1, containerHeight / (arraySize / value));
-
     // Add box on webpage
     const el = document.createElement("div");
     el.id = `element${index}`;
     el.className = "element";
-    el.style.height = `${height}px`;
+    // el.style.height = `${height}px`;
     el.style.width = `${width}px`;
     arrayDiv.appendChild(el);
+
+    // Write Element
+    set(index, value);
 
     // Play Sound
     playAudio(value);
@@ -49,7 +46,7 @@ function set(index, value) {
 
     // Update box
     document.getElementById(`element${index}`).style.height = `
-        ${Math.max(1, containerHeight / (arraySize / array[index]))}px`;
+        ${Math.max(1, containerHeight / (arraySize / value))}px`;
 }
 
 /**
