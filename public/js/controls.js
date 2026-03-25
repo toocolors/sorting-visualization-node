@@ -85,7 +85,7 @@ document.getElementById("mute").addEventListener("click", (event) => {
     document.getElementById("unmute").classList.remove("hide");
 });
 
-window.addEventListener("resize", changeWindowSize);
+window.addEventListener("resize", switchOrientation);
 
 // ************************************************************************************************
 // Functions
@@ -172,48 +172,6 @@ async function beginSort() {
     sorting = false;
 
     // Update Page
-    allowUpdate();
-}
-
-async function changeWindowSize() {
-    // Update orientation
-    switchOrientation();
-
-    // Get Window Size
-    let newSize = Math.floor(arrayDiv.clientWidth - 1);
-    maxArraySize = newSize;
-
-    // Check if array is generated
-    if (generated) {
-        // Check if new size is smaller than the array
-        if (arraySize > newSize) { // new size is smaller than array
-            // End sorting
-            await endSorting();
-
-            // Reset generated
-            generated = false;
-
-            // Empty boxes
-            arraySize = newSize;
-            array = new Array(newSize);
-            arrayDiv.innerHTML = '';
-
-            // Disable buttons
-            disableButton('play');
-            disableButton('step');
-        } else { // new size is greater than or equal to array
-            // Update box height and width
-            await regenerateArray();
-        }
-    }
-
-    // Bind Array Size Input
-    document.getElementById('arraySize').value = '';
-
-    // Update Array Size Placeholder Text
-    updateArraySizePlaceholder();
-
-    // Allow page to update
     allowUpdate();
 }
 
@@ -369,8 +327,13 @@ async function InitializeControls() {
     await fillSortSelect();
     getOptions();
     addAlgoLinkEvents();
-    changeWindowSize();
     switchOrientation();
+    visualizationResize();
+    switchOrientation();
+
+    // Add ResizeObserver for visualization
+    const resizeObserver = new ResizeObserver(visualizationResize);
+    resizeObserver.observe(arrayDiv);
 }
 
 /**
@@ -413,4 +376,41 @@ function switchOrientation() {
  */
 function updateArraySizePlaceholder() {
     document.getElementById('arraySize').placeholder = `1-${maxArraySize}`;
+}
+
+/**
+ * Called when visualization div is resized.
+ * Updates maxArraySize, array size input, and deletes current array 
+ */
+async function visualizationResize() {
+    // Get Window Size
+    let newSize = Math.floor(arrayDiv.clientWidth - 1);
+    maxArraySize = newSize;
+
+    // // Check if array is generated
+    // if (generated) {
+    //     // Check if new size is smaller than the array
+    //     if (arraySize > newSize) { // new size is smaller than array
+    //         // End sorting
+    //         await endSorting();
+
+    //         // Reset generated
+    //         generated = false;
+
+    //         // Empty boxes
+    //         arraySize = newSize;
+    //         array = new Array(newSize);
+    //         arrayDiv.innerHTML = '';
+
+    //         // Disable buttons
+    //         disableButton('play');
+    //         disableButton('step');
+    //     }
+    // }
+
+    // Bind Array Size Input
+    document.getElementById('arraySize').value = '';
+
+    // Update Array Size Placeholder Text
+    updateArraySizePlaceholder();
 }
