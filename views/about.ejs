@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Sorting Visualization</title>
     <link rel="stylesheet" href="/css/globalStyles.css">
+    <link rel="stylesheet" href="/css/aboutStyles.css">
     <link rel="stylesheet" href="/css/navStyles.css">
 </head>
 <body>
@@ -16,13 +17,99 @@
 
         <!-- Main Content -->
         <main>
+            <!-- Top Bar -->
             <div id="topBar">
                     <!-- Hamburger Button -->
                     <button id="menuToggle">☰</button>
 
                     <!-- Heading -->
                     <h1 id="mainHeading">About</h1>
+            </div>
+
+            <!-- Information -->
+            <div id="flexbox">
+                <div class="border">
+                    <!-- Heading -->
+                    <h2>What is this?</h2>
                 </div>
+
+                <div class="border">
+                    <!-- Heading -->
+                    <h2>Principle Sorts</h2>
+
+                    <!-- Descripion -->
+
+                    <!-- Table -->
+                    <%- include('partials/tableHead.ejs') %>
+                        <!-- Bubble Sort -->
+                        <tr>
+                            <th><a href="/algorithm?id=Bubble">Bubble Sort</a></th>
+                            <th class="green">n</th>
+                            <th class="red">n<sup>2</sup></th>
+                            <th class="red">n<sup>2</sup></th>
+                            <th class="green">1</th>
+                            <th class="green">Yes</th>
+                            <th class="green">Yes</th>
+                        </tr>
+
+                        <!-- Insertion Sort -->
+                        <tr>
+                            <th><a href="/algorithm?id=Insertion">Insertion Sort</a></th>
+                            <th class="green">n</th>
+                            <th class="red">n<sup>2</sup></th>
+                            <th class="red">n<sup>2</sup></th>
+                            <th class="green">1</th>
+                            <th class="green">Yes</th>
+                            <th class="green">Yes</th>
+                        </tr>
+
+                        <!-- Selection Sort -->
+                        <tr>
+                            <th><a href="/algorithm?id=Selection">Selection Sort</a></th>
+                            <th class="red">n<sup>2</sup></th>
+                            <th class="red">n<sup>2</sup></th>
+                            <th class="red">n<sup>2</sup></th>
+                            <th class="green">1</th>
+                            <th class="red">No</th>
+                            <th class="green">Yes</th>
+                        </tr>
+
+                        <!-- Quick Sort -->
+                        <tr>
+                            <th><a href="/algorithm?id=Quick">Quick Sort</a></th>
+                            <th class="yellow">n logn</th>
+                            <th class="green">n logn</th>
+                            <th class="red">n<sup>2</sup></th>
+                            <th class="yellow">logn</th>
+                            <th class="red">No</th>
+                            <th class="green">Yes</th>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div class="border">
+                    <!-- Heading -->
+                    <h2>Asynchronous Sorts</h2>
+
+                    <!-- Descripion -->
+
+                    <!-- Table -->
+                    <%- include('partials/tableHead.ejs') %>
+                    </table>
+                </div>
+
+                <div class="border">
+                    <!-- Heading -->
+                    <h2>Joke Sorts</h2>
+
+                    <!-- Descripion -->
+
+                    <!-- Table -->
+                    <%- include('partials/tableHead.ejs') %>
+                    </table>
+                </div>
+            </div>
         </main>
     </div>
 
