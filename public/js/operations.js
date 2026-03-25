@@ -13,8 +13,6 @@ function createElement(index, value, width) {
     const el = document.createElement("div");
     el.id = `element${index}`;
     el.className = "element";
-    // el.style.height = `${height}px`;
-    el.style.width = `${100 / arraySize}%`;
     arrayDiv.appendChild(el);
 
     // Write Element
@@ -46,7 +44,7 @@ function set(index, value) {
 
     // Update box
     document.getElementById(`element${index}`).style.height = `
-        ${Math.max(1, containerHeight / (arraySize / value))}px`;
+        ${(value / arraySize) * 100}%`;
 }
 
 /**

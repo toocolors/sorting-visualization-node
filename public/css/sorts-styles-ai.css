@@ -91,6 +91,8 @@ main {
 
 .element {
     background-color: black;
+    flex: 1;
+    margin: 0;
 }
 
 .cursor {
