@@ -43,7 +43,7 @@ function set(index, value) {
     array[index] = value;
 
     // Update box
-    document.getElementById(`element${index}`).style.height = `
+    elements[index].style.height = `
         ${(value / arraySize) * 100}%`;
 }
 
