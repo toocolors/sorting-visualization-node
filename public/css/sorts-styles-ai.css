@@ -27,6 +27,75 @@ main {
     z-index: 999;
 }
 
+#flexbox {
+    display: grid;
+    gap: 15px;
+}
+
+/* Input Styles */
+input,
+select {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 2px solid #d9eaf0;
+    background: #f5f5f5;
+    color: #0b2a33;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* Hover */
+input:hover,
+select:hover {
+    border-color: #7faec0;
+}
+
+input:focus,
+select:focus {
+    border-color: #2f6fff;
+    background: #ffffff;
+    box-shadow: 0 0 0 2px rgba(47, 111, 255, 0.2);
+}
+
+input:disabled,
+select:disabled {
+    background: #ddd;
+    cursor: not-allowed;
+}
+
+input[type="number"] {
+    width: 70px;
+}
+
+select {
+    cursor: pointer;
+}
+
+/* Slider Styles */
+#speedControl {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 80%;
+    height: 6px;
+    background: #2f6fff;
+    border-radius: 3px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input[type="range"]:hover {
+    background: #7faec0;
+}
+
+/* Generation Styles */
 #generation {
     display: flex;
     justify-content: space-between;
@@ -49,15 +118,12 @@ main {
     margin: 0;
 }
 
+/* Information Styles */
 #information {
     margin-top: 10px;
 }
 
-#flexbox {
-    display: grid;
-    gap: 15px;
-}
-
+/* Visualization Styles */
 #visualization {
     height: 100%;
     width: 100%;
@@ -69,15 +135,13 @@ main {
     overflow: hidden;
 }
 
+/* Sort Option Stlyes */
 #sortOptions {
     display: flex;
     justify-content: space-evenly;
 }
 
-#speed {
-    width: 80%;
-}
-
+/* Operations Styles */
 #operations {
     display: grid;
     gap: 10px;
@@ -111,6 +175,7 @@ main {
     word-break: break-word;
 }
 
+/* Class Styles */
 .sortControl {
     font-size: 1.5em;
 }
