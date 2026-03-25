@@ -17,7 +17,8 @@ async function generateArray() {
 
     // Check array size
     if(arraySize < 1 || maxArraySize < arraySize) {
-        return;
+        // Get random array size
+        arraySize = Math.floor(Math.random() * maxArraySize + 1)
     }
     
     // Update generating
