@@ -2,9 +2,15 @@
 /* Sidebar */
 nav {
     background: #8fb7c3;
-    padding: 20px;
+    padding: 0;
     height: 100vh;
     overflow-y: auto;
+}
+
+#navContent {
+    padding: 20px;
+    padding-top: 90px;
+    white-space: nowrap;
 }
 
 /* Hamburger button */
@@ -65,7 +71,6 @@ nav a {
         height: 100vh;
         z-index: 1000;
         transition: left 0.3s ease;
-        padding-top: 90px;
     }
 
     nav.open {
@@ -87,25 +92,18 @@ nav a {
 
 /* Landscape Styling */
 @media (orientation: landscape) {
-
-    /* Default: sidebar hidden */
     #container {
-        grid-template-columns: 0 1fr;
+        grid-template-columns: auto 1fr;
         transition: grid-template-columns 0.3s ease;
         overflow: hidden;
     }
 
-    /* When open: push content */
-    #container.sidebarOpen {
-        grid-template-columns: 220px 1fr;
-    }
-
     nav {
         position: relative;
-        width: 200px;
-        overflow: hidden;
-        padding-top: 90px;
+        width: 0;
         min-width: 0;
+        overflow: hidden;
+        transition: width 0.3s ease;
     }
 
     nav.open {
@@ -114,9 +112,7 @@ nav a {
 
     #container:not(.sidebarOpen) nav {
         width: 0;
-        padding: 0;
     }
-
     #menuToggle {
         display: block;
     }
