@@ -96,6 +96,10 @@ main {
     color: #0b2a33;
 }
 
+.sortControl {
+    font-size: 1.5em;
+}
+
 .element {
     background-color: black;
 }
@@ -108,7 +112,6 @@ main {
     background-color: green;
 }
 
-/* Shared styling */
 .border {
     border: 3px solid #d9eaf0;
     background: #a8ccd6;
