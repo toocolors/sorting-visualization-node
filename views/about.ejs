@@ -1,1 +1,31 @@
-About
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Sorting Visualization</title>
+    <link rel="stylesheet" href="/css/sortStyles.css">
+    <link rel="stylesheet" href="/css/navStyles.css">
+</head>
+<body>
+    <!-- Container -->
+    <div id="container">
+        <!-- Nav -->
+        <%- include('partials/nav.ejs') %>
+        <div id="overlay"></div>
+
+        <!-- Main Content -->
+        <main>
+            <div id="topBar">
+                    <!-- Hamburger Button -->
+                    <button id="menuToggle">☰</button>
+
+                    <!-- Heading -->
+                    <h1 id="mainHeading">About</h1>
+                </div>
+        </main>
+    </div>
+
+    <script src="/js/sidebar.js" type="text/javascript"></script>
+</body>
+</html>
