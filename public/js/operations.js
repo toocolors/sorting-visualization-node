@@ -33,6 +33,19 @@ function get(index) {
 }
 
 /**
+ * Removes an array element and its associated element.
+ * @param {Number} index The index of the array element to remove.
+ */
+function remove(index) {
+    // Delete Element
+    incrementOperation("writes");
+    array.splice(index);
+
+    // Remove Box
+    elements[index].remove();
+}
+
+/**
  * Writes the element at index to value and updates the corresponding box.
  * @param {Number} index The index of the array element to write.
  * @param {Number} value The value to write to the array.
