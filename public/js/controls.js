@@ -143,6 +143,9 @@ async function beginSort() {
         enableButton("pause");
     }
 
+    // Reset Operation Counts
+    resetOperationCounts();
+
     // Start Sort
     for (let i = 0; i < currentAlgorithm.sortList.length; i++) {
         if (currentAlgorithm.sortList[i][0] === document.getElementById("sortSelect").value) {

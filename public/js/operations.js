@@ -33,6 +33,7 @@ function createElement(index, value, width) {
  * @returns Returns the element at the index.
  */
 function get(index) {
+    incrementOperation("reads");
     return array[index];
 }
 
@@ -43,11 +44,12 @@ function get(index) {
  */
 function set(index, value) {
     // Write element
+    incrementOperation("writes");
     array[index] = value;
 
     // Update box
     document.getElementById(`element${index}`).style.height = `
-        ${Math.max(1, arrayDiv.clientHeight / (arraySize / array[j]))}px`;
+        ${Math.max(1, arrayDiv.clientHeight / (arraySize / array[index]))}px`;
 }
 
 /**
@@ -57,9 +59,9 @@ function set(index, value) {
  */
 function swap(a, b) {
     // Swap elements
-    let temp = array[a];
-    array[a] = array[b];
-    array[b] = temp;
+    const temp = get(a);
+    set(a, get(b));
+    set(b, temp);
 
     // Update boxes
     document.getElementById(`element${a}`).style.height = `
@@ -79,7 +81,8 @@ function swap(a, b) {
  * @returns true: a == b, false: a != b
  */
 function isEqual(a, b) {
-    return array[a] == array[b];
+    incrementOperation("comparisons");
+    return get(a) == get(b);
 }
 
 /**
@@ -89,7 +92,8 @@ function isEqual(a, b) {
  * @returns true: a == b, false: a != b
  */
 function isEqualOrGreater(a, b) {
-    return array[a] >= array[b]
+    incrementOperation("comparisons");
+    return get(a) >= get(b);
 }
 
 /**
@@ -99,7 +103,8 @@ function isEqualOrGreater(a, b) {
  * @returns true: a > b, false: a < b
  */
 function isGreater(a, b) {
-    return array[a] > array[b];
+    incrementOperation("comparisons");
+    return get(a) > get(b);
 }
 
 // ************************************************************************************************
@@ -161,6 +166,18 @@ function getWidth() {
     return Math.max(1, arrayDiv.clientWidth / arraySize);
 }
 
+/**
+ * Increments the passed in operation by 1.
+ * @param {String} operation The name of an operation (without 'Span').
+ */
+function incrementOperation(operation) {
+    const current = Number(document.getElementById(`${operation}Span`).innerHTML);
+    document.getElementById(`${operation}Span`).innerHTML = current + 1;
+    if(operation === "reads" || operation === "writes") {
+        incrementOperation("accesses");
+    }
+}
+
 async function regenerateArray() {
     // Pause Sorting
     let wasSorting = false;
@@ -198,6 +215,16 @@ async function regenerateArray() {
     if(wasSorting) {
         sortstate = 2;
     }
+}
+
+/**
+ * Resets operation count spans to 0.
+ */
+function resetOperationCounts() {
+    document.getElementById("accessesSpan").innerHTML = 0;
+    document.getElementById("comparisonsSpan").innerHTML = 0;
+    document.getElementById("readsSpan").innerHTML = 0;
+    document.getElementById("writesSpan").innerHTML = 0;
 }
 
 /**

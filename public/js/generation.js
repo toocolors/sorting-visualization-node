@@ -22,6 +22,9 @@ async function generateArray() {
     
     // Update generating
     generated = false;
+
+    // Reset Operation Counts
+    resetOperationCounts();
     
     // Disable Controls
     disableButton("generate");
