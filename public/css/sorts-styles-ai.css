@@ -152,6 +152,10 @@ main {
         flex-basis: 100%;
     }
 
+    #mute, #unmute {
+        margin-right: 10px;
+    }
+
     .sortControl {
         flex: 1;
         min-width: 50px;
