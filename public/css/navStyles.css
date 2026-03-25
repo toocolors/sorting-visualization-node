@@ -42,6 +42,11 @@ nav a {
 
 /* Portrait Styling */
 @media (orientation: portrait) {
+    #container {
+        grid-template-columns: 1fr;
+    }
+
+    
     /* Show hamburger */
     #menuToggle {
         display: block;
@@ -82,16 +87,38 @@ nav a {
 
 /* Landscape Styling */
 @media (orientation: landscape) {
+
+    /* Default: sidebar hidden */
+    #container {
+        grid-template-columns: 0 1fr;
+        transition: grid-template-columns 0.3s ease;
+        overflow: hidden;
+    }
+
+    /* When open: push content */
+    #container.sidebarOpen {
+        grid-template-columns: 220px 1fr;
+    }
+
     nav {
         position: relative;
-        left: 0;
-        width: auto;
-        height: auto;
-        z-index: auto;
+        width: 200px;
+        overflow: hidden;
+        padding-top: 90px;
+        min-width: 0;
+    }
+
+    nav.open {
+        width: 200px;
+    }
+
+    #container:not(.sidebarOpen) nav {
+        width: 0;
+        padding: 0;
     }
 
     #menuToggle {
-        display: none;
+        display: block;
     }
 
     #overlay {
