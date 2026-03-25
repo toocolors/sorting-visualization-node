@@ -16,7 +16,7 @@ app.use(express.static("public"));
 // Setup Routes
 // Root
 app.get('/', (req, res) => {
-    res.redirect('/algorithm/?id=Bubble'); 
+    res.render('about'); 
 }); // Root
 
 // Algorithm
