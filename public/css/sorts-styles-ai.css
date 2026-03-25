@@ -15,13 +15,16 @@ body {
     align-items: center;
     gap: 15px;
     position: relative;
-    z-index: 1001;
 }
 
 /* Main content */
 main {
     padding: 20px;
     overflow-y: auto;
+}
+
+#mainHeading {
+    z-index: 999;
 }
 
 #information {
