@@ -16,47 +16,6 @@ body {
     gap: 15px;
 }
 
-/* Sidebar */
-nav {
-    background: #8fb7c3;
-    padding: 20px;
-    height: 100vh;
-    overflow-y: auto;
-}
-
-/* Hamburger button */
-#menuToggle {
-    display: none;
-    top: 10px;
-    left: 10px;
-    z-index: 1001;
-    font-size: 24px;
-    background: #2f6fff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: 0.2s;
-}
-
-#menuToggle:hover {
-    background: #1f4fcc;
-}
-
-#overlay {
-    display: none;
-}
-
-nav a {
-    display: block;
-    margin: 5px auto;
-}
-
-.currentAlgo {
-    color: black;
-}
-
 /* Main content */
 main {
     padding: 20px;
@@ -196,45 +155,6 @@ main {
     #operations {
         grid-template-columns: repeat(4, 1fr);
     }
-
-    /* Show hamburger */
-    #menuToggle {
-        display: block;
-    }
-
-    /* Remove sidebar from grid flow */
-    #container {
-        grid-template-columns: 1fr;
-    }
-
-    nav {
-        position: fixed;
-        top: 0;
-        left: -250px; /* hidden by default */
-        width: 220px;
-        height: 100vh;
-        z-index: 1000;
-        transition: left 0.3s ease;
-        padding-top: 90px;
-    }
-
-    /* When open */
-    nav.open {
-        left: 0;
-    }
-
-    /* Optional overlay background */
-    #overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.3);
-        z-index: 999;
-        display: none;
-    }
-
-    #overlay.show {
-        display: block;
-    }
 }
 
 /* Landscape Styling */
@@ -295,23 +215,6 @@ main {
 
     #operations {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Sidebar */
-    nav {
-        position: relative;
-        left: 0;
-        width: auto;
-        height: auto;
-        z-index: auto;
-    }
-
-    #menuToggle {
-        display: none;
-    }
-
-    #overlay {
-        display: none !important;
     }
 }
 
