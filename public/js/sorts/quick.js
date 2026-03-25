@@ -15,7 +15,7 @@ export const optionsList = new Object();
 // Options
 // quick
 optionsList[sortList[0][0]] = `
-Pivot Options: 
+Pivot: 
 <select id='quickOptions'>
     <option value='left'>Left</option>
     <option value='middle'>Middle</option>
