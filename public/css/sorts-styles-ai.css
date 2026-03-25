@@ -49,6 +49,10 @@ main {
     width: 100%;
     display: flex;
     align-items: flex-end;
+    background: #f5f5f5;
+    min-height: 400px;
+    padding: 0;
+    overflow: hidden;
 }
 
 #sortOptions {
@@ -58,6 +62,38 @@ main {
 
 #speed {
     width: 80%;
+}
+
+#operations {
+    display: grid;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#operations > div {
+    background: #7faec0;
+    border: 2px solid #d9eaf0;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#operations .operationHeading {
+    margin: 0;
+    font-size: 16px;
+}
+
+#operations span {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 5px;
+    color: #0b2a33;
 }
 
 .element {
@@ -76,13 +112,6 @@ main {
 .border {
     border: 3px solid #d9eaf0;
     background: #a8ccd6;
-}
-
-#visualization {
-    background: #f5f5f5;
-    min-height: 400px;
-    padding: 0;
-    overflow: hidden;
 }
 
 /* Portrait Styling */
@@ -127,6 +156,10 @@ main {
         flex: 1;
         min-width: 50px;
         height: 60px;
+    }
+
+    #operations {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
@@ -184,6 +217,10 @@ main {
 
     #pause, #stop, #unmute, #mute {
         grid-column: span 1;
+    }
+
+    #operations {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
