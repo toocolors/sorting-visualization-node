@@ -49,7 +49,7 @@ function set(index, value) {
 
     // Update box
     document.getElementById(`element${index}`).style.height = `
-        ${Math.max(1, arrayDiv.clientHeight / (arraySize / array[index]))}px`;
+        ${Math.max(1, containerHeight / (arraySize / array[index]))}px`;
 }
 
 /**
@@ -62,12 +62,6 @@ function swap(a, b) {
     const temp = get(a);
     set(a, get(b));
     set(b, temp);
-
-    // Update boxes
-    document.getElementById(`element${a}`).style.height = `
-        ${Math.max(1, arrayDiv.clientHeight / (arraySize / array[a]))}px`;
-    document.getElementById(`element${b}`).style.height = `
-        ${Math.max(1, arrayDiv.clientHeight / (arraySize / array[b]))}px`;
 }
 
 // ************************************************************************************************
