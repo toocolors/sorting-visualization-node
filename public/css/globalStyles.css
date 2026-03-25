@@ -1,0 +1,40 @@
+/* Main Content */
+body {
+    margin: 0;
+    font-family: serif;
+    background: #9fc3cf; /* soft blue */
+}
+
+#container {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    height: 100vh;
+}
+
+#topBar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#mainHeading {
+    z-index: 999;
+}
+
+/* Portrait Styles */
+
+
+/* Landscape Styles */
+@media (orientation: landscape) {
+    #mainHeading {
+        margin-left: 0;
+        transition-duration: 0.25s;
+    }
+}
