@@ -42,48 +42,16 @@
                     <!-- Table -->
                     <%- include('partials/tableHead.ejs') %>
                         <!-- Bubble Sort -->
-                        <tr>
-                            <th><a href="/algorithm?id=Bubble">Bubble Sort</a></th>
-                            <th class="green">n</th>
-                            <th class="red">n<sup>2</sup></th>
-                            <th class="red">n<sup>2</sup></th>
-                            <th class="green">1</th>
-                            <th class="green">Yes</th>
-                            <th class="green">Yes</th>
-                        </tr>
+                        <%- include('partials/tables/bubbleTable.ejs') %>
 
                         <!-- Insertion Sort -->
-                        <tr>
-                            <th><a href="/algorithm?id=Insertion">Insertion Sort</a></th>
-                            <th class="green">n</th>
-                            <th class="red">n<sup>2</sup></th>
-                            <th class="red">n<sup>2</sup></th>
-                            <th class="green">1</th>
-                            <th class="green">Yes</th>
-                            <th class="green">Yes</th>
-                        </tr>
+                        <%- include('partials/tables/insertionTable.ejs') %>
 
                         <!-- Selection Sort -->
-                        <tr>
-                            <th><a href="/algorithm?id=Selection">Selection Sort</a></th>
-                            <th class="red">n<sup>2</sup></th>
-                            <th class="red">n<sup>2</sup></th>
-                            <th class="red">n<sup>2</sup></th>
-                            <th class="green">1</th>
-                            <th class="red">No</th>
-                            <th class="green">Yes</th>
-                        </tr>
+                        <%- include('partials/tables/selectionTable.ejs') %>
 
                         <!-- Quick Sort -->
-                        <tr>
-                            <th><a href="/algorithm?id=Quick">Quick Sort</a></th>
-                            <th class="yellow">n logn</th>
-                            <th class="green">n logn</th>
-                            <th class="red">n<sup>2</sup></th>
-                            <th class="yellow">logn</th>
-                            <th class="red">No</th>
-                            <th class="green">Yes</th>
-                        </tr>
+                        <%- include('partials/tables/quickTable.ejs') %>
                     </table>
 
                 </div>
