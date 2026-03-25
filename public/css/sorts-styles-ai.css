@@ -73,6 +73,14 @@ select {
     cursor: pointer;
 }
 
+#sortOptions {
+    margin-top: 5px;
+}
+
+#sortSelect {
+    margin-right: 5px;
+}
+
 /* Slider Styles */
 #speedControl {
     display: flex;
