@@ -173,11 +173,6 @@ input[type="range"]:hover {
     background-color: green;
 }
 
-.border {
-    border: 3px solid #d9eaf0;
-    background: #a8ccd6;
-}
-
 /* Portrait Styling */
 @media (orientation: portrait) {
     #flexbox {
