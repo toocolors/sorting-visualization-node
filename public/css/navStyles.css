@@ -5,6 +5,7 @@ nav {
     padding: 0;
     height: 100vh;
     overflow-y: auto;
+    z-index: 1000;
 }
 
 #navContent {
@@ -15,10 +16,9 @@ nav {
 
 /* Hamburger button */
 #menuToggle {
-    display: none;
-    top: 10px;
-    left: 10px;
-    z-index: 1001;
+    top: 35px;
+    left: 15px;
+    z-index: 1002;
     font-size: 24px;
     background: #2f6fff;
     color: white;
@@ -52,7 +52,6 @@ nav a {
         grid-template-columns: 1fr;
     }
 
-    
     /* Show hamburger */
     #menuToggle {
         display: block;
@@ -67,7 +66,7 @@ nav a {
         position: fixed;
         top: 0;
         left: -250px; /* hidden by default */
-        width: 220px;
+        width: 250px;
         height: 100vh;
         z-index: 1000;
         transition: left 0.3s ease;
@@ -106,6 +105,10 @@ nav a {
         transition: width 0.3s ease;
     }
 
+    #container.sidebarOpen #menuToggle {
+        position: fixed;
+    }
+
     nav.open {
         width: 200px;
     }
@@ -113,6 +116,7 @@ nav a {
     #container:not(.sidebarOpen) nav {
         width: 0;
     }
+    
     #menuToggle {
         display: block;
     }

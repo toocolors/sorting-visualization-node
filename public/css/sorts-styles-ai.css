@@ -14,6 +14,8 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    position: relative;
+    z-index: 1001;
 }
 
 /* Main content */
@@ -159,6 +161,11 @@ main {
 
 /* Landscape Styling */
 @media (orientation: landscape) {
+    #mainHeading {
+        margin-left: 0;
+        transition-duration: 0.25s;
+    }
+    
     #flexbox {
         grid-template-columns: 2fr 1fr;
         grid-template-areas:
