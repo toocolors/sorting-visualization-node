@@ -29,6 +29,7 @@ async function generateArray() {
     
     // Disable Controls
     disableButton("generate");
+    disableButton("shuffle");
     disableButton("play");
     disableButton("step");
     
@@ -75,6 +76,7 @@ async function generateArray() {
 
     // Enable Controls
     enableButton("generate");
+    enableButton("shuffle");
     enableButton("play");
     enableButton("step");
 }
