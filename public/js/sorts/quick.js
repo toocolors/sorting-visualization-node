@@ -1,14 +1,9 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
+let threaded;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
-    ["quick", "Quick Sort", async () => {
-        // Get Pivot Type
-        pivotType = document.getElementById("quickOptions").value;
-
-        // Begin Quick Sort
-        await quickSort(0, arraySize - 1);
-    }]
+    ["quick", "Quick Sort", beginSort]
 ];
 export const optionsList = new Object();
 
@@ -27,6 +22,21 @@ let pivotType;
 // ************************************************************************************************
 // Sorting Functions
 // ************************************************************************************************
+async function beginSort() {
+    // Get Pivot Type
+    pivotType = document.getElementById("quickOptions").value;
+
+    // Get threaded
+    if(document.getElementsByClassName('currentAlgo')[0].classList.contains("async")) {
+        threaded = true;
+    } else {
+        threaded = false;
+    }
+
+    // Begin Quick Sort
+    await quickSort(0, arraySize - 1);
+}
+
 async function quickSort(start, end) {
     // Return if array is empty or one element
     if (end - start <= 0) {
