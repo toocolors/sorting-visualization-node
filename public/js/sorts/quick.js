@@ -168,14 +168,29 @@ async function quickSort(start, end) {
     }
 
     // Clear Cursors
-    clearClass('cursor');
+    clearCursor(i);
+    clearCursor(j);
 
-    // Call Recursive Functions
-    if (!await quickSort(start, j - 1)) {
-        return false;
-    }
-    if (!await quickSort(j + 1, end)) {
-        return false;
+    if(threaded) {
+        // Start Recursive Functions
+        let left = quickSort(start, j - 1);
+        let right = quickSort(j + 1, end);
+
+        // Wait for recursive functions
+        await Promise.all([left, right]);
+
+        // Check sortstate
+        if(sortstate == -1) {
+            return false;
+        }
+    } else {
+        // Call Recursive Functions
+        if (!await quickSort(start, j - 1)) {
+            return false;
+        }
+        if (!await quickSort(j + 1, end)) {
+            return false;
+        }
     }
 
     return true;
