@@ -70,18 +70,24 @@ app.get("/get/algorithm", async (req, res) => {
 
 app.get("/get/info", async (req, res) => {
     // Get algorithm name
-    const id = req.query.id;
+    let id;
+    try {
+        id = req.query.id.toLowerCase();
+    } catch {
+        res.status(404).json({error: "Error processing algorithm name"});
+    }
 
     // Attempt to send file
     try {
-        res.render(`partials/info/${id}Info`), {}, (err, html) => {
+        res.render(`partials/info/${id}Info`, {}, (err, html) => {
             if(err) {
-                return res.status(404).json({ error: "Info file not found" });
+                return res.status(404).json({ error: "Could not get info file" });
             }
-        }
+            res.send(html);
+        });
     } catch {
         // Send error
-        res.status(404).json({ error: "Info file not found" });
+        res.status(404).json({ error: "Could not get info file" });
     }
 });
 
