@@ -31,19 +31,17 @@ app.get('/algorithm', async (req, res) => {
         // Redirect to About
         res.redirect('/'); 
     }
-    const filePath = path.join(__dirname, "public/js/sorts", `${algorithmName}.js`);
+    const accessResults = await accessScript(algorithmName);
 
-    // Render Page
-    try {
-        await access(filePath);
+    // Attempt to render page
+    if(accessResults) {
         res.render("sort", {
             algorithmName,
-            algorithmHeading
+            algorithmHeading,
         });
-    } catch {
+    } else {
         res.redirect('/');
     }
-    
 })
 
 // API
@@ -56,13 +54,14 @@ app.get("/get/algorithm", async (req, res) => {
         // Send error
         res.status(404).json({ error: "Error getting algorithm file" });
     }
-    const filePath = path.join(__dirname, "public/js/sorts", `${req.query.id}.js`);
+
+    // Attempt to access script
+    const accessResults = await accessScript(algoName);
 
     // Attempt to send file
-    try {
-        await access(filePath);
-        res.sendFile(filePath);
-    } catch {
+    if(accessResults != false) {
+        res.sendFile(accessResults[1]);
+    } else {
         // Send error
         res.status(404).json({ error: "Algorithm file not found" });
     }
@@ -90,6 +89,35 @@ app.get("/get/info", async (req, res) => {
         res.status(404).json({ error: "Could not get info file" });
     }
 });
+
+// Functions
+/**
+ * Attempts to access the passed in file.
+ * @param {String} fileName The name of the file to access.
+ * @returns [name, filePath] if file was accesses, false if file is inaccessible or does not exist.
+ */
+async function accessScript(name) {
+    // Attempt to access file
+    let filePath = path.join(__dirname, "public/js/sorts", `${name}.js`);
+    try {
+        await access(filePath);
+        return [name, filePath];
+    } catch {
+        try {
+            // Attempt to remove 'async' and send file
+            // Remove 'async'
+            name = name.substring("async".length);
+            // Reset path
+            filePath = path.join(__dirname, "public/js/sorts", `${name}.js`);
+            // Access file
+            await access(filePath);
+            return [name, filePath];
+        } catch {
+            // File was not found
+            return false;
+        }
+    }
+}
 
 // Listen on port 3000
 app.listen(3000, () => {

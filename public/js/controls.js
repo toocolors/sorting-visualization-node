@@ -312,6 +312,7 @@ async function getScript(element) {
 
     // Update Main Heading
     document.getElementById("mainHeading").textContent = `${algoName} Sort`;
+    updateAsyncHeading();
 
     // Update sort select
     await fillSortSelect();
@@ -339,6 +340,7 @@ async function InitializeControls() {
     switchOrientation();
     visualizationResize();
     switchOrientation();
+    updateAsyncHeading();
 
     // Add ResizeObserver for visualization
     const resizeObserver = new ResizeObserver(visualizationResize);
@@ -385,6 +387,20 @@ function switchOrientation() {
  */
 function updateArraySizePlaceholder() {
     document.getElementById('arraySize').placeholder = `1-${maxArraySize}`;
+}
+
+/**
+ * Adds a hyphen to the main heading if it contains 'Async'
+ */
+function updateAsyncHeading() {
+    // Get main heading
+    const mainHeading = document.getElementById("mainHeading");
+    const headingText = mainHeading.textContent;
+
+    // Add hyphen if mainHeading contains async
+    if(headingText.includes('Async')) {
+        mainHeading.textContent = headingText.substring(0, 5) + '-' + headingText.substring(5);
+    }
 }
 
 /**
