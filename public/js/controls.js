@@ -29,6 +29,23 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
 
 document.getElementById("sortSelect").addEventListener("change", getOptions);
 
+document.getElementById("shuffle").addEventListener("click", async () => {
+    // Disable Buttons
+    disableButton("generate");
+    disableButton("shuffle");
+    disableButton("play");
+    disableButton("step");
+
+    // Shuffle Array
+    await shuffleArray(0, arraySize);
+
+    // Enable Buttons
+    enableButton("generate");
+    enableButton("shuffle");
+    enableButton("play");
+    enableButton("step");
+})
+
 document.getElementById("play").addEventListener("click", () => {
     // Update sortstate
     sortstate = 2;
@@ -145,6 +162,7 @@ async function beginSort() {
 
     // Enable/Disable Buttons
     disableButton("generate");
+    disableButton("shuffle");
     enableButton("stop");
     if (sortstate == 2) { // play
         disableButton("play");
@@ -172,6 +190,7 @@ async function beginSort() {
 
     // Enable/Disable Buttons
     enableButton("generate");
+    enableButton("shuffle");
     enableButton("play");
     enableButton("step");
     disableButton("pause");
