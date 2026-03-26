@@ -5,3 +5,7 @@ body {
 .border {
     padding: 5px;
 }
+
+.border h2 {
+    margin-top: 5px;
+}
