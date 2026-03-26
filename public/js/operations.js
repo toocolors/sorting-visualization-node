@@ -66,9 +66,12 @@ function set(index, value) {
  * @param {Number} end The end of the segment to shuffle.
  */
 async function shuffleArray(start, end) {
-    let count = arraySize;
+    let count = end;
+    if(end <= arraySize) {
+        count = arraySize - 1;
+    }
     let index;
-    while(count > 0) {
+    while(count >= start) {
         // Check sortstate
         if(sorting && !await checkSortstate()) {
             return false;
@@ -88,6 +91,8 @@ async function shuffleArray(start, end) {
         // Decrement Count
         count--;
     }
+
+    return true;
 }
 
 /**

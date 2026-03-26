@@ -114,15 +114,15 @@ async function startStep(index = -1, isAudio = true) {
         setCursor(index);
     }
 
+    // Update page
+    await allowUpdate();
+
     // Play audio
     if(isAudio === true && index >= 0) {
         playAudio[array[index]];
     } else if(typeof isAudio === "number") {
         playAudio[array[isAudio]];
     }
-
-    // Update page
-    await allowUpdate();
 
     // Continue sorting
     return true;
