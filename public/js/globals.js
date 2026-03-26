@@ -97,3 +97,33 @@ function playAudio(value) {
 function setCursor(index) {
     elements[index].classList.add("cursor");
 }
+
+/**
+ * Checks sortstate, updates cursor, updates page, and plays audio.
+ * @param {Number} index The index of an array element.
+ * @param {*} isAudio true = play audio using index, false = do not play audio, Number = play audio using Number.
+ */
+async function startStep(index = -1, isAudio = false) {
+    // Check sortstate
+    if(!await checkSortstate()) {
+        return false;
+    }
+
+    // Set index as cursor
+    if(index <= 0) {
+        setCursor(index);
+    }
+
+    // Play audio
+    if(isAudio === true) {
+        playAudio[array[index]];
+    } else if(typeof isAudio === "number") {
+        playAudio[array[isAudio]];
+    }
+
+    // Update page
+    await allowUpdate();
+
+    // Continue sorting
+    return true;
+}
