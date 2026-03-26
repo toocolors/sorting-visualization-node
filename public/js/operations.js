@@ -154,14 +154,6 @@ function clearClass(className) {
 }
 
 /**
- * Removes the cursor class from the box at index.
- * @param {Number} index An array index.
- */
-function clearCursor(index) {
-    elements[index].classList.remove("cursor");
-}
-
-/**
  * Ends the sorting algorithm.
  * Waits until sorting is false to return.
  */
@@ -244,12 +236,4 @@ function resetOperationCounts() {
  */
 function setComplete(index) {
     elements[index].classList.add("complete");
-}
-
-/**
- * Sets the box at the listed array as a cursor.
- * @param {Number} index An array index.
- */
-function setCursor(index) {
-    elements[index].classList.add("cursor");
 }

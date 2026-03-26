@@ -51,6 +51,14 @@ async function checkSortstate() {
 }
 
 /**
+ * Removes the cursor class from the box at index.
+ * @param {Number} index An array index.
+ */
+function clearCursor(index) {
+    elements[index].classList.remove("cursor");
+}
+
+/**
  * Pauses the sorting algorithm to let the page update.
  */
 function allowUpdate() {
@@ -80,4 +88,12 @@ function playAudio(value) {
     // Start Sound
     gain.gain.setValueAtTime(0.1, audio.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + 0.05);
+}
+
+/**
+ * Sets the box at the listed array as a cursor.
+ * @param {Number} index An array index.
+ */
+function setCursor(index) {
+    elements[index].classList.add("cursor");
 }
