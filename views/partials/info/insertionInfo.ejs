@@ -1,3 +1,26 @@
 <h1>Insertion Sort</h1>
-<h2>Insertion Sort</h2>
-<p>Insertion Sort</p>
+<p>
+    Insertion Sort works by looping through the array.
+    At each step it checks if the current element is in the correct position
+    by seeing whether it is greater than the previous element or not.
+    If the current element is smaller than the previous, it will swap the two.
+    Then, it will move backwards in the array, 
+    checking the current and previous and swapping them if needed.
+    It repeats this until the elements do not need to be swapped.
+    Then it jumps to its original position in the array and continues looping forwards.
+    The algorithm is finished once it reached the end of the array, 
+    after swapping the last element if need be.
+    <br>
+    <br>
+    Insertion Sort essentially builds a sorted array on the left side of the full array,
+    and inserts each element into this sorted section one at a time. 
+    This is where it gets its name.
+    <br>
+    <br>
+    Insertion Sort performs quicker than other algorithms with a <b>n<sup>2</sup></b>
+    Time Complexity, like Bubble and Selection Sort, but it is still considered slow.
+</p>
+
+<%- include('../tableHead') %>
+    <%- include('../tables/insertionTable') %>
+</table>

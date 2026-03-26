@@ -87,6 +87,15 @@ document.getElementById("mute").addEventListener("click", (event) => {
 
 window.addEventListener("resize", switchOrientation);
 
+document.getElementById("Random").addEventListener("click", () => {
+    // Get random algorithm
+    const links = document.getElementsByClassName("algoLink");
+    const link = links[Math.floor(Math.random() * links.length)];
+
+    // Load Algorithm
+    getScript(link);
+});
+
 // ************************************************************************************************
 // Functions
 // ************************************************************************************************

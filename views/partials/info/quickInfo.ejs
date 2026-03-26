@@ -1,3 +1,46 @@
 <h1>Quick Sort</h1>
-<h2>Quick Sort</h2>
-<p>Quick Sort</p>
+<p>
+    Quick Sort begins by selecting an element from the array, 
+    usually the left-most, right-most, or middle element. 
+    This element is usually called the pivot.
+    Then we swap the pivot into the first position in the array.
+    <br>
+    <br>
+    Then Quick Sort sets two variables, which we will call <b>A</b> and <b>B</b>, 
+    as the second and last indices of the array respectively.
+    It will then loop <b>A</b> up through the array until <b>A</b> finds an element
+    that is larger than the pivot.
+    Once it does, it will begin to loop <b>B</b> back through the array
+    until <b>B</b> finds an element that is smaller than the pivot.
+    Finally, it will swap the elements at <b>A</b> and <b>B</b>
+    then continue to loop <b>A</b> through the array.
+    It will repeat this process until <b>A</b> and <b>B</b> meet, 
+    at which point it will swap the pivot and the element behind <b>A</b> and <b>B</b>.
+    <br>
+    <br>
+    At this point the array is split into three sections. 
+    Everything smaller than the pivot is to the left,
+    everything bigger than it is to the right,
+    and the pivot itself is in the center.
+    Next, Quick Sort repeats the entire process from before for both the left and right sections.
+    It will continue to do this until it reaches a section that is empty or only has one element.
+    <br>
+    <br>
+    At best, Quick Sort splits the array in half each time. 
+    On average it splits the array into two halves, two sections of 1/3 and 2/3, or somewhere in between.
+    In the worst case it splits the array into just two sections every repetition, the pivot and everything else.
+    If you want to see the worst case, try running Quick Sort on an ascending or descending array!
+    <br>
+    <br>
+    Although Quick Sort doe not make a copy of the array, 
+    it uses extra data based on how many times it splits the array, 
+    making it use more memory for larger arrays.
+    <br>
+    <br>
+    Despite Quick Sort's poorly performing worst case, 
+    Quick Sort is widely used do to its good average Time Complexity.
+</p>
+
+<%- include('../tableHead') %>
+    <%- include('../tables/quickTable') %>
+</table>

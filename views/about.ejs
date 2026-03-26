@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Sorting Visualization</title>
+    <link rel="stylesheet" href="/css/globalStyles.css">
+    <link rel="stylesheet" href="/css/aboutStyles.css">
+    <link rel="stylesheet" href="/css/navStyles.css">
+</head>
+<body>
+    <!-- Container -->
+    <div id="container">
+        <!-- Nav -->
+        <%- include('partials/nav.ejs') %>
+        <div id="overlay"></div>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Top Bar -->
+            <div id="topBar">
+                    <!-- Hamburger Button -->
+                    <button id="menuToggle">☰</button>
+
+                    <!-- Heading -->
+                    <h1 id="mainHeading">About</h1>
+            </div>
+
+            <!-- Information -->
+            <div id="flexbox">
+                <div class="border">
+                    <p>
+                        Want to jump straight into the visualization?
+                        <a id="RandomAbout" href="#">Click Here</a> to see a random algorithm!
+                    </p>
+                    
+                    <!-- Introduction -->
+                    <h2>What is this?</h2>
+                    <p>
+                        This website is a Sorting Algorithm Visualization.
+                        <br>
+                        First, what is a Sorting Algorithm?
+                        <br>
+                        Imagine we have a list of numbers like [5, 4, 3, 2, 1], 
+                        and that we wanted to sort them from lowest to highest.
+                        <br>
+                        How would you do that? You could look for the smallest one, 
+                        or you might go through the list while moving each number down the list if needed.
+                        <br>
+                        Algorithms are step-by-step processes we take to solve a problem. 
+                        Algorithms that sort things are called Sorting Algorithms.
+                        <br>
+                        <br>
+                        Sorting Algorithms are widely used. 
+                        Say that you want to look at a list of countries by alphabetization. 
+                        <br>
+                        We would need a Sorting Algorithm to know how to get the countries in the right order.
+                        <br>
+                        <br>
+                        And what is a Visualization? 
+                        <br>
+                        Normally we cannot see a Sorting Algorithm in action, i.e. as it is changing the data.
+                        <br>
+                        Visualizers show the data in a way that is easy to digest, such as a graph for numbers.
+                        <br>
+                        <br>
+                        Below, you will find more information about Sorting Algorithms,
+                        and some basic information about specific ones.
+                        <br>
+                        You can click on the names of these algorithms to navigate to the visualizer screen.
+                        You can also open the sidebar by pressing the button in the top left corner and click on the links there.
+                        <br>
+                        <br>
+                        Note: The performance and behavior of the algorithms in the visualization may not
+                        match real-life performance and behavior. 
+                        This visualization is designed to help teach about algorithms and how they function.
+                    </p>
+                </div>
+
+                <div class="border">
+                    <h2>Terminology</h2>
+                    <p>
+                        When discussing how efficient or "good" a Sorting Algorithm is, 
+                        we often look at a handful of characteristics: 
+                        <b>Time Complexity</b>, 
+                        <b>Space Efficiency</b>, 
+                        <b>Stability</b>, 
+                        and <b>In-place</b>.
+
+                        <!-- Time Efficiency -->
+                        <h3>Time Complexity</h3>
+                        Time Complexity, also called Time Efficiency, measures how long an algorithm takes to sort a list.
+                        <br>
+                        We use the notation <b>n</b> when measuring Time Complexity. If we had a list of five numbers, <b>n</b> would be 5.
+                        <br>
+                        Then, in order from best to worst, we typically use the following to measure Time Complexity:
+                        <ol>
+                            <li><b>1</b>: Always takes the same amount of time, regardless of <b>n</b>. This would be a single operation, like reading the value of a certain number from the list.</li>
+                            <li><b>logn</b>: Scales logarithmically with <b>n</b>.</li>
+                            <li><b>n</b>: Scales linearly with <b>n</b>.</li>
+                            <li><b>n logn</b>: Scales in between linearly and quadratically.</li>
+                            <li><b>n<sup>2</sup></b>: Scales quadratically with <b>n</b>.</li>
+                            <li><b>n<sup>3</sup></b>: Scales cubically with <b>n</b>.</li>
+                            <li><b>2<sup>n</sup></b>: Scales exponentially with <b>n</b>.</li>
+                            <li><b>n!</b>: Scales factorially with <b>n</b>.</li>
+                        </ol>
+                        So, if we have a list of 5 numbers, and we used an algorithm with a Time Complexity of <b>n<sup>2</sup></b>, 
+                        then our final Time Complexity would be 25.
+                        <br>
+                        <br>
+                        We cannot use Time Complexity to exactly predict how long it will take to sort a list.
+                        This is because the actual time varies based on different hardware, how quickly a computer is operating at that moment,
+                        and what other work the computer may be doing at the same time.
+                        <br>
+                        Instead, we use Time Complexity to say generally how quickly an algorithm will work,
+                        especially when compared to other algorithms.
+
+                        <!-- Space Efficiency -->
+                        <h3>Space Complexity</h3>
+                        Space Complexity measures how much additional memory an algorithm uses when sorting.
+                        <br>
+                        It uses the same notation as Time Complexity.
+                        <br>
+                        <br>
+                        During the early development of computers memory was very limited, 
+                        so it may have been necessary to choose an algorithm with better Space Complexity over better Time Complexity.
+                        Today this matters less for smaller lists, but this can still be relevant for large lists of information.
+
+                        <!-- Stable -->
+                        <h3>Stability</h3>
+                        An algorithm is considered stable if all elements with the same value are in the same order after being sorted.
+                        Conversely, an algorithm is considered unstable if not all elements with the same value are in the same order afterwards.
+                        <br>
+                        <br>
+                        For example, take the list: [3, 1, <i>3</i>, 4, <b>3</b>, 2]. Notice how there are three 3s, one italic, one bold, and one regular.
+                        <br>
+                        A stable algorithm would sort the list to: [1, 2, 3, <i>3</i>, <b>3</b>, 4]. The threes are in the same order as before.
+                        <br>
+                        An unstable algorithm would sort the list to: [1, 2, <b>3</b>, 3, <i>3</i>, 4]. Now the threes are in a different order.
+                        <br>
+                        <br>
+                        Stability matters when dealing with several types of data.
+                        <br>
+                        Lets say that you wanted to sort a list of countries by continent and name.
+                        We would have to sort the list twice, first by name, then by continent. 
+                        If we used an unstable algorithm, the names may no longer be sorted by name after sorting them by continent.
+                        We would need a stable algorithm to be able to sort the list in multiple ways.
+
+                        <!-- In-Place -->
+                        <h3>In-Place</h3>
+                        <p>
+                            An in-place algorithm writes directly to the array while it is sorting,
+                            while an out-of-place algorithm first writes to a secondary array, and later writes to the main array.
+                            <br><br>
+                            Whether an algorithm is in-place or not typically correlates with its Space Complexity,
+                            with an in-place algorithm often having a lower Space Complexity than an out-of-place one.
+                        </p>
+                    </p>
+                </div>
+
+                <div class="border">
+                    <!-- Heading -->
+                    <h2>Principle Sorts</h2>
+
+                    <!-- Descripion -->
+                    <p>
+                        These are Sorting Algorithms that are widely used, often used for comparing to other algorithms,
+                        or are notable in some other way.
+                    </p>
+
+                    <!-- Table -->
+                    <%- include('partials/tableHead.ejs') %>
+                        <!-- Bubble Sort -->
+                        <%- include('partials/tables/bubbleTable.ejs') %>
+
+                        <!-- Insertion Sort -->
+                        <%- include('partials/tables/insertionTable.ejs') %>
+
+                        <!-- Selection Sort -->
+                        <%- include('partials/tables/selectionTable.ejs') %>
+
+                        <!-- Quick Sort -->
+                        <%- include('partials/tables/quickTable.ejs') %>
+                    </table>
+
+                </div>
+
+                <div class="border">
+                    <!-- Heading -->
+                    <h2>Asynchronous Sorts</h2>
+
+                    <!-- Descripion -->
+                    <p>
+                        Many algorithms run synchronously, 
+                        meaning a computer could not perform seperate sections at the same time.
+                        <br>
+                        Imagine a group of people where each is trying to find the smallest number in a list.
+                        At best they would find the same number as the smallest, and at worst they might cause one another to make mistakes.
+                        <br>
+                        <br>
+                        However, some algorithms lend themselves to having different sections sorted at the same time.
+                        Imagine if two people split the list into two halves, then sorted each half independently.
+                        In this case they would not risk messing each other up, because they are working on different sections.
+                        <br>
+                        <br>
+                        Each of the algorithms listed here can be ran asynchronously. 
+                        Each is a variation of an algorithm that runs asynchronously.
+                        <br>
+                        <br>
+                        Note: This page uses JavaScript, which cannot truly run asynchronous code. 
+                        The performance of these algorithms may not reflect how their real-life performance,
+                        but the visualization will give you an idea of how they behave.
+                    </p>                    
+
+                    <!-- Table -->
+                    <%- include('partials/tableHead.ejs') %>
+                    </table>
+                </div>
+
+                <div class="border">
+                    <!-- Heading -->
+                    <h2>Joke Sorts</h2>
+
+                    <!-- Descripion -->
+                    <p>
+                        These are unpractical algorithms that were designed as a thought experiment,
+                        joke, or something similar.
+                        <br>
+                        Although these are not used in the real-world,
+                        it can be useful and fun to learn and watch these algorithms.
+                    </p>
+
+                    <!-- Table -->
+                    <%- include('partials/tableHead.ejs') %>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/sidebar.js" type="text/javascript"></script>
+    <script src="/js/about.js" type="text/javascript"></script>
+</body>
+</html>

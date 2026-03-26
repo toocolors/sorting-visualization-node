@@ -1,3 +1,35 @@
 <h1>Selection Sort</h1>
-<h2>Selection Sort</h2>
-<p>Selection Sort</p>
+<p>
+    Selection sort loops the array and finds the smallest element 
+    by checking if each one is smaller than the current smallest one.
+    After reaching the end of the array it swaps the first element with the smallest one.
+    Then it repeats the process again, starting starting one element ahead of where it started before.
+    <br>
+    <br>
+    Because it always swaps the next smallest element into place, 
+    Selection Sort writes to the array the fewest number of time possible.
+    <br>
+    <br>
+    Similar to Bubble Sort, Selection Sort known for its simplicity, but also its slowness.
+    Selection Sort always takes the same amount of time, 
+    whether the array is already sorted, is almost sorted, or unsorted.
+    Selection Sort is faster than Bubble Sort on average, 
+    but Bubble Sort will run faster on sorted or almost sorted arrays.
+    It is used when a simple to write algorithm is needed, not a fast one.
+</p>
+
+<%- include('../tableHead') %>
+    <%- include('../tables/selectionTable') %>
+</table>
+
+<h2>Double Selection Sort</h2>
+<p>
+    Double Selection Sort is a variation of Selection Sort 
+    that finds the largest element in the array in addition to the smallest. 
+    Then, it swaps both the largest element with the last element, 
+    and the smallest element with the first.
+    <br>
+    <br>
+    Because Double Selection Sort swaps two elements each loop, 
+    it always finishes twice as quickly as Selection Sort.
+</p>
