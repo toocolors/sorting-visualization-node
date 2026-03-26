@@ -110,12 +110,12 @@ async function startStep(index = -1, isAudio = false) {
     }
 
     // Set index as cursor
-    if(index <= 0) {
+    if(index >= 0) {
         setCursor(index);
     }
 
     // Play audio
-    if(isAudio === true) {
+    if(isAudio === true && index >= 0) {
         playAudio[array[index]];
     } else if(typeof isAudio === "number") {
         playAudio[array[isAudio]];
