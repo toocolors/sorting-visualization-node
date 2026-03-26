@@ -64,6 +64,11 @@
                         <br>
                         You can click on the names of these algorithms to navigate to the visualizer screen.
                         You can also open the sidebar by pressing the button in the top left corner and click on the links there.
+                        <br>
+                        <br>
+                        Note: The performance and behavior of the algorithms in the visualization may not
+                        match real-life performance and behavior. 
+                        This visualization is designed to help teach about algorithms and how they function.
                     </p>
                 </div>
 
@@ -180,6 +185,24 @@
                     <h2>Asynchronous Sorts</h2>
 
                     <!-- Descripion -->
+                    <p>
+                        Many algorithms run synchronously, 
+                        meaning a computer could not perform seperate sections at the same time.
+                        <br>
+                        Imagine a group of people where each is trying to find the smallest number in a list.
+                        At best they would find the same number as the smallest, and at worst they might cause one another to make mistakes.
+                        <br>
+                        <br>
+                        However, some algorithms lend themselves to having different sections sorted at the same time.
+                        Imagine if two people split the list into two halves, then sorted each half independently.
+                        In this case they would not risk messing each other up, because they are working on different sections.
+                        <br>
+                        <br>
+                        Each of the algorithms listed here can be ran asynchronously. 
+                        Each is a variation of an algorithm that runs asynchronously.
+                        <br>
+                        Links to asynchronous-specific versions are listed below.
+                    </p>                    
 
                     <!-- Table -->
                     <%- include('partials/tableHead.ejs') %>
