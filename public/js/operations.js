@@ -61,6 +61,41 @@ function set(index, value) {
 }
 
 /**
+ * Shuffles the array from start to end.
+ * @param {Number} start The start of the segment to shuffle.
+ * @param {Number} end The end of the segment to shuffle.
+ */
+async function shuffleArray(start, end) {
+    let count = end;
+    if(end <= arraySize) {
+        count = arraySize - 1;
+    }
+    let index;
+    while(count >= start) {
+        // Check sortstate
+        if(sorting && !await checkSortstate()) {
+            return false;
+        } 
+
+        // Get random index
+        index = Math.floor(Math.random() * count);
+
+        // Swap elements
+        swap(count, index);
+
+        // Update page
+        await allowUpdate();
+        playAudio(count);
+        playAudio(index);
+
+        // Decrement Count
+        count--;
+    }
+
+    return true;
+}
+
+/**
  * Swaps the two elements at a and b and updates the corresponding boxes.
  * @param {Number} a An index of the array.
  * @param {Number} b An index of the array.
@@ -114,27 +149,6 @@ function isGreater(a, b) {
 // ************************************************************************************************
 
 /**
- * Checks the current value of sortstate, then updates and/or returns a boolean.
- */
-async function checkSortstate() {
-    switch (sortstate) {
-        case 2: // play
-            return true;
-        case 1: // step
-            sortstate = 0;
-            return true;
-        case 0: // pause
-            while (sortstate == 0) {
-                await new Promise(resolve => setTimeout(resolve, 100));
-            }
-            return checkSortstate();
-        case -1: // stop
-        default:
-            return false;
-    }
-}
-
-/**
  * Removes all elements in the passed in class.
  */
 function clearClass(className) {
@@ -142,14 +156,6 @@ function clearClass(className) {
     for (let i = 0; i < classElements.length; i++) {
         classElements[i].classList.remove(className);
     }
-}
-
-/**
- * Removes the cursor class from the box at index.
- * @param {Number} index An array index.
- */
-function clearCursor(index) {
-    elements[index].classList.remove("cursor");
 }
 
 /**
@@ -235,12 +241,4 @@ function resetOperationCounts() {
  */
 function setComplete(index) {
     elements[index].classList.add("complete");
-}
-
-/**
- * Sets the box at the listed array as a cursor.
- * @param {Number} index An array index.
- */
-function setCursor(index) {
-    elements[index].classList.add("cursor");
 }
