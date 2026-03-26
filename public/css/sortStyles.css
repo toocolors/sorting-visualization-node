@@ -84,12 +84,29 @@ input[type="range"]:hover {
 }
 
 #generate,
-#generateGrayed {
+#generateGrayed,
+#shuffle,
+#shuffleGrayed {
     height: 100%;
     min-width: 100px;
     width: 50%;
     white-space: nowrap;
     margin: 0;
+    padding: 10px;
+    border: none;
+}
+
+#generate, #shuffle {
+    background: #2f6fff;
+    color: white;
+}
+
+#generateGrayed, #shuffleGrayed {
+    cursor: not-allowed;
+}
+
+#generate:hover, #shuffle:hover {
+    background: #1f4fcc;
 }
 
 /* Information Styles */
@@ -308,22 +325,4 @@ input[type="range"]:hover {
 
 .hide {
     display: none;
-}
-
-#generate, #generateGrayed {
-    padding: 10px;
-    border: none;
-}
-
-#generate {
-    background: #2f6fff;
-    color: white;
-}
-
-#generateGrayed {
-    cursor: not-allowed;
-}
-
-#generate:hover {
-    background: #1f4fcc;
 }
