@@ -254,6 +254,15 @@ async function fillSortSelect() {
         // Add Option
         sortSelect.add(option);
     }
+
+    // Hide sort select div if there are 1 or 0 options.
+    if(sortSelect.options.length <= 1) {
+        // Hide
+        document.getElementById("sortSelectDiv").style.display = "none";
+    } else {
+        // Show
+        document.getElementById("sortSelectDiv").style.display = "block";
+    }
 }
 
 /**
