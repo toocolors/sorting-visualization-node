@@ -97,6 +97,12 @@ input[type="range"]:hover {
     margin-top: 10px;
 }
 
+#information h1,
+#information h2,
+#information p {
+    margin-left: 5px;
+}
+
 /* Visualization Styles */
 #visualization {
     height: 100%;
