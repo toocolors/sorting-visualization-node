@@ -1,3 +1,50 @@
 <h1>Bubble Sort</h1>
-<h2>Bubble Sort</h2>
-<p>Bubble Sort</p>
+<p>
+    Bubble Sort is a sorting algorithm that is well-known for its simplicity.
+    <br>
+    <br>
+    Bubble Sort loops through the array, 
+    and at each step checks if the current element is less than the previous.
+    If it is, then Bubble Sort swaps the two elements.
+    Either way, it then continues to the next element.
+    It does this until it reaches the end of the array, then it loops through the array again.
+    Bubble Sort repeats this until it does not make any swaps during a loop, meaning the array is sorted.
+    <br>
+    <br>
+    At the end of each loop the next largest element in the array is placed at the end.
+    A common optimization, which this visualization uses, is to stop one step ealier each loop, 
+    since the end of the array is already sorted.
+    <br>
+    <br>
+    Bubble Sort is also well known for its slowness. 
+    It performs much slower than other sorting algorithms.
+    It is normally used for when an easy-to-write algorithm is needed, or to compare against other algorithms.
+</p>
+
+<%- include('../tableHead') %>
+    <%- include('../tables/bubbleTable') %>
+</table>
+
+<h2>Cocktail Shaker Sort</h2>
+<p>
+    Cocktail Shaker Sort, also called Cocktail Sort, Shaker Sort, or Shuffle Sort, 
+    is a well-known variation of Bubble Sort.
+    <br>
+    <br>
+    It works the same as Bubble Sort, but after reaching the end of the array, 
+    it loops back to the beginning before starting over.
+    While heading back to the beginning of the array, 
+    it continues to swap the current and previous element (now the next element since it is traveling backwards),
+    if they are out of order.
+    <br>
+    <br>
+    Cocktail Shaker Sort places the next smallest element at the beginning of the array 
+    as well as the next largest one at the end.
+    A similar optimization as Bubble sort is often used, 
+    where Cocktail Shaker Sort will start and stop looping one element sooner or later each time.
+    As before, this visualization uses this optimization.
+    <br>
+    <br>
+    On average Cocktail Shaker Sort is slightly quicker than Bubble Sort, 
+    but it is still much slower than other algorithms.
+</p>
