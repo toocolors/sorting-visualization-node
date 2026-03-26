@@ -27,7 +27,9 @@ function setLinks() {
     links = document.querySelectorAll("#asyncSection a");
     for(let i = 0; i < links.length; i++) {
         links[i].textContent = "Async-" + links[i].textContent;
-        links[i].href = 'Async' + links[i].href;
+        const str = links[i].href;
+        const idIndex = str.indexOf('=');
+        links[i].href = str.substring(0, idIndex + 1) + 'Async' + str.substring(idIndex + 1);
     }
 }
 
