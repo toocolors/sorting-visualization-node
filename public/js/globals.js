@@ -119,9 +119,9 @@ async function startStep(index = -1, isAudio = true) {
 
     // Play audio
     if(isAudio === true && index >= 0) {
-        playAudio[array[index]];
+        playAudio(array[index]);
     } else if(typeof isAudio === "number") {
-        playAudio[array[isAudio]];
+        playAudio(array[isAudio]);
     }
 
     // Continue sorting
