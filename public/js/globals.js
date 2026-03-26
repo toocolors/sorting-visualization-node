@@ -103,7 +103,7 @@ function setCursor(index) {
  * @param {Number} index The index of an array element.
  * @param {*} isAudio true = play audio using index, false = do not play audio, Number = play audio using Number.
  */
-async function startStep(index = -1, isAudio = false) {
+async function startStep(index = -1, isAudio = true) {
     // Check sortstate
     if(!await checkSortstate()) {
         return false;
