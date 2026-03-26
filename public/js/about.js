@@ -18,9 +18,16 @@ setLinks();
  */
 function setLinks() {
     // Get algoLinks
-    const links = document.getElementsByClassName("algoLink");
+    let links = document.getElementsByClassName("algoLink");
     for(let i = 0; i < links.length; i++) {
         links[i].href = `/algorithm?id=${links[i].id}`;
+    }
+
+    // Get Async Section Links
+    links = document.querySelectorAll("#asyncSection a");
+    for(let i = 0; i < links.length; i++) {
+        links[i].textContent = "Async-" + links[i].textContent;
+        links[i].href = 'Async' + links[i].href;
     }
 }
 
