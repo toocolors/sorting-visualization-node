@@ -28,7 +28,31 @@ oscillator.start();
 // ************************************************************************************************
 // Functions
 // ************************************************************************************************
-// helper function to use a setTimeout as a promise.
+
+/**
+ * Checks the current value of sortstate, then updates and/or returns a boolean.
+ */
+async function checkSortstate() {
+    switch (sortstate) {
+        case 2: // play
+            return true;
+        case 1: // step
+            sortstate = 0;
+            return true;
+        case 0: // pause
+            while (sortstate == 0) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            return checkSortstate();
+        case -1: // stop
+        default:
+            return false;
+    }
+}
+
+/**
+ * Pauses the sorting algorithm to let the page update.
+ */
 function allowUpdate() {
     // Get Speed
     let speed;
@@ -43,6 +67,10 @@ function allowUpdate() {
     });
 }
 
+/**
+ * Plays audio based on value.
+ * @param {Number} value The value of an array element. 
+ */
 function playAudio(value) {
     // Get frequency
     const frequency = 220 * Math.pow(2, value / arraySize * 3);

@@ -61,6 +61,36 @@ function set(index, value) {
 }
 
 /**
+ * Shuffles the array from start to end.
+ * @param {Number} start The start of the segment to shuffle.
+ * @param {Number} end The end of the segment to shuffle.
+ */
+async function shuffleArray(start, end) {
+    let count = arraySize;
+    let index;
+    while(count > 0) {
+        // Check sortstate
+        if(sorting && !await checkSortstate()) {
+            return false;
+        } 
+
+        // Get random index
+        index = Math.floor(Math.random() * count);
+
+        // Swap elements
+        swap(count, index);
+
+        // Update page
+        await allowUpdate();
+        playAudio(count);
+        playAudio(index);
+
+        // Decrement Count
+        count--;
+    }
+}
+
+/**
  * Swaps the two elements at a and b and updates the corresponding boxes.
  * @param {Number} a An index of the array.
  * @param {Number} b An index of the array.
@@ -112,27 +142,6 @@ function isGreater(a, b) {
 // ************************************************************************************************
 // Helper Functions
 // ************************************************************************************************
-
-/**
- * Checks the current value of sortstate, then updates and/or returns a boolean.
- */
-async function checkSortstate() {
-    switch (sortstate) {
-        case 2: // play
-            return true;
-        case 1: // step
-            sortstate = 0;
-            return true;
-        case 0: // pause
-            while (sortstate == 0) {
-                await new Promise(resolve => setTimeout(resolve, 100));
-            }
-            return checkSortstate();
-        case -1: // stop
-        default:
-            return false;
-    }
-}
 
 /**
  * Removes all elements in the passed in class.
