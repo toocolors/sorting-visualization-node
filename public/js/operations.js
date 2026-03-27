@@ -135,11 +135,22 @@ function isEqual(a, b) {
  * Checks if element a is equal to or greater than element b.
  * @param {Number} a An index of the array.
  * @param {Number} b An index of the array.
- * @returns true: a == b, false: a != b
+ * @returns true: a >= b, false: a < b
  */
 function isEqualOrGreater(a, b) {
     incrementOperation("comparisons");
     return get(a) >= get(b);
+}
+
+/**
+ * Checks if element a is equal to or greater than element b.
+ * @param {Number} a An index of the array.
+ * @param {Number} b An index of the array.
+ * @returns true: a <= b, false: a > b
+ */
+function isEqualOrLess(a, b) {
+    incrementOperation("comparisons");
+    return get(a) <= get(b);
 }
 
 /**
@@ -151,6 +162,17 @@ function isEqualOrGreater(a, b) {
 function isGreater(a, b) {
     incrementOperation("comparisons");
     return get(a) > get(b);
+}
+
+/**
+ * Checks if element a is greater than element b.
+ * @param {Number} a An index of the array.
+ * @param {Number} b An index of the array.
+ * @returns true: a < b, false: a > b
+ */
+function isLess(a, b) {
+    incrementOperation("comparisons");
+    return get(a) < get(b);
 }
 
 // ************************************************************************************************
