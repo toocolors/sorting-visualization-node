@@ -300,13 +300,18 @@ function getOptions() {
     const sortId = document.getElementById('sortSelect').value;
     const optionsDiv = document.getElementById('optionsDiv');
 
-    if (currentAlgorithm.optionsList === undefined ||
-        currentAlgorithm.optionsList[sortId] === undefined) {
+    if (currentAlgorithm.optionsList === undefined) {
         // Empty optionsDiv
         optionsDiv.innerHTML = '';
-    } else {
-        // Fill optionsDiv
+    } else if(currentAlgorithm.optionsList[sortId] !== undefined) {
+        // Get options for selected algorithm variant
         optionsDiv.innerHTML = currentAlgorithm.optionsList[sortId];
+    } else if(currentAlgorithm.optionsList["default"] !== undefined) {
+        // Get default options for algorithm
+        optionsDiv.innerHTML = currentAlgorithm.optionsList["default"];
+    } else {
+        // Empty optionsDiv
+        optionsDiv.innerHTML = '';
     }
 }
 
