@@ -235,6 +235,31 @@ async function regenerateArray() {
 }
 
 /**
+ * Removes any elements with a value of less than 1 from the array.
+ */
+function removeZeros() {
+    if(!hasZero) {
+        return;
+    }
+
+    // Loop through array
+    let i = 0;
+    while(i < array.length) {
+        // Check if element < 1
+        if(array[i] < 1) {
+            // Remove element
+            array[i].splice();
+            elements[i].remove();
+            continue;
+        }
+
+        // Increment i
+        i++;
+    }
+
+}
+
+/**
  * Resets operation count spans to 0.
  */
 function resetOperationCounts() {

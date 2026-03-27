@@ -36,6 +36,9 @@ document.getElementById("shuffle").addEventListener("click", async () => {
     disableButton("play");
     disableButton("step");
 
+    // Remove Zeroes
+    removeZeros();
+
     // Shuffle Array
     await shuffleArray(0, arraySize);
 
@@ -175,6 +178,9 @@ async function beginSort() {
 
     // Reset Operation Counts
     resetOperationCounts();
+
+    // Remove Zeroes
+    removeZeros();
 
     // Start Sort
     for (let i = 0; i < currentAlgorithm.sortList.length; i++) {
