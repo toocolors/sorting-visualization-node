@@ -107,7 +107,10 @@ window.addEventListener("resize", switchOrientation);
 document.getElementById("Random").addEventListener("click", () => {
     // Get random algorithm
     const links = document.getElementsByClassName("algoLink");
-    const link = links[Math.floor(Math.random() * links.length)];
+    let link;
+    do {
+        link = links[Math.floor(Math.random() * links.length)];
+    } while(link.classList.contains("currentAlgo"));
 
     // Load Algorithm
     getScript(link);
