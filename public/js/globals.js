@@ -10,6 +10,7 @@ let containerHeight;
 const elements = document.getElementsByClassName("element");
 const gain = audio.createGain();
 let generated = false;
+let hasZero;
 let maxArraySize;
 const maxSpeed = 1000;
 let viewType = "landscape";

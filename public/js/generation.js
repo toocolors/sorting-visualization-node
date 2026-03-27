@@ -71,6 +71,9 @@ async function generateArray() {
             break;
     }
 
+    // Update hasZero
+    hasZero = false;
+
     // Update generating
     generated = true;
 

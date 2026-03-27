@@ -61,6 +61,15 @@ function set(index, value) {
 }
 
 /**
+ * Sets an array element to zero and updates hasZero
+ * @param {Number} index The index of the array element to set to zero.
+ */
+function setZero(index) {
+    hasZero = true;
+    set(index, 0);
+}
+
+/**
  * Shuffles the array from start to end.
  * @param {Number} start The start of the segment to shuffle.
  * @param {Number} end The end of the segment to shuffle.
