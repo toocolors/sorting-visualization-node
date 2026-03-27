@@ -143,7 +143,7 @@ function isEqualOrGreater(a, b) {
 }
 
 /**
- * Checks if element a is equal to or greater than element b.
+ * Checks if element a is equal to or less than element b.
  * @param {Number} a An index of the array.
  * @param {Number} b An index of the array.
  * @returns true: a <= b, false: a > b
@@ -165,7 +165,7 @@ function isGreater(a, b) {
 }
 
 /**
- * Checks if element a is greater than element b.
+ * Checks if element a is less than element b.
  * @param {Number} a An index of the array.
  * @param {Number} b An index of the array.
  * @returns true: a < b, false: a > b
