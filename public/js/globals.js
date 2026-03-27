@@ -14,6 +14,7 @@ let hasZero;
 let maxArraySize;
 const maxSpeed = 1000;
 let viewType = "landscape";
+let sorted;
 let sortstate = -1; // -1 = stop/no sorting active, 0 = pause, 1 = step, 2 = play
 const oscillator = audio.createOscillator();
 let sorting = false;
