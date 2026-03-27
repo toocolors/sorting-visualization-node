@@ -6,7 +6,6 @@
  * Creates a new element in array and arrayDiv.
  * @param {Number} index The index of the element.
  * @param {Number} value The value of the element.
- * @param {Number} width The width of the element.
  */
 function createElement(index, value) {
     // Add box on webpage
