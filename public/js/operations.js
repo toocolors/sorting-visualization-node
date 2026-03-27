@@ -8,7 +8,7 @@
  * @param {Number} value The value of the element.
  * @param {Number} width The width of the element.
  */
-function createElement(index, value, width) {
+function createElement(index, value) {
     // Add box on webpage
     const el = document.createElement("div");
     el.id = `element${index}`;
