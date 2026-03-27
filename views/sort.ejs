@@ -15,7 +15,7 @@
     <div id="container">
         <!-- Nav -->
         <%- include('partials/nav.ejs') %>
-        <div id="overlay"></div>
+            <div id="overlay"></div>
 
             <main>
                 <div id="topBar">
@@ -23,7 +23,9 @@
                     <button id="menuToggle">☰</button>
 
                     <!-- Heading -->
-                    <h1 id="mainHeading"><%= algorithmHeading %> Sort</h1>
+                    <h1 id="mainHeading">
+                        <%= algorithmHeading %> Sort
+                    </h1>
                 </div>
 
                 <div id="flexbox">
@@ -95,8 +97,8 @@
                             <button id="stopGrayed" class="sortControl grayed">&#x23F9;</button>
 
                             <!-- Audio Buttons -->
-                            <button id="unmute" class="sortControl">&#128362;</button>
-                            <button id="mute" class="sortControl hide">&#128360;</button>
+                            <button id="unmute" class="sortControl">&#128360;</button>
+                            <button id="mute" class="sortControl hide">&#128362;</button>
 
                             <div id="speedControl">
                                 <span id="speedSpan">Speed:</span>
