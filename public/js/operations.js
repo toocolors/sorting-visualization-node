@@ -42,6 +42,9 @@ function remove(index) {
 
     // Remove Box
     elements[index].remove();
+
+    // Update arraySize
+    arraySize = array.length;
 }
 
 /**
