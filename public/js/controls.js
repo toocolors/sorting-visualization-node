@@ -149,7 +149,12 @@ async function arrayCompleteLoop() {
     enableButton("stop");
 
     // Loop through array
-    for (let i = 0; sortstate == 2 && i < arraySize; i++) {
+    for (let i = 0; sortstate == 2 && i < array.length; i++) {
+        // Check if element i is valid
+        if(array[i] < 1) {
+            continue;
+        }
+
         setComplete(i);
         await allowUpdate();
         playAudio(array[i]);

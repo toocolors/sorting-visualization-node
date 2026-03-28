@@ -82,8 +82,13 @@ function allowUpdate() {
  * @param {Number} value The value of an array element. 
  */
 function playAudio(value) {
+    // Check if value is valid
+    if(value < 1) {
+        return;
+    }
+
     // Get frequency
-    const frequency = 220 * Math.pow(2, value / arraySize * 3);
+    const frequency = 220 * Math.pow(2, value / array.length * 3);
     oscillator.frequency.value = frequency;
     oscillator.type = "sine"; // sine, square, triangle, sawtooth
 

@@ -38,10 +38,13 @@ function get(index) {
 function remove(index) {
     // Delete Element
     incrementOperation("writes");
-    array.splice(index);
+    array.splice(index, 1);
 
     // Remove Box
-    elements[index].remove();
+    const el = elements[index];
+    if(el) {
+        el.remove();
+    }
 
     // Update arraySize
     arraySize = array.length;
@@ -226,27 +229,43 @@ function incrementOperation(operation) {
  * @returns true = continue sorting, false = stop sorting
  */
 async function isSorted(start, end) {
-    // Reset Sorted, smallest, largest
+    // Reset Sorted
     sorted = true;
+
+    // Clamp start and end
     if(start <= 0 || arraySize <= start) {
         start = 0;
     }
     if(end <= 0 || arraySize <= end) {
         end = arraySize - 1;
     }
+
+    // Check if array section too small
+    if(end - start <= 1) {
+        return true;
+    }
     
     // Loop through array
-    for(let i = start + 1; i <= end; i++) {
+    let last = 0;
+    for(let i = start + 1; i <= end && i < array.length; i++) {
+        // Check if element i is valid
+        if(array[i] < 1) {
+            continue;
+        }
+        
         // Start Step
         if(!await startStep(i, i)) {
             return false;
         }
 
-        if(isGreater(i - 1, i)){
+        if(isGreater(last, i)){
             clearCursor(i);
             sorted = false;
             return true;
         }
+
+        // Update last
+        last = i;
 
         // End Step
         clearCursor(i);
@@ -308,7 +327,7 @@ function removeZeros() {
         // Check if element < 1
         if(array[i] < 1) {
             // Remove element
-            array[i].splice();
+            array.splice(i, 1);
             elements[i].remove();
             continue;
         }
@@ -317,6 +336,8 @@ function removeZeros() {
         i++;
     }
 
+    // Update Array Size
+    arraySize = array.length;
 }
 
 /**
