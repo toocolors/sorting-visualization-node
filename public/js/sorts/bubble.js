@@ -1,7 +1,6 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
-let sorted;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["bubble", "Bubble Sort", bubbleSort], 
     ["cocktail", "Cocktail Sort", cocktailSort]

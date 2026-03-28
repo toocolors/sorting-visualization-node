@@ -6,13 +6,15 @@ let array = [];
 const arrayDiv = document.getElementById("visualization");
 let arraySize;
 const audio = new (window.AudioContext || window.webkitAudioContext)();
-let containerHeight;
+let maxHeight;
 const elements = document.getElementsByClassName("element");
 const gain = audio.createGain();
 let generated = false;
+let hasDeletion;
 let maxArraySize;
 const maxSpeed = 1000;
 let viewType = "landscape";
+let sorted;
 let sortstate = -1; // -1 = stop/no sorting active, 0 = pause, 1 = step, 2 = play
 const oscillator = audio.createOscillator();
 let sorting = false;
@@ -61,13 +63,14 @@ function clearCursor(index) {
 /**
  * Pauses the sorting algorithm to let the page update.
  */
-function allowUpdate() {
+function allowUpdate(speed = -1) {
     // Get Speed
-    let speed;
-    if (!sorting || sortstate == 0) {
-        speed = maxSpeed;
-    } else {
-        speed = Number(document.getElementById("speed").value);
+    if (speed == -1) {
+        if (!sorting || sortstate == 0) {
+            speed = maxSpeed;
+        } else {
+            speed = Number(document.getElementById("speed").value);
+        }
     }
 
     return new Promise((f) => {
@@ -80,8 +83,14 @@ function allowUpdate() {
  * @param {Number} value The value of an array element. 
  */
 function playAudio(value) {
+    // Check if value is valid
+    if (value <= 0) {
+        value = 1;
+    }
+
     // Get frequency
-    const frequency = 220 * Math.pow(2, value / arraySize * 3);
+    let frequency
+    frequency = 220 * Math.pow(2, value / maxHeight * 3);
     oscillator.frequency.value = frequency;
     oscillator.type = "sine"; // sine, square, triangle, sawtooth
 
@@ -104,23 +113,23 @@ function setCursor(index) {
  * @param {*} isAudio true = play audio using index, false = do not play audio, Number = play audio using Number.
  */
 async function startStep(index = -1, isAudio = true) {
-    // Check sortstate
-    if(!await checkSortstate()) {
-        return false;
-    }
-
     // Set index as cursor
-    if(index >= 0) {
+    if (index >= 0) {
         setCursor(index);
+    }
+    
+    // Check sortstate
+    if (!await checkSortstate()) {
+        return false;
     }
 
     // Update page
     await allowUpdate();
 
     // Play audio
-    if(isAudio === true && index >= 0) {
+    if (isAudio === true && index >= 0) {
         playAudio(array[index]);
-    } else if(typeof isAudio === "number") {
+    } else if (typeof isAudio === "number") {
         playAudio(array[isAudio]);
     }
 

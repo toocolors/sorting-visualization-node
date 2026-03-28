@@ -1,0 +1,35 @@
+<h1>Thanos Sort</h1>
+<p>
+    Thanos Sort begins by checking if the array is sorted.
+    If it is not sorted it removes half of the array elements at random.
+    It repeats this process until the array is sorted.
+    This usually results in only a couple of elements being left over from the original array.
+    <br><br>
+    Each time Thanos Sort removes an element, all elements afterwards must be shifted to fill the empty space.
+    Since Thanos Sort typically removes most of the array, this results in it
+    having an average and worst Time Complexity of <b>n<sup>2</sup></b>.
+</p>
+
+<%- include('../tableHead') %>
+    <%- include('../tables/thanosTable') %>
+</table>
+
+<h2>Options</h2>
+<p>
+    This visualization has three options for Thanos Sort: <b>Realistic</b>, <b>Instant</b>, and <b>Gaps</b>.
+    <ol>
+        <li>
+            <b>Realistic</b>: When removing elements from an array, 
+            everything after the element must be moved to fill the empty space.
+            This setting shows this process in the visualization.
+        </li>
+        <li>
+            <b>Instant</b>: This setting skips the shifting process described in <b>Realistic</b>,
+            making the removal happen instantly in the visualization.
+        </li>
+        <li>
+            <b>Gaps</b>: This setting also skips the shifting process and also leaves the empty space
+            created by the removed element. This makes it easier to see where elements have been removed.
+        </li>
+    </ol>
+</p>

@@ -6,9 +6,8 @@
  * Creates a new element in array and arrayDiv.
  * @param {Number} index The index of the element.
  * @param {Number} value The value of the element.
- * @param {Number} width The width of the element.
  */
-function createElement(index, value, width) {
+function createElement(index, value) {
     // Add box on webpage
     const el = document.createElement("div");
     el.id = `element${index}`;
@@ -39,25 +38,106 @@ function get(index) {
 function remove(index) {
     // Delete Element
     incrementOperation("writes");
-    array.splice(index);
+    let removed = array.splice(index, 1);
 
     // Remove Box
-    elements[index].remove();
+    const el = elements[index];
+    if (el) {
+        el.remove();
+    }
+
+    // Update operations
+    incrementOperation("writes", array.length - index);
+    incrementOperation("reads", array.length - index);
+
+    // Handle Deletion
+    if (removed >= maxHeight) {
+        hasDeletion = true;
+        handleDeletions();
+    }
+
+    // Update arraySize
+    arraySize = array.length;
+}
+
+/**
+ * Iterates the element to be removed to the right edge
+ * of the array, then deletes it.
+ * @param {Number} index The index of the element to remove.
+ */
+async function removeSlowly(index) {
+    // Store original value
+    const originalValue = array[index];
+
+    // Set value to zero
+    set(index, 0, false);
+
+    // Move elements over
+    for (let i = index + 1; i < array.length; i++) {
+        // Move element down
+        set(i - 1, get(i));
+        
+        // Start Step
+        if (sorting && !await startStep(i - 1)) {
+            return false;
+        }
+
+        // End Step
+        if(sorting) {
+            clearCursor(i - 1);
+        }
+    }
+
+    // Remove element at end of array
+    set(array.length - 1, originalValue, false);
+    remove(array.length - 1);
+
+    // Go back to sorting
+    return true;
 }
 
 /**
  * Writes the element at index to value and updates the corresponding box.
  * @param {Number} index The index of the array element to write.
  * @param {Number} value The value to write to the array.
+ * @param {Boolean} updateOperation Whether to update writes operation.
  */
-function set(index, value) {
+function set(index, value = null, updateOperation = true) {
     // Write element
-    incrementOperation("writes");
-    array[index] = value;
+    if (updateOperation) {
+        incrementOperation("writes");
+    }
+    if (value === null) {
+        value = array[index];
+    } else {
+        array[index] = value;
+    }
 
     // Update box
     elements[index].style.height = `
-        ${(value / arraySize) * 100}%`;
+        ${(value / maxHeight) * 100}%`;
+}
+
+/**
+ * Sets an array element to zero and updates hasZero
+ * @param {Number} index The index of the array element to set to zero.
+ */
+function setZero(index) {
+    // Set element to zero
+    hasDeletion = true;
+    set(index, 0, false);
+
+    // Get zeroes between index and array end
+    let zeroCount = 0;
+    for(let i = index + 1; i < array.length; i++) {
+        if(array[i] < 1) {
+            zeroCount++;
+        }
+    }
+
+    // Update operations
+    incrementOperation("writes", array.length - index - zeroCount);
+    incrementOperation("reads", array.length - index - zeroCount);
 }
 
 /**
@@ -67,15 +147,15 @@ function set(index, value) {
  */
 async function shuffleArray(start, end) {
     let count = end;
-    if(end <= arraySize) {
+    if (end <= arraySize) {
         count = arraySize - 1;
     }
     let index;
-    while(count >= start) {
+    while (count >= start) {
         // Check sortstate
-        if(sorting && !await checkSortstate()) {
+        if (sorting && !await checkSortstate()) {
             return false;
-        } 
+        }
 
         // Get random index
         index = Math.floor(Math.random() * count);
@@ -126,11 +206,22 @@ function isEqual(a, b) {
  * Checks if element a is equal to or greater than element b.
  * @param {Number} a An index of the array.
  * @param {Number} b An index of the array.
- * @returns true: a == b, false: a != b
+ * @returns true: a >= b, false: a < b
  */
 function isEqualOrGreater(a, b) {
     incrementOperation("comparisons");
     return get(a) >= get(b);
+}
+
+/**
+ * Checks if element a is equal to or less than element b.
+ * @param {Number} a An index of the array.
+ * @param {Number} b An index of the array.
+ * @returns true: a <= b, false: a > b
+ */
+function isEqualOrLess(a, b) {
+    incrementOperation("comparisons");
+    return get(a) <= get(b);
 }
 
 /**
@@ -142,6 +233,17 @@ function isEqualOrGreater(a, b) {
 function isGreater(a, b) {
     incrementOperation("comparisons");
     return get(a) > get(b);
+}
+
+/**
+ * Checks if element a is less than element b.
+ * @param {Number} a An index of the array.
+ * @param {Number} b An index of the array.
+ * @returns true: a < b, false: a > b
+ */
+function isLess(a, b) {
+    incrementOperation("comparisons");
+    return get(a) < get(b);
 }
 
 // ************************************************************************************************
@@ -177,20 +279,73 @@ function getWidth() {
 /**
  * Increments the passed in operation by 1.
  * @param {String} operation The name of an operation (without 'Span').
+ * @param {Number} increment The amount to increment by.
  */
-function incrementOperation(operation) {
+function incrementOperation(operation, increment = 1) {
     const current = Number(document.getElementById(`${operation}Span`).innerHTML);
-    document.getElementById(`${operation}Span`).innerHTML = current + 1;
-    if(operation === "reads" || operation === "writes") {
-        incrementOperation("accesses");
+    document.getElementById(`${operation}Span`).innerHTML = current + increment;
+    if (operation === "reads" || operation === "writes") {
+        incrementOperation("accesses", increment);
     }
+}
+
+/**
+ * Checks if the array is currently sorted.
+ * @param {Number} start The start of the section to check.
+ * @param {Number} end The end of the section to check (including).
+ * @returns true = continue sorting, false = stop sorting
+ */
+async function isSorted(start, end) {
+    // Reset Sorted
+    sorted = true;
+
+    // Clamp start and end
+    if (start <= 0 || arraySize <= start) {
+        start = 0;
+    }
+    if (end <= 0 || arraySize <= end) {
+        end = arraySize - 1;
+    }
+
+    // Check if array section too small
+    if (end - start < 1) {
+        return true;
+    }
+
+    // Loop through array
+    let last = 0;
+    for (let i = start + 1; i <= end && i < array.length; i++) {
+        // Check if element i is valid
+        if (array[i] < 1) {
+            continue;
+        }
+
+        // Start Step
+        if (!await startStep(i, i)) {
+            return false;
+        }
+
+        if (isGreater(last, i)) {
+            clearCursor(i);
+            sorted = false;
+            return true;
+        }
+
+        // Update last
+        last = i;
+
+        // End Step
+        clearCursor(i);
+    }
+
+    return true;
 }
 
 async function regenerateArray() {
     // Pause Sorting
     let wasSorting = false;
-    if(sorting) {
-        switch(sortstate) {
+    if (sorting) {
+        switch (sortstate) {
             case 2:
                 wasSorting = true;
                 break;
@@ -215,14 +370,66 @@ async function regenerateArray() {
     const width = getWidth();
 
     // Copy temp
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         createElement(i, array[i], width);
     }
 
     // Resume Sorting
-    if(wasSorting) {
+    if (wasSorting) {
         sortstate = 2;
     }
+}
+
+/**
+ * Removes any elements with a value of less than 1 from the array.
+ */
+function handleDeletions() {
+    if (!hasDeletion) {
+        return;
+    }
+
+    // Loop through array
+    let i = 0;
+    let largest = 0;
+    while (i < array.length) {
+        // Check if element < 1
+        if (array[i] < 1) {
+            // Remove element
+            array.splice(i, 1);
+            elements[i].remove();
+            continue;
+        }
+
+        // Check if element is largest so far
+        if (array[i] > array[largest]) {
+            largest = i;
+        }
+
+        // Increment i
+        i++;
+    }
+
+    // Update Array Size
+    arraySize = array.length;
+
+    // Check if new largest is smaller than maxHeight
+    let smaller = false;
+    if (array[largest] < maxHeight) {
+        smaller = true;
+    }
+
+    // Update maxHeight
+    maxHeight = array[largest];
+
+    // Update box heights
+    if (smaller) {
+        for (let i = 0; i < array.length; i++) {
+            set(i, null, false);
+        }
+    }
+
+    // Reset deletion trackers
+    hasDeletion = false;
 }
 
 /**
