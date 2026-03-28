@@ -47,6 +47,9 @@ async function generateArray() {
 
     // Generate array
     switch (arrayType) {
+        case "almost-sorted":
+            await generatePartiallySorted(50);
+            break;
         case "ascending":
             await generateAscending();
             break;
@@ -82,6 +85,33 @@ async function generateArray() {
     enableButton("shuffle");
     enableButton("play");
     enableButton("step");
+}
+
+/**
+ * Generates an array that is almost sorted.
+ */
+async function generatePartiallySorted(shuffleAmount) {
+    // Generate an ascending array
+    await generateAscending();
+
+    // Shuffle some elements of ascending
+    const shuffleCount = array.length / shuffleAmount;
+    for(let i = 0; i < shuffleCount; i++) {
+        // Get two random indices
+        const index1 = Math.floor(Math.random() * array.length);
+        let index2 = Math.floor(Math.random() * array.length);
+        if(index1 == index2) {
+            index2++;
+        }
+
+        // Swap the two indices
+        swap(index1, index2);
+
+        // Update Page
+        await allowUpdate();
+        playAudio(array[index1]);
+        playAudio(array[index2]);
+    }
 }
 
 /**
