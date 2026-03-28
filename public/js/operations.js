@@ -38,12 +38,18 @@ function get(index) {
 function remove(index) {
     // Delete Element
     incrementOperation("writes");
-    array.splice(index, 1);
+    let removed = array.splice(index, 1);
 
     // Remove Box
     const el = elements[index];
-    if(el) {
+    if (el) {
         el.remove();
+    }
+
+    // Handle Deletion
+    if (removed >= maxHeight) {
+        hasDeletion = true;
+        handleDeletions();
     }
 
     // Update arraySize
@@ -54,15 +60,23 @@ function remove(index) {
  * Writes the element at index to value and updates the corresponding box.
  * @param {Number} index The index of the array element to write.
  * @param {Number} value The value to write to the array.
+ * @param {Boolean} updateOperation Whether to update writes operation.
  */
-function set(index, value) {
+function set(index, value = null, updateOperation = true) {
     // Write element
-    incrementOperation("writes");
-    array[index] = value;
+    if (updateOperation) {
+        incrementOperation("writes");
+    }
+    if (value === null) {
+        value = array[index];
+    } else {
+        array[index] = value;
+    }
+
 
     // Update box
     elements[index].style.height = `
-        ${(value / array.length) * 100}%`;
+        ${(value / maxHeight) * 100}%`;
 }
 
 /**
@@ -70,7 +84,7 @@ function set(index, value) {
  * @param {Number} index The index of the array element to set to zero.
  */
 function setZero(index) {
-    hasZero = true;
+    hasDeletion = true;
     set(index, 0);
 }
 
@@ -81,15 +95,15 @@ function setZero(index) {
  */
 async function shuffleArray(start, end) {
     let count = end;
-    if(end <= arraySize) {
+    if (end <= arraySize) {
         count = arraySize - 1;
     }
     let index;
-    while(count >= start) {
+    while (count >= start) {
         // Check sortstate
-        if(sorting && !await checkSortstate()) {
+        if (sorting && !await checkSortstate()) {
             return false;
-        } 
+        }
 
         // Get random index
         index = Math.floor(Math.random() * count);
@@ -217,7 +231,7 @@ function getWidth() {
 function incrementOperation(operation) {
     const current = Number(document.getElementById(`${operation}Span`).innerHTML);
     document.getElementById(`${operation}Span`).innerHTML = current + 1;
-    if(operation === "reads" || operation === "writes") {
+    if (operation === "reads" || operation === "writes") {
         incrementOperation("accesses");
     }
 }
@@ -233,32 +247,32 @@ async function isSorted(start, end) {
     sorted = true;
 
     // Clamp start and end
-    if(start <= 0 || arraySize <= start) {
+    if (start <= 0 || arraySize <= start) {
         start = 0;
     }
-    if(end <= 0 || arraySize <= end) {
+    if (end <= 0 || arraySize <= end) {
         end = arraySize - 1;
     }
 
     // Check if array section too small
-    if(end - start < 1) {
+    if (end - start < 1) {
         return true;
     }
-    
+
     // Loop through array
     let last = 0;
-    for(let i = start + 1; i <= end && i < array.length; i++) {
+    for (let i = start + 1; i <= end && i < array.length; i++) {
         // Check if element i is valid
-        if(array[i] < 1) {
+        if (array[i] < 1) {
             continue;
         }
-        
+
         // Start Step
-        if(!await startStep(i, i)) {
+        if (!await startStep(i, i)) {
             return false;
         }
 
-        if(isGreater(last, i)){
+        if (isGreater(last, i)) {
             clearCursor(i);
             sorted = false;
             return true;
@@ -277,8 +291,8 @@ async function isSorted(start, end) {
 async function regenerateArray() {
     // Pause Sorting
     let wasSorting = false;
-    if(sorting) {
-        switch(sortstate) {
+    if (sorting) {
+        switch (sortstate) {
             case 2:
                 wasSorting = true;
                 break;
@@ -303,12 +317,12 @@ async function regenerateArray() {
     const width = getWidth();
 
     // Copy temp
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         createElement(i, array[i], width);
     }
 
     // Resume Sorting
-    if(wasSorting) {
+    if (wasSorting) {
         sortstate = 2;
     }
 }
@@ -316,20 +330,26 @@ async function regenerateArray() {
 /**
  * Removes any elements with a value of less than 1 from the array.
  */
-function removeZeros() {
-    if(!hasZero) {
+function handleDeletions() {
+    if (!hasDeletion) {
         return;
     }
 
     // Loop through array
     let i = 0;
-    while(i < array.length) {
+    let largest = 0;
+    while (i < array.length) {
         // Check if element < 1
-        if(array[i] < 1) {
+        if (array[i] < 1) {
             // Remove element
             array.splice(i, 1);
             elements[i].remove();
             continue;
+        }
+
+        // Check if element is largest so far
+        if (array[i] > array[largest]) {
+            largest = i;
         }
 
         // Increment i
@@ -338,6 +358,22 @@ function removeZeros() {
 
     // Update Array Size
     arraySize = array.length;
+
+    // Check if new largest is smaller than maxHeight
+    let smaller = false;
+    if (array[largest < maxHeight]) {
+        smaller = true;
+    }
+
+    // Update maxHeight
+    maxHeight = array[largest];
+
+    // Update box heights
+    if (smaller) {
+        for (let i = 0; i < array.length; i++) {
+            set(i, null, false);
+        }
+    }
 }
 
 /**

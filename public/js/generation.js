@@ -16,31 +16,31 @@ async function generateArray() {
     arraySize = Number(document.getElementById("arraySize").value);
 
     // Check array size
-    if(arraySize < 1 || maxArraySize < arraySize) {
+    if (arraySize < 1 || maxArraySize < arraySize) {
         // Get random array size
         arraySize = Math.floor(Math.random() * maxArraySize + 1)
     }
-    
+
     // Update generating
     generated = false;
 
     // Reset Operation Counts
     resetOperationCounts();
-    
+
     // Disable Controls
     disableButton("generate");
     disableButton("shuffle");
     disableButton("play");
     disableButton("step");
-    
+
     // Clear Current array
     array = new Array(arraySize);
 
+    // Update maxHeight
+    maxHeight = array.length;
+
     // Clear arrayDiv
     arrayDiv.innerHTML = "";
-
-    // Get arrayDiv height
-    containerHeight = arrayDiv.clientHeight;
 
     // Get array type
     let arrayType = document.getElementById('arrayType').value;
@@ -72,9 +72,9 @@ async function generateArray() {
     }
 
     // Update hasZero
-    hasZero = false;
+    hasDeletion = false;
 
-    // Update generating
+    // Update generated
     generated = true;
 
     // Enable Controls
@@ -94,7 +94,7 @@ async function generateAscending() {
     let width = Math.max(1, arrayDiv.clientWidth / arraySize);
 
     let num = 1;
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         // Update Page
         await allowUpdate();
 
@@ -116,13 +116,13 @@ async function generateAlternating() {
 
     let low = 1;
     let high = arraySize;
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         // Update Page
         await allowUpdate();
 
         // Get num and update high/low
         let num;
-        if(i % 2 == 1) {
+        if (i % 2 == 1) {
             num = low;
             low++;
         } else {
@@ -149,7 +149,7 @@ async function generateBellCurve() {
     let spread = arraySize / 6; // controls curve width
 
     let num = 1;
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         // Update Page
         await allowUpdate();
 
@@ -179,7 +179,7 @@ async function generateDescending() {
     let width = Math.max(1, arrayDiv.clientWidth / arraySize);
 
     let num = arraySize;
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         // Update Page
         await allowUpdate();
 
@@ -202,7 +202,7 @@ async function generatePyramid() {
     let width = Math.max(1, arrayDiv.clientWidth / arraySize);
 
     let num = 1;
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         // Update Page
         await allowUpdate();
 
@@ -213,7 +213,7 @@ async function generatePyramid() {
         playAudio(num);
 
         // Increment num
-        if(i < arraySize / 2) {
+        if (i < arraySize / 2) {
             num += 2;
         } else {
             num -= 2;
@@ -231,7 +231,7 @@ async function generateRandomDuplicates() {
     // Get element box width
     let width = Math.max(1, arrayDiv.clientWidth / arraySize);
 
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         // Update Page
         await allowUpdate();
 
@@ -259,11 +259,11 @@ async function generateRandomNoDuplicates() {
 
     // Create and fill temp array
     let tempArray = new Array(arraySize);
-    for(let i = 0; i < tempArray.length; i++) {
+    for (let i = 0; i < tempArray.length; i++) {
         tempArray[i] = i + 1;
     }
 
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         // Update Page
         await allowUpdate();
 

@@ -6,11 +6,11 @@ let array = [];
 const arrayDiv = document.getElementById("visualization");
 let arraySize;
 const audio = new (window.AudioContext || window.webkitAudioContext)();
-let containerHeight;
+let maxHeight;
 const elements = document.getElementsByClassName("element");
 const gain = audio.createGain();
 let generated = false;
-let hasZero;
+let hasDeletion;
 let maxArraySize;
 const maxSpeed = 1000;
 let viewType = "landscape";
@@ -65,7 +65,7 @@ function clearCursor(index) {
  */
 function allowUpdate(speed = -1) {
     // Get Speed
-    if(speed == -1) {
+    if (speed == -1) {
         if (!sorting || sortstate == 0) {
             speed = maxSpeed;
         } else {
@@ -84,17 +84,13 @@ function allowUpdate(speed = -1) {
  */
 function playAudio(value) {
     // Check if value is valid
-    if(value <= 0) {
+    if (value <= 0) {
         value = 1;
     }
 
     // Get frequency
     let frequency
-    if(value <= array.length) {
-        frequency = 220 * Math.pow(2, value / array.length * 3);
-    } else {
-        frequency = 220 * Math.pow(2, value / containerHeight * 3);
-    }
+    frequency = 220 * Math.pow(2, value / maxHeight * 3);
     oscillator.frequency.value = frequency;
     oscillator.type = "sine"; // sine, square, triangle, sawtooth
 
@@ -118,12 +114,12 @@ function setCursor(index) {
  */
 async function startStep(index = -1, isAudio = true) {
     // Check sortstate
-    if(!await checkSortstate()) {
+    if (!await checkSortstate()) {
         return false;
     }
 
     // Set index as cursor
-    if(index >= 0) {
+    if (index >= 0) {
         setCursor(index);
     }
 
@@ -131,9 +127,9 @@ async function startStep(index = -1, isAudio = true) {
     await allowUpdate();
 
     // Play audio
-    if(isAudio === true && index >= 0) {
+    if (isAudio === true && index >= 0) {
         playAudio(array[index]);
-    } else if(typeof isAudio === "number") {
+    } else if (typeof isAudio === "number") {
         playAudio(array[isAudio]);
     }
 

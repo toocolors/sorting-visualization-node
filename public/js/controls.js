@@ -36,8 +36,8 @@ document.getElementById("shuffle").addEventListener("click", async () => {
     disableButton("play");
     disableButton("step");
 
-    // Remove Zeroes
-    removeZeros();
+    // Handle Deletions
+    handleDeletions();
 
     // Shuffle Array
     await shuffleArray(0, arraySize);
@@ -113,7 +113,7 @@ document.getElementById("Random").addEventListener("click", () => {
     let link;
     do {
         link = links[Math.floor(Math.random() * links.length)];
-    } while(link.classList.contains("currentAlgo"));
+    } while (link.classList.contains("currentAlgo"));
 
     // Load Algorithm
     getScript(link);
@@ -151,7 +151,7 @@ async function arrayCompleteLoop() {
     // Loop through array
     for (let i = 0; sortstate == 2 && i < array.length; i++) {
         // Check if element i is valid
-        if(array[i] < 1) {
+        if (array[i] < 1) {
             continue;
         }
 
@@ -184,8 +184,8 @@ async function beginSort() {
     // Reset Operation Counts
     resetOperationCounts();
 
-    // Remove Zeroes
-    removeZeros();
+    // Handle Deletions
+    handleDeletions();
 
     // Start Sort
     for (let i = 0; i < currentAlgorithm.sortList.length; i++) {
@@ -270,7 +270,7 @@ async function fillSortSelect() {
     }
 
     // Hide sort select div if there are 1 or 0 options.
-    if(sortSelect.options.length <= 1) {
+    if (sortSelect.options.length <= 1) {
         // Hide
         document.getElementById("sortSelectDiv").style.display = "none";
     } else {
@@ -308,10 +308,10 @@ function getOptions() {
     if (currentAlgorithm.optionsList === undefined) {
         // Empty optionsDiv
         optionsDiv.innerHTML = '';
-    } else if(currentAlgorithm.optionsList[sortId] !== undefined) {
+    } else if (currentAlgorithm.optionsList[sortId] !== undefined) {
         // Get options for selected algorithm variant
         optionsDiv.innerHTML = currentAlgorithm.optionsList[sortId];
-    } else if(currentAlgorithm.optionsList["default"] !== undefined) {
+    } else if (currentAlgorithm.optionsList["default"] !== undefined) {
         // Get default options for algorithm
         optionsDiv.innerHTML = currentAlgorithm.optionsList["default"];
     } else {
@@ -445,7 +445,7 @@ function updateAsyncHeading() {
     const headingText = mainHeading.textContent;
 
     // Add hyphen if mainHeading contains async
-    if(headingText.includes('Async')) {
+    if (headingText.includes('Async')) {
         mainHeading.textContent = headingText.substring(0, 5) + '-' + headingText.substring(5);
     }
 }
