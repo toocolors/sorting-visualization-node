@@ -73,8 +73,7 @@ async function generateArray() {
 
     // Update hasZero
     hasDeletion = false;
-    zeroCount = 0;
-    
+
     // Update generated
     generated = true;
 
