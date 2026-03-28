@@ -38,14 +38,12 @@ async function beginSort() {
 }
 
 /**
- * Deletes half of the array section.
- * @param {Number} start The start of the section to 'snap'. 
- * @param {Number} end The end of the section to 'snap' (including).
+ * Deletes half of the array.
  */
-async function snap(start, end) {
+async function snap() {
     // Fill indices array
     const indices = [];
-    for(let i = start; i <= end; i++) {
+    for(let i = 0; i < array.length; i++) {
         if(array[i] != 0) {
             indices.push(i);
         }
@@ -66,7 +64,7 @@ async function snap(start, end) {
         indices.splice(rand, 1);
 
         // Start Step
-        if(!await startStep(-1, index)) {
+        if(!await startStep(index)) {
             return false;
         }
 
@@ -74,6 +72,7 @@ async function snap(start, end) {
         switch(deletion) {
             case "zero":
                 setZero(index);
+                clearCursor(index);
                 break;
             case "remove":
             default:
@@ -84,12 +83,11 @@ async function snap(start, end) {
                         indices[j]--;
                     }
                 }
-                end--;
                 break;
         }
     }
 
-    return end;
+    return true;
 }
 
 /**
@@ -97,20 +95,24 @@ async function snap(start, end) {
  * @param {Number} start The start of the section to sort. 
  * @param {Number} end The end of the section to sort (including).
  */
-async function thanosSort(start, end) {
+async function thanosSort() {
     sorted = false;
-    while(!sorted && end - start > 0) {
+    while(!sorted && array.length > 0) {
         // Check if array is sorted
-        if(await isSorted(start, end) === false) {
+        if(!await isSorted(0, array.length - 1)) {
             return false;
         }
         if(sorted) {
             break;
         }
 
+        // Wait before snap
+        if(sortstate == 2) {
+            await allowUpdate(750);
+        }
+
         // Snap
-        end = await snap(start, end);
-        if(end === false) {
+        if(!await snap()) {
             return false;
         }
     }

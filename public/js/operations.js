@@ -62,7 +62,7 @@ function set(index, value) {
 
     // Update box
     elements[index].style.height = `
-        ${(value / arraySize) * 100}%`;
+        ${(value / array.length) * 100}%`;
 }
 
 /**
@@ -241,7 +241,7 @@ async function isSorted(start, end) {
     }
 
     // Check if array section too small
-    if(end - start <= 1) {
+    if(end - start < 1) {
         return true;
     }
     

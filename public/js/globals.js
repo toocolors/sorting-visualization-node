@@ -63,13 +63,14 @@ function clearCursor(index) {
 /**
  * Pauses the sorting algorithm to let the page update.
  */
-function allowUpdate() {
+function allowUpdate(speed = -1) {
     // Get Speed
-    let speed;
-    if (!sorting || sortstate == 0) {
-        speed = maxSpeed;
-    } else {
-        speed = Number(document.getElementById("speed").value);
+    if(speed == -1) {
+        if (!sorting || sortstate == 0) {
+            speed = maxSpeed;
+        } else {
+            speed = Number(document.getElementById("speed").value);
+        }
     }
 
     return new Promise((f) => {
