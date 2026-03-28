@@ -12,8 +12,9 @@ export const optionsList = new Object();
 optionsList["default"] = `
 Deletion Type:
 <select id='thanosOptions'>
-    <option value='remove'>Removal</option>
-    <option value='zero'>Zero</option>
+    <option value='realistic'>Realistic</option>
+    <option value='instant'>Instant</option>
+    <option value='gaps'>Gaps</option>
 </select>
 `;
 
@@ -43,8 +44,8 @@ async function beginSort() {
 async function snap() {
     // Fill indices array
     const indices = [];
-    for(let i = 0; i < array.length; i++) {
-        if(array[i] != 0) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] != 0) {
             indices.push(i);
         }
     }
@@ -52,31 +53,40 @@ async function snap() {
     // Get snap size
     const snapSize = Math.floor(indices.length / 2);
 
-    for(let i = 0; i < snapSize; i++) {
+    for (let i = 0; i < snapSize; i++) {
         // Get random index
         const rand = Math.floor(Math.random() * indices.length);
         const index = indices[rand];
         // Check if index is invalid
-        if(index === undefined) {
+        if (index === undefined) {
             break;
         }
         // Remove index
         indices.splice(rand, 1);
 
         // Start Step
-        if(!await startStep(index)) {
+        if (!await startStep(index)) {
             return false;
         }
 
         // Delete element at index
-        switch(deletion) {
-            case "zero":
+        switch (deletion) {
+            case "gaps":
                 setZero(index);
                 clearCursor(index);
                 break;
-            case "remove":
-            default:
+            case "instant":
                 remove(index);
+                // Fix indices after shift
+                for (let j = 0; j < indices.length; j++) {
+                    if (indices[j] > index) {
+                        indices[j]--;
+                    }
+                }
+                break;
+            case "realistic":
+            default:
+                removeSlowly(index);
                 // Fix indices after shift
                 for (let j = 0; j < indices.length; j++) {
                     if (indices[j] > index) {
@@ -97,22 +107,22 @@ async function snap() {
  */
 async function thanosSort() {
     sorted = false;
-    while(!sorted && array.length > 0) {
+    while (!sorted && array.length > 0) {
         // Check if array is sorted
-        if(!await isSorted(0, array.length - 1)) {
+        if (!await isSorted(0, array.length - 1)) {
             return false;
         }
-        if(sorted) {
+        if (sorted) {
             break;
         }
 
         // Wait before snap
-        if(sortstate == 2) {
+        if (sortstate == 2) {
             await allowUpdate(750);
         }
 
         // Snap
-        if(!await snap()) {
+        if (!await snap()) {
             return false;
         }
     }

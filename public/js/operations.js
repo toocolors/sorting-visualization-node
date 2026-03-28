@@ -57,6 +57,34 @@ function remove(index) {
 }
 
 /**
+ * Iterates the element to be removed to the right edge
+ * of the array, then deletes it.
+ * @param {Number} index The index of the element to remove.
+ */
+async function removeSlowly(index) {
+    // Check if maxHeight will need to be deleted
+    const originalValue = array[index];
+
+    // Move elements over
+    for (let i = index + 1; i < array.length; i++) {
+        // Start Step
+        if (sorting && await startStep(i)) {
+            return false;
+        }
+        set(i - 1, get(i));
+
+        // End Step
+        if (sorting) {
+            clearCursor(i);
+        }
+    }
+
+    // Remove element at end of array
+    set(array.length - 1, originalValue, false);
+    remove(array.length - 1);
+}
+
+/**
  * Writes the element at index to value and updates the corresponding box.
  * @param {Number} index The index of the array element to write.
  * @param {Number} value The value to write to the array.
