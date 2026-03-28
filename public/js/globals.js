@@ -83,12 +83,12 @@ function allowUpdate() {
  */
 function playAudio(value) {
     // Check if value is valid
-    if(value < 1) {
-        return;
+    if(value <= 0) {
+        value = 1;
     }
 
     // Get frequency
-    const frequency = 220 * Math.pow(2, value / array.length * 3);
+    const frequency = 220 * Math.pow(2, value / containerHeight * 3);
     oscillator.frequency.value = frequency;
     oscillator.type = "sine"; // sine, square, triangle, sawtooth
 
