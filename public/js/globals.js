@@ -88,7 +88,12 @@ function playAudio(value) {
     }
 
     // Get frequency
-    const frequency = 220 * Math.pow(2, value / containerHeight * 3);
+    let frequency
+    if(value <= array.length) {
+        frequency = 220 * Math.pow(2, value / array.length * 3);
+    } else {
+        frequency = 220 * Math.pow(2, value / containerHeight * 3);
+    }
     oscillator.frequency.value = frequency;
     oscillator.type = "sine"; // sine, square, triangle, sawtooth
 

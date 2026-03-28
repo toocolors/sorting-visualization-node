@@ -66,7 +66,7 @@ async function snap(start, end) {
         indices.splice(rand, 1);
 
         // Start Step
-        if(!await startStep()) {
+        if(!await startStep(-1, index)) {
             return false;
         }
 
