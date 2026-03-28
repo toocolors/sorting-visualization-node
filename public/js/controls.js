@@ -387,6 +387,10 @@ async function InitializeControls() {
     switchOrientation();
     visualizationResize();
     switchOrientation();
+
+    // Update Heading
+    document.getElementById("mainHeading").textContent = 
+    document.getElementsByClassName('currentAlgo')[0].id + " Sort";
     updateAsyncHeading();
 
     // Add ResizeObserver for visualization
