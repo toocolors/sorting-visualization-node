@@ -47,7 +47,9 @@ document.getElementById("shuffle").addEventListener("click", async () => {
     enableButton("shuffle");
     enableButton("play");
     enableButton("step");
-})
+});
+
+document.getElementById("arrayType").addEventListener('change', showShuffleAmount);
 
 document.getElementById("play").addEventListener("click", () => {
     // Update sortstate
@@ -387,6 +389,7 @@ async function InitializeControls() {
     switchOrientation();
     visualizationResize();
     switchOrientation();
+    showShuffleAmount();
 
     // Update Heading
     document.getElementById("mainHeading").textContent = 
@@ -396,6 +399,21 @@ async function InitializeControls() {
     // Add ResizeObserver for visualization
     const resizeObserver = new ResizeObserver(visualizationResize);
     resizeObserver.observe(arrayDiv);
+}
+
+/**
+ * Shows shuffleAmonut if arrayType is currently 'Partially Sorted'.
+ */
+function showShuffleAmount() {
+    // Get shuffleAmount select
+    const shuffleAmountLabel = document.getElementById("shuffleAmountLabel");
+    
+    // Check if partially-sorted
+    if(document.getElementById("arrayType").value != 'partially-sorted') {
+        shuffleAmountLabel.style.display = "none";
+    } else {
+        shuffleAmountLabel.style.display = "inline";
+    }
 }
 
 /**
