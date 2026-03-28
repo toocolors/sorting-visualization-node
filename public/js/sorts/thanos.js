@@ -6,6 +6,7 @@ export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["thanos", "Thanos Sort", beginSort]
 ];
 export const optionsList = new Object();
+const waitTime = 750;
 
 // Options
 // all
@@ -86,7 +87,10 @@ async function snap() {
                 break;
             case "realistic":
             default:
-                removeSlowly(index);
+                clearCursor(index);
+                if(!await removeSlowly(index)) {
+                    return false;
+                }
                 // Fix indices after shift
                 for (let j = 0; j < indices.length; j++) {
                     if (indices[j] > index) {
@@ -118,12 +122,17 @@ async function thanosSort() {
 
         // Wait before snap
         if (sortstate == 2) {
-            await allowUpdate(750);
+            await allowUpdate(waitTime);
         }
 
         // Snap
         if (!await snap()) {
             return false;
+        }
+
+        // Wait after snap
+        if (sortstate == 2) {
+            await allowUpdate(waitTime);
         }
     }
 

@@ -46,6 +46,10 @@ function remove(index) {
         el.remove();
     }
 
+    // Update operations
+    incrementOperation("writes", array.length - index);
+    incrementOperation("reads", array.length - index);
+
     // Handle Deletion
     if (removed >= maxHeight) {
         hasDeletion = true;
@@ -62,26 +66,34 @@ function remove(index) {
  * @param {Number} index The index of the element to remove.
  */
 async function removeSlowly(index) {
-    // Check if maxHeight will need to be deleted
+    // Store original value
     const originalValue = array[index];
+
+    // Set value to zero
+    set(index, 0, false);
 
     // Move elements over
     for (let i = index + 1; i < array.length; i++) {
+        // Move element down
+        set(i - 1, get(i));
+        
         // Start Step
-        if (sorting && await startStep(i)) {
+        if (sorting && !await startStep(i - 1)) {
             return false;
         }
-        set(i - 1, get(i));
 
         // End Step
-        if (sorting) {
-            clearCursor(i);
+        if(sorting) {
+            clearCursor(i - 1);
         }
     }
 
     // Remove element at end of array
     set(array.length - 1, originalValue, false);
     remove(array.length - 1);
+
+    // Go back to sorting
+    return true;
 }
 
 /**
@@ -101,7 +113,6 @@ function set(index, value = null, updateOperation = true) {
         array[index] = value;
     }
 
-
     // Update box
     elements[index].style.height = `
         ${(value / maxHeight) * 100}%`;
@@ -112,8 +123,21 @@ function set(index, value = null, updateOperation = true) {
  * @param {Number} index The index of the array element to set to zero.
  */
 function setZero(index) {
+    // Set element to zero
     hasDeletion = true;
-    set(index, 0);
+    set(index, 0, false);
+
+    // Get zeroes between index and array end
+    let zeroCount = 0;
+    for(let i = index + 1; i < array.length; i++) {
+        if(array[i] < 1) {
+            zeroCount++;
+        }
+    }
+
+    // Update operations
+    incrementOperation("writes", array.length - index - zeroCount);
+    incrementOperation("reads", array.length - index - zeroCount);
 }
 
 /**
@@ -255,12 +279,13 @@ function getWidth() {
 /**
  * Increments the passed in operation by 1.
  * @param {String} operation The name of an operation (without 'Span').
+ * @param {Number} increment The amount to increment by.
  */
-function incrementOperation(operation) {
+function incrementOperation(operation, increment = 1) {
     const current = Number(document.getElementById(`${operation}Span`).innerHTML);
-    document.getElementById(`${operation}Span`).innerHTML = current + 1;
+    document.getElementById(`${operation}Span`).innerHTML = current + increment;
     if (operation === "reads" || operation === "writes") {
-        incrementOperation("accesses");
+        incrementOperation("accesses", increment);
     }
 }
 
@@ -389,7 +414,7 @@ function handleDeletions() {
 
     // Check if new largest is smaller than maxHeight
     let smaller = false;
-    if (array[largest < maxHeight]) {
+    if (array[largest] < maxHeight) {
         smaller = true;
     }
 
@@ -402,6 +427,9 @@ function handleDeletions() {
             set(i, null, false);
         }
     }
+
+    // Reset deletion trackers
+    hasDeletion = false;
 }
 
 /**

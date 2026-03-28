@@ -18,6 +18,7 @@ let sorted;
 let sortstate = -1; // -1 = stop/no sorting active, 0 = pause, 1 = step, 2 = play
 const oscillator = audio.createOscillator();
 let sorting = false;
+let zeroCount;
 
 // ************************************************************************************************
 // Startup Code
@@ -113,14 +114,14 @@ function setCursor(index) {
  * @param {*} isAudio true = play audio using index, false = do not play audio, Number = play audio using Number.
  */
 async function startStep(index = -1, isAudio = true) {
-    // Check sortstate
-    if (!await checkSortstate()) {
-        return false;
-    }
-
     // Set index as cursor
     if (index >= 0) {
         setCursor(index);
+    }
+    
+    // Check sortstate
+    if (!await checkSortstate()) {
+        return false;
     }
 
     // Update page
