@@ -47,6 +47,29 @@ document.getElementById("shuffle").addEventListener("click", async () => {
     enableButton("shuffle");
     enableButton("play");
     enableButton("step");
+});
+
+document.getElementById("arrayType").addEventListener('change', showShuffleAmount);
+
+document.getElementById("shuffleAmount").addEventListener('input', (event) => {
+        // Get arraySize text
+    let text = event.target.value;
+
+    // Check if value is empty (set it to empty in case it contains non-numbers)
+    if (text == "") {
+        event.target.value = "";
+        return;
+    }
+
+    // Change text to a number
+    text = Number(text);
+
+    // Check if value in within bounds
+    if (text < 1) {
+        event.target.value = '';
+    } else if (text > 100) {
+        event.target.value = 100;
+    }
 })
 
 document.getElementById("play").addEventListener("click", () => {
@@ -387,6 +410,7 @@ async function InitializeControls() {
     switchOrientation();
     visualizationResize();
     switchOrientation();
+    showShuffleAmount();
 
     // Update Heading
     document.getElementById("mainHeading").textContent = 
@@ -396,6 +420,31 @@ async function InitializeControls() {
     // Add ResizeObserver for visualization
     const resizeObserver = new ResizeObserver(visualizationResize);
     resizeObserver.observe(arrayDiv);
+}
+
+/**
+ * Shows shuffleAmonut if arrayType is currently 'Partially Sorted'.
+ */
+function showShuffleAmount() {
+    // Get shuffleAmount select
+    const shuffleAmountLabel = document.getElementById("shuffleAmountLabel");
+    const buttons = [
+        document.getElementById("generate"),
+        document.getElementById("generateGrayed"),
+        document.getElementById("shuffle"),
+        document.getElementById("shuffleGrayed")
+    ];
+    
+    // Check if partially-sorted
+    if(document.getElementById("arrayType").value != 'partially-sorted') {
+        shuffleAmountLabel.style.display = "none";
+        for(let i = 0; i < buttons.length; i++)
+            buttons[i].style.minHeight = "75px";
+    } else {
+        shuffleAmountLabel.style.display = "inline";
+        for(let i = 0; i < buttons.length; i++)
+            buttons[i].style.minHeight = "125px";
+    }
 }
 
 /**

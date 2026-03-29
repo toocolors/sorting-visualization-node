@@ -59,6 +59,9 @@ async function generateArray() {
         case "descending":
             await generateDescending();
             break;
+        case "partially-sorted":
+            await generatePartiallySorted();
+            break;
         case "pyramid":
             await generatePyramid();
             break;
@@ -82,6 +85,46 @@ async function generateArray() {
     enableButton("shuffle");
     enableButton("play");
     enableButton("step");
+}
+
+/**
+ * Generates a sorted array, then randomly shuffles some elements.
+ * Uses value from shuffleAmount to determine amount of shuffling.
+ */
+async function generatePartiallySorted() {
+    // Generate an ascending array
+    await generateAscending();
+
+    // Get shuffleCount
+    let shuffleAmount = Number(document.getElementById("shuffleAmount").value);
+    if(shuffleAmount == 0 ) {
+        // Get random number
+        shuffleAmount = Math.floor(Math.random() * 100) + 1;
+    } else if(shuffleAmount < 0) {
+        shuffleAmount = 1;
+    } else if(shuffleAmount >= 100) {
+        await shuffleArray(0, array.length);
+        return;
+    }
+    const shuffleCount = Math.floor(array.length * (shuffleAmount / 100));
+
+    // Shuffle some elements of ascending
+    for(let i = 0; i < shuffleCount; i++) {
+        // Get two random indices
+        const index1 = Math.floor(Math.random() * array.length);
+        let index2 = Math.floor(Math.random() * array.length);
+        if(index1 == index2) {
+            index2++;
+        }
+
+        // Swap the two indices
+        swap(index1, index2);
+
+        // Update Page
+        await allowUpdate();
+        playAudio(array[index1]);
+        playAudio(array[index2]);
+    }
 }
 
 /**
