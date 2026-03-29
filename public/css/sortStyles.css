@@ -99,16 +99,19 @@ input[type="range"]:hover {
     border: none;
 }
 
-#generate, #shuffle {
+#generate,
+#shuffle {
     background: #2f6fff;
     color: white;
 }
 
-#generateGrayed, #shuffleGrayed {
+#generateGrayed,
+#shuffleGrayed {
     cursor: not-allowed;
 }
 
-#generate:hover, #shuffle:hover {
+#generate:hover,
+#shuffle:hover {
     background: #1f4fcc;
 }
 
@@ -121,18 +124,6 @@ input[type="range"]:hover {
 #information h2,
 #information p {
     margin-left: 5px;
-}
-
-/* Visualization Styles */
-#visualization {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    background: #f5f5f5;
-    min-height: 400px;
-    padding: 0;
-    overflow: hidden;
 }
 
 /* Sort Option Stlyes */
@@ -148,7 +139,7 @@ input[type="range"]:hover {
     margin-top: 15px;
 }
 
-#operations > div {
+#operations>div {
     background: #7faec0;
     border: 2px solid #d9eaf0;
     border-radius: 4px;
@@ -173,25 +164,6 @@ input[type="range"]:hover {
     margin-top: 5px;
     color: #0b2a33;
     word-break: break-word;
-}
-
-/* Class Styles */
-.sortControl {
-    font-size: 1.5em;
-}
-
-.element {
-    background-color: black;
-    flex: 1;
-    margin: 0;
-}
-
-.cursor {
-    background-color: red;
-}
-
-.complete {
-    background-color: green;
 }
 
 /* Portrait Styling */
@@ -228,11 +200,13 @@ input[type="range"]:hover {
         gap: 10px;
     }
 
-    #sortOptions, #speedControl {
+    #sortOptions,
+    #speedControl {
         flex-basis: 100%;
     }
 
-    #mute, #unmute {
+    #mute,
+    #unmute {
         margin-right: 10px;
     }
 
@@ -248,7 +222,7 @@ input[type="range"]:hover {
 }
 
 /* Landscape Styling */
-@media (orientation: landscape) {    
+@media (orientation: landscape) {
     #flexbox {
         grid-template-columns: 2fr 1fr;
         grid-template-areas:
@@ -295,11 +269,15 @@ input[type="range"]:hover {
 
     /* Force layout:
        2 big buttons on top, 3 small below */
-    #play, #step {
+    #play,
+    #step {
         grid-column: span 1;
     }
 
-    #pause, #stop, #unmute, #mute {
+    #pause,
+    #stop,
+    #unmute,
+    #mute {
         grid-column: span 1;
     }
 
@@ -308,24 +286,14 @@ input[type="range"]:hover {
     }
 }
 
-/* Universal Button Styles */
-.sortControl {
-    background: #7faec0;
-    border: none;
-    color: black;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.sortControl:hover {
-    background: #6b9bab;
-}
-
 .grayed {
     background: #999;
     cursor: not-allowed;
 }
 
-.hide {
-    display: none;
+/* Active/current algorithm */
+.currentAlgo {
+    background: #2f6fff;
+    color: white !important;
+    font-weight: bold;
 }

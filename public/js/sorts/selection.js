@@ -4,7 +4,7 @@
 let largest = 0;
 let smallest = 0;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
-    ["selection", "Selection Sort", selectionSort], 
+    ["selection", "Selection Sort", selectionSort],
     ["double-selection", "Double Selection Sort", doubleSelectionSort]
 ];
 
@@ -16,15 +16,15 @@ export const sortList = [ // 0 = id, 1 = name, 2 = main function
  */
 export async function doubleSelectionSort() {
     // Outer Loop
-    for(let i = 0, j = arraySize - 1; i < j; i++, j--) {
+    for (let i = 0, j = arraySize - 1; i < j; i++, j--) {
         // Initialize Smallest and Largest
         smallest = i;
         largest = i;
 
         // Inner Loop - Get Largest and Smallest Element
-        for(let k = i; k <= j; k++) {
+        for (let k = i; k <= j; k++) {
             // Check sortstate
-            if(!await checkSortstate()) {
+            if (!await checkSortstate()) {
                 return;
             }
 
@@ -32,17 +32,17 @@ export async function doubleSelectionSort() {
         }
 
         // Check sortstate
-            if(!await checkSortstate()) {
-                return;
+        if (!await checkSortstate()) {
+            return;
         }
 
         // Swap Smallest and Largest
         swap(i, smallest);
-        if(largest == i) {
+        if (largest == i) {
             largest = smallest;
-        } 
+        }
         swap(j, largest);
-        
+
 
         // Update Page
         await allowUpdate();
@@ -54,14 +54,14 @@ export async function doubleSelectionSort() {
  */
 export async function selectionSort() {
     // Outer Loop
-    for(let i = 0; i < arraySize; i++) {
+    for (let i = 0; i < arraySize; i++) {
         // Initialize Smallest
         smallest = i;
 
         // Inner Loop - Get Smallest Element
-        for(let j = i; j < arraySize; j++) {
+        for (let j = i; j < arraySize; j++) {
             // Check sortstate
-            if(!await checkSortstate()) {
+            if (!await checkSortstate()) {
                 return;
             }
 
@@ -69,7 +69,7 @@ export async function selectionSort() {
         }
 
         // Check sortstate
-        if(!await checkSortstate()) {
+        if (!await checkSortstate()) {
             return;
         }
 
@@ -94,11 +94,11 @@ async function selectionStep(index, getLargest = false) {
     setCursor(index);
     await allowUpdate();
     playAudio(array[index]);
-    
+
     // Update largest and smallest
-    if(getLargest && isGreater(index, largest)) {
+    if (getLargest && isGreater(index, largest)) {
         largest = index;
-    } else if(isGreater(smallest, index)) {
+    } else if (isGreater(smallest, index)) {
         smallest = index;
     }
 }

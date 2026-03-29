@@ -76,14 +76,14 @@ async function removeSlowly(index) {
     for (let i = index + 1; i < array.length; i++) {
         // Move element down
         set(i - 1, get(i));
-        
+
         // Start Step
         if (sorting && !await startStep(i - 1)) {
             return false;
         }
 
         // End Step
-        if(sorting) {
+        if (sorting) {
             clearCursor(i - 1);
         }
     }
@@ -129,8 +129,8 @@ function setZero(index) {
 
     // Get zeroes between index and array end
     let zeroCount = 0;
-    for(let i = index + 1; i < array.length; i++) {
-        if(array[i] < 1) {
+    for (let i = index + 1; i < array.length; i++) {
+        if (array[i] < 1) {
             zeroCount++;
         }
     }
@@ -261,6 +261,26 @@ function clearClass(className) {
 }
 
 /**
+ * Loops through the array while turning each element green. Clears colors after.
+ */
+async function arrayCompleteLoop() {
+    // Loop through array
+    for (let i = 0; sortstate == 2 && i < array.length; i++) {
+        // Check if element i is valid
+        if (array[i] < 1) {
+            continue;
+        }
+
+        setComplete(i);
+        await allowUpdate();
+        playAudio(array[i]);
+    }
+
+    // Clear complete class
+    clearClass("complete");
+}
+
+/**
  * Ends the sorting algorithm.
  * Waits until sorting is false to return.
  */
@@ -282,6 +302,11 @@ function getWidth() {
  * @param {Number} increment The amount to increment by.
  */
 function incrementOperation(operation, increment = 1) {
+    // Check if operations div exists
+    if (document.getElementById("operations") === null) {
+        return;
+    }
+
     const current = Number(document.getElementById(`${operation}Span`).innerHTML);
     document.getElementById(`${operation}Span`).innerHTML = current + increment;
     if (operation === "reads" || operation === "writes") {

@@ -10,7 +10,7 @@ let maxHeight;
 const elements = document.getElementsByClassName("element");
 const gain = audio.createGain();
 let generated = false;
-let hasDeletion;
+let hasDeletion = false;
 let maxArraySize;
 const maxSpeed = 1000;
 let viewType = "landscape";
@@ -68,8 +68,10 @@ function allowUpdate(speed = -1) {
     if (speed == -1) {
         if (!sorting || sortstate == 0) {
             speed = maxSpeed;
-        } else {
+        } else if (document.getElementById("speed") !== null) {
             speed = Number(document.getElementById("speed").value);
+        } else {
+            speed = maxSpeed;
         }
     }
 
@@ -79,12 +81,43 @@ function allowUpdate(speed = -1) {
 }
 
 /**
+ * Attempts to get sort options.
+ * @returns An array of: 
+ *  1. The value of sortSelect
+ *  2. The value of the select/input inside optionsDiv
+ *  Values will be undefined if any options are unavailable.
+ */
+function getSortOptions() {
+    // Check if sortOptions exists
+    if (document.getElementById("sortOptions") === null) {
+        return [undefined, undefined]
+    }
+
+    // Get sortSelect
+    let sortValue = undefined;
+    if (document.getElementById("sortOptions") !== null) {
+        sortValue = document.getElementById("sortOptions").value;
+    }
+
+    // Get optionsDiv
+    let optionsValue = undefined;
+    if (document.querySelector("#optionsDiv select") !== null) {
+        optionsValue = document.querySelector("#optionsDiv select").value;
+    } else if (document.querySelector("#optionsDiv input") !== null) {
+        optionsValue = document.querySelector("#optionsDiv input").value;
+    }
+
+    // Return values
+    return [sortValue, optionsValue];
+}
+
+/**
  * Plays audio based on value.
  * @param {Number} value The value of an array element. 
  */
 function playAudio(value) {
     // Check if value is valid
-    if (value <= 0) {
+    if (typeof value !== 'number') {
         value = 1;
     }
 
@@ -117,7 +150,7 @@ async function startStep(index = -1, isAudio = true) {
     if (index >= 0) {
         setCursor(index);
     }
-    
+
     // Check sortstate
     if (!await checkSortstate()) {
         return false;

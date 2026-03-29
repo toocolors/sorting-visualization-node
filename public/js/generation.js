@@ -1,7 +1,9 @@
 // ************************************************************************************************
 // Set Event Listeners
 // ************************************************************************************************
-document.getElementById("generate").addEventListener("click", generateArray);
+if (document.getElementById("generate") !== null) {
+    document.getElementById("generate").addEventListener("click", generateArray);
+}
 
 // ************************************************************************************************
 // Functions
@@ -97,23 +99,23 @@ async function generatePartiallySorted() {
 
     // Get shuffleCount
     let shuffleAmount = Number(document.getElementById("shuffleAmount").value);
-    if(shuffleAmount == 0 ) {
+    if (shuffleAmount == 0) {
         // Get random number
         shuffleAmount = (Math.floor(Math.random() * 100) + 1);
-    } else if(shuffleAmount < 0) {
+    } else if (shuffleAmount < 0) {
         shuffleAmount = 1;
-    } else if(shuffleAmount >= 100) {
+    } else if (shuffleAmount >= 100) {
         await shuffleArray(0, array.length);
         return;
     }
     const shuffleCount = Math.floor(array.length * (shuffleAmount / 100) / 2);
 
     // Shuffle some elements of ascending
-    for(let i = 0; i < shuffleCount; i++) {
+    for (let i = 0; i < shuffleCount; i++) {
         // Get two random indices
         const index1 = Math.floor(Math.random() * array.length);
         let index2 = Math.floor(Math.random() * array.length);
-        if(index1 == index2) {
+        if (index1 == index2) {
             index2++;
         }
 
@@ -141,7 +143,7 @@ async function generateAscending() {
         // Update Page
         await allowUpdate();
 
-        createElement(i, num, width)
+        createElement(i, num, width);
 
         // Increment num
         num++;
