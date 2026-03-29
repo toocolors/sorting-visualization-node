@@ -10,7 +10,7 @@ let maxHeight;
 const elements = document.getElementsByClassName("element");
 const gain = audio.createGain();
 let generated = false;
-let hasDeletion;
+let hasDeletion = false;
 let maxArraySize;
 const maxSpeed = 1000;
 let viewType = "landscape";
@@ -68,8 +68,10 @@ function allowUpdate(speed = -1) {
     if (speed == -1) {
         if (!sorting || sortstate == 0) {
             speed = maxSpeed;
-        } else {
+        } else if (document.getElementById("speed") !== null) {
             speed = Number(document.getElementById("speed").value);
+        } else {
+            speed = maxSpeed;
         }
     }
 
@@ -87,21 +89,21 @@ function allowUpdate(speed = -1) {
  */
 function getSortOptions() {
     // Check if sortOptions exists
-    if (document.getElementById("sortOptions") === undefined) {
+    if (document.getElementById("sortOptions") === null) {
         return [undefined, undefined]
     }
 
     // Get sortSelect
     let sortValue = undefined;
-    if (document.getElementById("sortOptions") !== undefined) {
+    if (document.getElementById("sortOptions") !== null) {
         sortValue = document.getElementById("sortOptions").value;
     }
 
     // Get optionsDiv
     let optionsValue = undefined;
-    if (document.querySelector("#optionsDiv select") !== undefined) {
+    if (document.querySelector("#optionsDiv select") !== null) {
         optionsValue = document.querySelector("#optionsDiv select").value;
-    } else if (document.querySelector("#optionsDiv input") !== undefined) {
+    } else if (document.querySelector("#optionsDiv input") !== null) {
         optionsValue = document.querySelector("#optionsDiv input").value;
     }
 
@@ -115,7 +117,7 @@ function getSortOptions() {
  */
 function playAudio(value) {
     // Check if value is valid
-    if (value <= 0) {
+    if (typeof value !== 'number') {
         value = 1;
     }
 

@@ -52,7 +52,7 @@ document.getElementById("shuffle").addEventListener("click", async () => {
 document.getElementById("arrayType").addEventListener('change', showShuffleAmount);
 
 document.getElementById("shuffleAmount").addEventListener('input', (event) => {
-        // Get arraySize text
+    // Get arraySize text
     let text = event.target.value;
 
     // Check if value is empty (set it to empty in case it contains non-numbers)
@@ -162,32 +162,6 @@ function addAlgoLinkEvents() {
 }
 
 /**
- * Loops through the array while turning each element green. Clears colors after.
- */
-async function arrayCompleteLoop() {
-    // Enable/Disable Controls
-    disableButton("play");
-    disableButton("step");
-    disableButton("pause");
-    enableButton("stop");
-
-    // Loop through array
-    for (let i = 0; sortstate == 2 && i < array.length; i++) {
-        // Check if element i is valid
-        if (array[i] < 1) {
-            continue;
-        }
-
-        setComplete(i);
-        await allowUpdate();
-        playAudio(array[i]);
-    }
-
-    // Clear complete class
-    clearClass("complete");
-}
-
-/**
  * Sorts the array using the currently selected sort.
  */
 async function beginSort() {
@@ -222,6 +196,13 @@ async function beginSort() {
 
     // Loop through array to show completion
     if (sortstate == 2) {
+        // Enable/Disable Controls
+        disableButton("play");
+        disableButton("step");
+        disableButton("pause");
+        enableButton("stop");
+
+        // Show completion
         await arrayCompleteLoop();
     }
 
@@ -413,8 +394,8 @@ async function InitializeControls() {
     showShuffleAmount();
 
     // Update Heading
-    document.getElementById("mainHeading").textContent = 
-    document.getElementsByClassName('currentAlgo')[0].id + " Sort";
+    document.getElementById("mainHeading").textContent =
+        document.getElementsByClassName('currentAlgo')[0].id + " Sort";
     updateAsyncHeading();
 
     // Add ResizeObserver for visualization
@@ -434,15 +415,15 @@ function showShuffleAmount() {
         document.getElementById("shuffle"),
         document.getElementById("shuffleGrayed")
     ];
-    
+
     // Check if partially-sorted
-    if(document.getElementById("arrayType").value != 'partially-sorted') {
+    if (document.getElementById("arrayType").value != 'partially-sorted') {
         shuffleAmountLabel.style.display = "none";
-        for(let i = 0; i < buttons.length; i++)
+        for (let i = 0; i < buttons.length; i++)
             buttons[i].style.minHeight = "75px";
     } else {
         shuffleAmountLabel.style.display = "inline";
-        for(let i = 0; i < buttons.length; i++)
+        for (let i = 0; i < buttons.length; i++)
             buttons[i].style.minHeight = "125px";
     }
 }

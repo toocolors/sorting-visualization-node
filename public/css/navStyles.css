@@ -33,7 +33,9 @@ nav a {
 }
 
 /* Algorithm Links */
-.algoLink, #About, #Random {
+.algoLink,
+#About,
+#Random {
     display: block;
     padding: 5px 5px;
     border-radius: 6px;
@@ -45,20 +47,16 @@ nav a {
 }
 
 /* About Link Styles */
-#About, #Random {
+#About,
+#Random {
     font-size: 20px;
 }
 
-.algoLink:hover, #About:hover, #Random:hover {
+.algoLink:hover,
+#About:hover,
+#Random:hover {
     background: #7faec0;
     transform: translateX(3px);
-}
-
-/* Active/current algorithm */
-.currentAlgo {
-    background: #2f6fff;
-    color: white !important;
-    font-weight: bold;
 }
 
 /* Hamburger button */
@@ -103,7 +101,8 @@ nav a {
     nav {
         position: fixed;
         top: 0;
-        left: -200px; /* hidden by default */
+        left: -200px;
+        /* hidden by default */
         width: 200px;
         height: 100vh;
         z-index: 1000;
@@ -117,7 +116,7 @@ nav a {
     #overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0, 0, 0, 0.3);
         z-index: 999;
         display: none;
     }
@@ -158,7 +157,7 @@ nav a {
     #container:not(.sidebarOpen) nav {
         width: 0;
     }
-    
+
     #menuToggle {
         display: block;
     }

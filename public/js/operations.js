@@ -261,6 +261,26 @@ function clearClass(className) {
 }
 
 /**
+ * Loops through the array while turning each element green. Clears colors after.
+ */
+async function arrayCompleteLoop() {
+    // Loop through array
+    for (let i = 0; sortstate == 2 && i < array.length; i++) {
+        // Check if element i is valid
+        if (array[i] < 1) {
+            continue;
+        }
+
+        setComplete(i);
+        await allowUpdate();
+        playAudio(array[i]);
+    }
+
+    // Clear complete class
+    clearClass("complete");
+}
+
+/**
  * Ends the sorting algorithm.
  * Waits until sorting is false to return.
  */
@@ -283,7 +303,7 @@ function getWidth() {
  */
 function incrementOperation(operation, increment = 1) {
     // Check if operations div exists
-    if (document.getElementById("operations") === undefined) {
+    if (document.getElementById("operations") === null) {
         return;
     }
 

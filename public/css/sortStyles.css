@@ -290,3 +290,10 @@ input[type="range"]:hover {
     background: #999;
     cursor: not-allowed;
 }
+
+/* Active/current algorithm */
+.currentAlgo {
+    background: #2f6fff;
+    color: white !important;
+    font-weight: bold;
+}

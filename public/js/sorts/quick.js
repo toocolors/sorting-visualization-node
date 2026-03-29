@@ -27,7 +27,7 @@ async function beginSort() {
     pivotType = getSortOptions()[1];
 
     // Get threaded
-    if (document.getElementsByClassName('currentAlgo')[0].classList.contains("async")) {
+    if (document?.getElementsByClassName('currentAlgo')[0]?.classList?.contains("async")) {
         threaded = true;
     } else {
         threaded = false;
