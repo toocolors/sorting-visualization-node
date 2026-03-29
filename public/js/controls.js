@@ -428,12 +428,22 @@ async function InitializeControls() {
 function showShuffleAmount() {
     // Get shuffleAmount select
     const shuffleAmountLabel = document.getElementById("shuffleAmountLabel");
+    const buttons = [
+        document.getElementById("generate"),
+        document.getElementById("generateGrayed"),
+        document.getElementById("shuffle"),
+        document.getElementById("shuffleGrayed")
+    ];
     
     // Check if partially-sorted
     if(document.getElementById("arrayType").value != 'partially-sorted') {
         shuffleAmountLabel.style.display = "none";
+        for(let i = 0; i < buttons.length; i++)
+            buttons[i].style.minHeight = "75px";
     } else {
         shuffleAmountLabel.style.display = "inline";
+        for(let i = 0; i < buttons.length; i++)
+            buttons[i].style.minHeight = "125px";
     }
 }
 
