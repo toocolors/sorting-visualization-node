@@ -79,6 +79,37 @@ function allowUpdate(speed = -1) {
 }
 
 /**
+ * Attempts to get sort options.
+ * @returns An array of: 
+ *  1. The value of sortSelect
+ *  2. The value of the select/input inside optionsDiv
+ *  Values will be undefined if any options are unavailable.
+ */
+function getSortOptions() {
+    // Check if sortOptions exists
+    if (document.getElementById("sortOptions") === undefined) {
+        return [undefined, undefined]
+    }
+
+    // Get sortSelect
+    let sortValue = undefined;
+    if (document.getElementById("sortOptions") !== undefined) {
+        sortValue = document.getElementById("sortOptions").value;
+    }
+
+    // Get optionsDiv
+    let optionsValue = undefined;
+    if (document.querySelector("#optionsDiv select") !== undefined) {
+        optionsValue = document.querySelector("#optionsDiv select").value;
+    } else if (document.querySelector("#optionsDiv input") !== undefined) {
+        optionsValue = document.querySelector("#optionsDiv input").value;
+    }
+
+    // Return values
+    return [sortValue, optionsValue];
+}
+
+/**
  * Plays audio based on value.
  * @param {Number} value The value of an array element. 
  */
@@ -117,7 +148,7 @@ async function startStep(index = -1, isAudio = true) {
     if (index >= 0) {
         setCursor(index);
     }
-    
+
     // Check sortstate
     if (!await checkSortstate()) {
         return false;
