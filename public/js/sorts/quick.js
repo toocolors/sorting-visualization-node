@@ -24,10 +24,10 @@ let pivotType;
 // ************************************************************************************************
 async function beginSort() {
     // Get Pivot Type
-    pivotType = document.getElementById("quickOptions").value;
+    pivotType = getSortOptions()[1];
 
     // Get threaded
-    if(document.getElementsByClassName('currentAlgo')[0].classList.contains("async")) {
+    if (document.getElementsByClassName('currentAlgo')[0].classList.contains("async")) {
         threaded = true;
     } else {
         threaded = false;
@@ -171,7 +171,7 @@ async function quickSort(start, end) {
     clearCursor(i);
     clearCursor(j);
 
-    if(threaded) {
+    if (threaded) {
         // Start Recursive Functions
         let left = quickSort(start, j - 1);
         let right = quickSort(j + 1, end);
@@ -180,7 +180,7 @@ async function quickSort(start, end) {
         await Promise.all([left, right]);
 
         // Check sortstate
-        if(sortstate == -1) {
+        if (sortstate == -1) {
             return false;
         }
     } else {
