@@ -29,11 +29,7 @@ Deletion Type:
  */
 async function beginSort() {
     // Get Deletion Type
-    try {
-        deletion = document.getElementById('thanosOptions').value;
-    } catch {
-        deletion = 'remove';
-    }
+    deletion = getSortOptions()[1];
 
     // Begin Thanos Sort
     await thanosSort(0, array.length - 1);
@@ -88,7 +84,7 @@ async function snap() {
             case "realistic":
             default:
                 clearCursor(index);
-                if(!await removeSlowly(index)) {
+                if (!await removeSlowly(index)) {
                     return false;
                 }
                 // Fix indices after shift
