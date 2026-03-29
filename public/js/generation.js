@@ -99,14 +99,14 @@ async function generatePartiallySorted() {
     let shuffleAmount = Number(document.getElementById("shuffleAmount").value);
     if(shuffleAmount == 0 ) {
         // Get random number
-        shuffleAmount = Math.floor(Math.random() * 100) + 1;
+        shuffleAmount = (Math.floor(Math.random() * 100) + 1);
     } else if(shuffleAmount < 0) {
         shuffleAmount = 1;
     } else if(shuffleAmount >= 100) {
         await shuffleArray(0, array.length);
         return;
     }
-    const shuffleCount = Math.floor(array.length * (shuffleAmount / 100));
+    const shuffleCount = Math.floor(array.length * (shuffleAmount / 100) / 2);
 
     // Shuffle some elements of ascending
     for(let i = 0; i < shuffleCount; i++) {
