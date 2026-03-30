@@ -59,6 +59,13 @@ nav a {
     transform: translateX(3px);
 }
 
+/* Active/current algorithm */
+.currentAlgo:not(.preview) {
+    background: #2f6fff;
+    color: white !important;
+    font-weight: bold;
+}
+
 /* Hamburger button */
 #menuToggle {
     top: 35px;
