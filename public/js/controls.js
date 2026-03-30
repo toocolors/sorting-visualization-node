@@ -72,17 +72,6 @@ document.getElementById("shuffleAmount").addEventListener('input', (event) => {
     }
 })
 
-document.getElementById("play").addEventListener("click", () => {
-    // Update sortstate
-    sortstate = 2;
-    if (!sorting) {
-        beginSort();
-    } else {
-        disableButton("step");
-        enableButton("pause");
-    }
-});
-
 document.getElementById("step").addEventListener("click", () => {
     // Update sortstate
     sortstate = 1;
@@ -372,8 +361,8 @@ async function getScript(element) {
     getOptions();
 
     // Enable Buttons
+    enableButton('play');
     if (generated) {
-        enableButton('play');
         enableButton('step');
     }
 
