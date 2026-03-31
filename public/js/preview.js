@@ -59,17 +59,14 @@ runPreview();
 // ************************************************************************************************
 
 async function runPreview() {
+    // Get initial Algorithm
+    await updateAlgorithm();
+
+    // Wait for user to press play
+    sortstate = 0;
+    await checkSortstate();
 
     while (true) {
-        // Select random algorithm
-        currentAlgoId = selectAlgorithm();
-
-        // Get alrgoithm script
-        algorithm = await import(`/get/algorithm?id=${currentAlgoId}`);
-
-        // Update Preview Heading Link
-        updatePreviewHeading();
-
         // Generate Array if needed
         if (!generated || hasDeletion || array.length < previewArraySize) {
             array = new Array(previewArraySize);
@@ -90,11 +87,16 @@ async function runPreview() {
             sortstate = 2;
         }
         await algorithm.sortList[0][2]();
+
+        // Cleanup after running algorithm
         clearClass("cursor");
         if (sortstate != -1); {
             await allowUpdate(0);
         }
         sorting = false;
+
+        // Get new Algorithm
+        await updateAlgorithm();
     }
 }
 
@@ -114,6 +116,20 @@ function selectAlgorithm() {
 
     // Return link
     return link.id;
+}
+
+/**
+ * Gets a new algorithm and updates heading.
+ */
+async function updateAlgorithm() {
+    // Select random algorithm
+    currentAlgoId = selectAlgorithm();
+
+    // Get alrgoithm script
+    algorithm = await import(`/get/algorithm?id=${currentAlgoId}`);
+
+    // Update Preview Heading Link
+    updatePreviewHeading();
 }
 
 /**
