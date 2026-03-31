@@ -126,7 +126,7 @@ function selectAlgorithm() {
         index = Math.floor(Math.random() * playlist.length);
     } while(playlist[index] === currentAlgoId);
     // Splice id from playlist
-    const id = playlist.splice(index, 1);
+    const id = playlist.splice(index, 1)[0];
 
     // Add algorithm id to played
     played.push(id);
