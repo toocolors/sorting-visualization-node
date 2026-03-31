@@ -3,7 +3,11 @@
 // ************************************************************************************************
 let algorithm;
 let currentAlgoId;
+let played = [];
 const previewArraySize = 100;
+const unplayable = ["Bogo"];
+let playlist = [];
+
 
 //************************************************************************************************
 // Event Listeners
@@ -59,6 +63,9 @@ runPreview();
 // ************************************************************************************************
 
 async function runPreview() {
+    // Fill playlist
+    setupPlaylist();
+
     // Get initial Algorithm
     await updateAlgorithm();
 
@@ -105,17 +112,40 @@ async function runPreview() {
  * @returns The id of the selected algorithm.
  */
 function selectAlgorithm() {
-    // Get links
-    const links = document.getElementsByClassName("algoLink");
+    // Check if playlist is empty
+    if(playlist.length == 0) {
+        // Swap playlist and played
+        playlist = played;
+        played = new Array();
+    }
 
-    // Choose random link
-    let link;
+    // Get random algorithm id and remove it from playlist
+    // Check index (excluding current algorithm id)
+    let index;
     do {
-        link = links[Math.floor(Math.random() * links.length)];
-    } while (link.id === currentAlgoId);
+        index = Math.floor(Math.random() * playlist.length);
+    } while(playlist[index] === currentAlgoId);
+    // Splice id from playlist
+    const id = playlist.splice(index, 1);
+
+    // Add algorithm id to played
+    played.push(id);
 
     // Return link
-    return link.id;
+    return id;
+}
+
+/**
+ * Fills playlist with algorithm ids that are not in unplayable.
+ */
+function setupPlaylist() {
+    // Get algoLinks
+    const links = document.getElementsByClassName("algoLink");
+    for(let i = 0; i < links.length; i++) {
+        if(!unplayable.includes(links[i].id)) {
+            playlist.push(links[i].id);
+        }
+    }
 }
 
 /**
