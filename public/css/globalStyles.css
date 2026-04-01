@@ -38,6 +38,13 @@ main {
     background: #a8ccd6;
 }
 
+/* Footer Styles */
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
 /* Visualization Styles */
 #visualization {
     height: 100%;
