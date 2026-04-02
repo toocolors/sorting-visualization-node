@@ -62,6 +62,11 @@ runPreview();
 // Functions
 // ************************************************************************************************
 
+/**
+ * Runs the preview by continuously selecting a random algorithm, generating an array, 
+ *  shuffling it, and running the algorithm on it. 
+ * Waits for user input to play/pause/skip and updates the algorithm after each run.
+ */
 async function runPreview() {
     // Fill playlist
     setupPlaylist();
