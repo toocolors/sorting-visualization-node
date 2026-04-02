@@ -320,3 +320,15 @@ input[type="range"]:hover {
     background: #999;
     cursor: not-allowed;
 }
+
+#information {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    white-space: nowrap;
+}

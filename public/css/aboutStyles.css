@@ -47,3 +47,16 @@ body {
 .border h2 {
     margin-top: 5px;
 }
+
+/* Table Styles */
+.table-section {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    white-space: nowrap;
+}
