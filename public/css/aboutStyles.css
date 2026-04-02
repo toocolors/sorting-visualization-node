@@ -7,10 +7,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #visualization {
     height: 600px;
+    width: 100%;
+    max-width: 100%;
+}
+
+#previewHeading {
+    text-align: center;
+    margin: 0 0;
 }
 
 .sortControl {
@@ -20,10 +29,40 @@ body {
     margin: 5px;
 }
 
+@media (max-width: 900px) {
+    #previewOptions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sortControl {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+    }
+
+    #visualization {
+        height: 350px;
+    }
+}
+
 .border {
     padding: 5px;
 }
 
 .border h2 {
     margin-top: 5px;
+}
+
+/* Table Styles */
+.table-section {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    white-space: nowrap;
 }
