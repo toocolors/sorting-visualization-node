@@ -24,3 +24,21 @@
 <%- include('../tableHead') %>
     <%- include('../tables/insertionTable') %>
 </table>
+
+<h2>Binary Insertion Sort</h2>
+<p>
+    Binary Insertion Sort is a variation of Insertion Sort.
+    <br>
+    While Insertion Sort finds where to insert the current element linearly, 
+    by checking each element one by one,
+    Binary Insertion Sort uses binary searching to find the correct position
+    to insert the element.
+    This reduces the number of comparisons needed to sort the array.
+    In addition, since it knows where to insert the element, 
+    it can store the value of the current element and shift all of the elements
+    in the sorted section to the right instead of swapping the current element with each element one by one.
+    This reduces the number reads and writes needed to sort the array.
+    <br>
+    <br>
+    Despite these improvements, Binary Insertion Sort still has a Time Complexity of <b>n<sup>2</sup></b>.
+</p>
