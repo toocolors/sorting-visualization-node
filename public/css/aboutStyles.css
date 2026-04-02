@@ -7,10 +7,30 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #visualization {
     height: 600px;
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (max-width: 900px) {
+    #previewOptions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sortControl {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #visualization {
+        height: 350px;
+    }
 }
 
 .sortControl {

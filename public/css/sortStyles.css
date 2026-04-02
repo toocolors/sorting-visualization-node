@@ -75,6 +75,7 @@ input[type="range"]:hover {
     justify-content: space-between;
     align-items: center;
     gap: 15px;
+    min-width: 0;
 }
 
 #generationOptions {
@@ -83,6 +84,35 @@ input[type="range"]:hover {
     gap: 8px;
     margin: 5px;
     text-align: center;
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    #generation {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #generationOptions {
+        width: 100%;
+    }
+
+    #generate,
+    #generateGrayed,
+    #shuffle,
+    #shuffleGrayed {
+        width: 100%;
+        min-width: 0;
+    }
+
+    #sortOptions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #operations {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 #generate,
