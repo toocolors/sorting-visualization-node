@@ -118,6 +118,7 @@ td {
     min-width: 0;
     word-break: break-word;
     overflow-wrap: anywhere;
+    width: 100%;
 }
 
 #information,
