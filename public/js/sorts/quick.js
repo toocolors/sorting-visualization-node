@@ -3,7 +3,8 @@
 // ************************************************************************************************
 let threaded;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
-    ["quick", "Quick Sort", beginSort]
+    ["quick", "Quick Sort", beginSort],
+    ["median", "Median of Three", beginSort]
 ];
 export const optionsList = new Object();
 
@@ -15,6 +16,15 @@ Pivot:
     <option value='left'>Left</option>
     <option value='middle'>Middle</option>
     <option value='right'>Right</option>
+</select>
+`;
+// median of three
+optionsList[sortList[1][0]] = `
+Pivot:
+<select id='medianOptions'>
+    <option value='median'>Median</option>
+    <option value='smallest'>Smallest</option>
+    <option value='largest'>Largest</option>
 </select>
 `;
 let pivotType;
