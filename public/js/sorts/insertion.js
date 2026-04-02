@@ -32,13 +32,10 @@ export async function insertionSort(start, end) {
             return false;
         }
 
-        // Update Cursor
-        clearClass('cursor');
-        setCursor(i);
-
-        // Update page
-        await allowUpdate();
-        playAudio(array[i]);
+        // Start Step
+        if(!await startStep(i)) {
+            return false;
+        }
 
         // Try to insert element i
         switch(insertionType) {
@@ -51,6 +48,9 @@ export async function insertionSort(start, end) {
                 }
                 break;
         }
+
+        // End Step
+        clearCursor(i);
     }
 }
 
