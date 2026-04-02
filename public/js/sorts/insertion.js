@@ -69,18 +69,11 @@ async function insert(index, start) {
         // Swap Elements
         swap(index - 1, index);
 
-        // Check sortstate
-        if(!await checkSortstate()) {
+        // Start and end step
+        if(!await startStep(index)) {
             return false;
         }
-
-        // Update Cursor
-        clearClass('cursor');
-        setCursor(index - 1);
-
-        // Update page
-        await allowUpdate();
-        playAudio(array[index]);
+        clearCursor(index);
 
         // Decrement index
         index--;
