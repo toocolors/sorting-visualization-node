@@ -52,6 +52,8 @@ export async function insertionSort(start, end) {
         // End Step
         clearCursor(i);
     }
+
+    return true;
 }
 
 // ************************************************************************************************
