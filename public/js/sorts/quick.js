@@ -47,20 +47,94 @@ async function beginSort() {
     await quickSort(0, arraySize - 1);
 }
 
+/**
+ * Sorts the first, middle, and last elements of the current section.
+ * @param {Number} start The start of the current section.
+ * @param {Number} end The end of the current section (including).
+ */
+async function sortMedian(start, end) { 
+    // Get middle index
+    const middle = Math.max(start, Math.floor((start + end) / 2));
+
+    // Compare/Swap first and middle
+    if(isGreater(start, middle)) {
+        swap(start, middle);
+    }
+    // Start step
+    setCursor(middle);
+    if(!await startStep(start)) {
+        return false;
+    }
+    // End step
+    clearCursor(start);
+    clearCursor(middle);
+
+    // Compare/Swap first and last
+    if(isGreater(start, end)) {
+        swap(start, end);
+    }
+    // Start step
+    setCursor(start);
+    if(!await startStep(end)) {
+        return false;
+    }
+    // End step
+    clearCursor(start);
+    clearCursor(end);
+
+    // Compare/Swap middle and last
+    if(isGreater(middle, end)) {
+        swap(middle, end);
+    }
+    // Start step
+    setCursor(end);
+    if(!await startStep(middle)) {
+        return false;
+    }
+    // End step
+    clearCursor(middle);
+    clearCursor(end);
+
+    return true;
+}
+
 async function quickSort(start, end) {
     // Return if array is empty or one element
     if (end - start <= 0) {
         return true;
     }
 
+    // Initialize i and j
+    let i = start;
+    let j = end;
+
     // Get Pivot
     switch (pivotType) {
         // Median of three
         case "median":
+            if (!await sortMedian(start, end)) {
+                return false;
+            }
+            // Swap second element with median
+            swap(start + 1, Math.floor((start + end) / 2));
+            // Increment i so that it starts at the third element (since the first two are sorted)
+            i++;
+            // Decrement j so that it starts at the second to last element (since the last is sorted)
+            j--;
             break;
         case "smallest":
+            if (!await sortMedian(start, end)) {
+                return false;
+            }
+            // Decrement j so that it starts at the second to last element (since the last is sorted)
+            j--;
             break;
         case "largest":
+            if (!await sortMedian(start, end)) {
+                return false;
+            }
+            // Swap start and end so that the largest element is at the start
+            swap(start, end);
             break;
         // Standard quicksort
         case "right":
@@ -73,11 +147,7 @@ async function quickSort(start, end) {
         default:
             break;
     }
-    const pivot = start;
-
-    // Initialize i and j
-    let i = start;
-    let j = end;
+    const pivot = i;
 
     // Set Cursors
     setCursor(i);
