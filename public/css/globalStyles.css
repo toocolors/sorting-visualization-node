@@ -54,6 +54,13 @@ footer {
     text-align: center;
 }
 
+hr {
+    color: #d9eaf0;
+    border: none;
+    border-top: 2px solid #d9eaf0;
+    margin: 20px 0;
+}
+
 /* Visualization Styles */
 #visualization {
     height: 100%;
