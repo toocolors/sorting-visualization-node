@@ -13,7 +13,7 @@ export const sortList = [ // 0 = id, 1 = name, 2 = main function
 
 async function beginInsertion() {
     // Get inserstion type
-    insertionType = 0;
+    insertionType = getSortOptions()[0];
 
     // Start Insertion Sort
     await insertionSort(0, arraySize - 1);
@@ -41,12 +41,15 @@ export async function insertionSort(start, end) {
         playAudio(array[i]);
 
         // Try to insert element i
-        if(insertionType == 0) { // standard insertion
-            if (!await insert(i, start)) {
-                return false;
-            }
-        } else { // binary insertion
-            
+        switch(insertionType) {
+            case "binary":
+                break;
+            case "insertion":
+            default:
+                if (!await insert(i, start)) {
+                    return false;
+                }
+                break;
         }
     }
 }
