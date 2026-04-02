@@ -32,7 +32,7 @@ select:disabled {
 }
 
 input[type="number"] {
-    width: 70px;
+    width: 80px;
 }
 
 select {
