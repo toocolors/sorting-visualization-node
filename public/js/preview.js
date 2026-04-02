@@ -95,9 +95,15 @@ async function runPreview() {
 
         // Play Algorithm
         sorting = true;
+        // Update sortstate if user pressed skip while algorithm was running
         if (sortstate == -1) {
             sortstate = 2;
         }
+        // Enable skip button
+        document.getElementById("skip").classList.remove("hide");
+        document.getElementById("skipGrayed").classList.add("hide");
+
+        // Run algorithm
         await algorithm.sortList[0][2]();
 
         // Cleanup after running algorithm
@@ -106,6 +112,9 @@ async function runPreview() {
             await allowUpdate(0);
         }
         sorting = false;
+        // Disable skip button
+        document.getElementById("skip").classList.add("hide");
+        document.getElementById("skipGrayed").classList.remove("hide");
 
         // Get new Algorithm
         await updateAlgorithm();
