@@ -55,6 +55,14 @@ async function quickSort(start, end) {
 
     // Get Pivot
     switch (pivotType) {
+        // Median of three
+        case "median":
+            break;
+        case "smallest":
+            break;
+        case "largest":
+            break;
+        // Standard quicksort
         case "right":
             swap(start, end);
             break;
