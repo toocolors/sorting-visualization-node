@@ -90,13 +90,13 @@ function allowUpdate(speed = -1) {
 function getSortOptions() {
     // Check if sortOptions exists
     if (document.getElementById("sortOptions") === null) {
-        return [undefined, undefined]
+        return [undefined, undefined];
     }
 
     // Get sortSelect
     let sortValue = undefined;
-    if (document.getElementById("sortOptions") !== null) {
-        sortValue = document.getElementById("sortOptions").value;
+    if (document.getElementById("sortSelect") !== null) {
+        sortValue = document.getElementById("sortSelect").value;
     }
 
     // Get optionsDiv
