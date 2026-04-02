@@ -510,11 +510,6 @@ select {
     }
 }
 
-.grayed {
-    background: #999;
-    cursor: not-allowed;
-}
-
 #information {
     overflow-x: auto;
 }
