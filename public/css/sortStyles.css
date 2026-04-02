@@ -72,7 +72,8 @@ input[type="range"]:hover {
 /* Generation Styles */
 #generation {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     gap: 15px;
     min-width: 0;
@@ -80,29 +81,91 @@ input[type="range"]:hover {
 
 #generationOptions {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
     margin: 5px;
     text-align: center;
-    min-width: 0;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 200px;
 }
 
+#generationOptions label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    flex: 0 1 auto;
+}
+
+#generationButtonGroup {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: min(100%, 480px);
+}
+
+input[type="number"],
+select {
+    white-space: normal;
+}
+
+#generate,
+#generateGrayed,
+#shuffle,
+#shuffleGrayed {
+    min-width: 120px;
+    min-height: 60px;
+    padding: 10px 15px;
+    margin: 0;
+    border: none;
+    white-space: normal;
+    flex: 1 1 180px;
+    max-width: 240px;
+}
+
+/* Narrow screens: inputs and buttons on same line */
 @media (max-width: 900px) {
+    #generate,
+    #generateGrayed,
+    #shuffle,
+    #shuffleGrayed {
+        width: auto !important;
+    }
+}
+
+@media (max-width: 600px) {
     #generation {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
     }
 
     #generationOptions {
+        width: auto;
+        flex: 1 1 auto;
+        min-width: 180px;
+    }
+
+    #generationButtonGroup {
         width: 100%;
+        flex: 0 1 auto;
     }
 
     #generate,
     #generateGrayed,
     #shuffle,
     #shuffleGrayed {
-        width: 100%;
-        min-width: 0;
+        flex: 1 1 45%;
+        min-width: 100px;
+        max-width: 250px;
     }
 
     #sortOptions {
@@ -115,18 +178,31 @@ input[type="range"]:hover {
     }
 }
 
-#generate,
-#generateGrayed,
-#shuffle,
-#shuffleGrayed {
-    height: 100%;
-    min-width: 100px;
-    min-height: 75px;
-    width: 50%;
-    white-space: nowrap;
-    margin: 0;
-    padding: 10px;
-    border: none;
+/* Medium screens: inputs and buttons on separate lines */
+@media (max-width: 1100px) and (min-width: 601px) {
+    #generation {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #generationOptions {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    #generationButtonGroup {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    #generate,
+    #generateGrayed,
+    #shuffle,
+    #shuffleGrayed {
+        flex: 1 1 45%;
+        min-width: 120px;
+        max-width: 280px;
+    }
 }
 
 #generate,
