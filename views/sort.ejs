@@ -85,31 +85,33 @@
                                 </div>
                                 <div id="optionsDiv" class="inline-block"></div>
                             </div>
-                            <br>
 
-                            <!-- Play Button -->
-                            <button id="play" class="sortControl largeLandscape">&#9658;</button>
-                            <button id="playGrayed" class="sortControl grayed largeLandscape hide">&#9658;</button>
+                            <div id="playbackControls">
+                                <!-- Play Button -->
+                                <button id="play" class="sortControl largeLandscape">&#9658;</button>
+                                <button id="playGrayed" class="sortControl grayed largeLandscape hide">&#9658;</button>
 
-                            <!-- Step Button -->
-                            <button id="step" class="sortControl hide largeLandscape">&#8594;</button>
-                            <button id="stepGrayed" class="sortControl grayed largeLandscape">&#8594;</button>
+                                <!-- Step Button -->
+                                <button id="step" class="sortControl hide largeLandscape">&#8594;</button>
+                                <button id="stepGrayed" class="sortControl grayed largeLandscape">&#8594;</button>
 
-                            <!-- Pause Button -->
-                            <button id="pause" class="sortControl hide">&#x23F8;</button>
-                            <button id="pauseGrayed" class="sortControl grayed">&#x23F8;</button>
+                                <!-- Pause Button -->
+                                <button id="pause" class="sortControl hide">&#x23F8;</button>
+                                <button id="pauseGrayed" class="sortControl grayed">&#x23F8;</button>
 
-                            <!-- Stop Button -->
-                            <button id="stop" class="sortControl hide">&#x23F9;</button>
-                            <button id="stopGrayed" class="sortControl grayed">&#x23F9;</button>
+                                <!-- Stop Button -->
+                                <button id="stop" class="sortControl hide">&#x23F9;</button>
+                                <button id="stopGrayed" class="sortControl grayed">&#x23F9;</button>
 
-                            <!-- Audio Buttons -->
-                            <button id="unmute" class="sortControl">&#128360;</button>
-                            <button id="mute" class="sortControl hide">&#128362;</button>
+                                <!-- Audio Buttons -->
+                                <button id="unmute" class="sortControl">&#128360;</button>
+                                <button id="mute" class="sortControl hide">&#128362;</button>
 
-                            <div id="speedControl">
-                                <span id="speedSpan">Speed:</span>
-                                <input id="speed" type="range" min="500" max="1000" value="1000">
+                                <!-- Speed control now in the same control block -->
+                                <div id="speedControl">
+                                    <span id="speedSpan">Speed:</span>
+                                    <input id="speed" type="range" min="500" max="1000" value="1000">
+                                </div>
                             </div>
                         </div>
 
