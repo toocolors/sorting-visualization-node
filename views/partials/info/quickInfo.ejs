@@ -44,3 +44,19 @@
 <%- include('../tableHead') %>
     <%- include('../tables/quickTable') %>
 </table>
+
+<h2>Median of Three</h2>
+<p>
+    Median of Three is a common variant for QuickSort that changes how the pivot is selected.
+    <br>
+    While regular Quick Sort often selects the first, 
+    last, or middle element as the pivot,
+    Median of Three starts by sorting the first, last, and middle elements of the current section.
+    After sorting them it picks the new middle element as the pivot and moves it to just
+    in front of the first element.
+    <br>
+    <br>
+    This process helps avoid the worst case of Quick Sort, where the pivot is the smallest or largest element
+    in that section. This gives Median of Three a better average Time Complexity than regular Quick Sort,
+    although its best and worst case Time Complexities are the same.
+</p>
