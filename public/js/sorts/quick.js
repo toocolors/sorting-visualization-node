@@ -72,7 +72,68 @@ async function beginSort() {
  * @param {*} end The end of the current section (including).
  */
 async function dualPivot(start, end) {
+    // Return if partition is empty or one element
+    if (end - start <= 0) {
+        return true;
+    }
 
+    // Get pivot
+    // Sort first/last if needed
+    switch (pivotType) {
+        case "small-large":
+            // Sort first, middle, last
+            if (!await sortMedian(start, end)) {
+                return false;
+            }
+            break;
+        case "first-last":
+        default:
+            // Swap first/last if out of order
+            if (isGreater(start, end)) {
+                swap(start, end);
+            }
+            break;
+    }
+    const pivotLeft = start;
+    const pivotRight = end;
+
+    // Initialize i and j
+    let i = pivotLeft;
+    let j = pivotRight;
+
+    // Partition Array
+    // i loop
+
+
+    // Call recursive sorts
+    if (threaded) {
+        // Start Recursive Functions
+        let left = dualPivot(start, i - 1);
+        let middle = dualPivot(i + 1, j - 1);
+        let right = dualPivot(j + 1, end);
+
+        // Wait for recursive functions
+        await Promise.all([left, middle, right]);
+
+        // Check sortstate
+        if (sortstate == -1) {
+            return false;
+        }
+
+    } else {
+        // Sort partitions synchronously
+        if (!await dualPivot(start, i - 1)) {
+            return false;
+        }
+        if (!await dualPivot(i + 1, j - 1)) {
+            return false;
+        }
+        if (!await dualPivot(j + 1, end)) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 /**
