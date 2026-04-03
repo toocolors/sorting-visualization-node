@@ -42,8 +42,9 @@ let pivotType;
 // Sorting Functions
 // ************************************************************************************************
 async function beginSort() {
-    // Get Pivot Type
-    pivotType = getSortOptions()[1];
+    // Get options
+    const options = getSortOptions();
+    pivotType = options[1];
 
     // Get threaded
     if (document?.getElementsByClassName('currentAlgo')[0]?.classList?.contains("async")) {
@@ -53,7 +54,15 @@ async function beginSort() {
     }
 
     // Begin Quick Sort
-    await quickSort(0, arraySize - 1);
+    switch (options[0]) {
+        case "dual-pivot":
+            break;
+        case "quick":
+        case "median":
+        default:
+            await quickSort(0, arraySize - 1);
+            break;
+    }
 }
 
 /**
