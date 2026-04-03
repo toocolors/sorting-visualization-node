@@ -107,6 +107,7 @@ async function dualPivot(start, end) {
 
     // Call recursive sorts
     if (threaded) {
+        // Sort partitions asynchronously
         // Start Recursive Functions
         let left = dualPivot(start, i - 1);
         let middle = dualPivot(i + 1, j - 1);
