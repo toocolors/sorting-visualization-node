@@ -4,7 +4,8 @@
 let threaded;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["quick", "Quick Sort", beginSort],
-    ["median", "Median of Three", beginSort]
+    ["median", "Median of Three", beginSort],
+    ["dual-pivot", "Dual Pivot", beginSort]
 ];
 export const optionsList = new Object();
 
@@ -25,6 +26,14 @@ Pivot:
     <option value='median'>Median</option>
     <option value='smallest'>Smallest</option>
     <option value='largest'>Largest</option>
+</select>
+`;
+// Dual Pivot
+optionsList[sortList[2][0]] = `
+Pivot:
+<select id='dualPivotOptions'>
+    <option value='first-last'>First/Last</option>
+    <option value='small-large'>Smallest/Largest</option>
 </select>
 `;
 let pivotType;
@@ -52,17 +61,17 @@ async function beginSort() {
  * @param {Number} start The start of the current section.
  * @param {Number} end The end of the current section (including).
  */
-async function sortMedian(start, end) { 
+async function sortMedian(start, end) {
     // Get middle index
     const middle = Math.max(start, Math.floor((start + end) / 2));
 
     // Compare/Swap first and middle
-    if(isGreater(start, middle)) {
+    if (isGreater(start, middle)) {
         swap(start, middle);
     }
     // Start step
     setCursor(middle);
-    if(!await startStep(start)) {
+    if (!await startStep(start)) {
         return false;
     }
     // End step
@@ -70,12 +79,12 @@ async function sortMedian(start, end) {
     clearCursor(middle);
 
     // Compare/Swap first and last
-    if(isGreater(start, end)) {
+    if (isGreater(start, end)) {
         swap(start, end);
     }
     // Start step
     setCursor(start);
-    if(!await startStep(end)) {
+    if (!await startStep(end)) {
         return false;
     }
     // End step
@@ -83,12 +92,12 @@ async function sortMedian(start, end) {
     clearCursor(end);
 
     // Compare/Swap middle and last
-    if(isGreater(middle, end)) {
+    if (isGreater(middle, end)) {
         swap(middle, end);
     }
     // Start step
     setCursor(end);
-    if(!await startStep(middle)) {
+    if (!await startStep(middle)) {
         return false;
     }
     // End step
