@@ -56,6 +56,7 @@ async function beginSort() {
     // Begin Quick Sort
     switch (options[0]) {
         case "dual-pivot":
+            await dualPivot(0, arraySize - 1);
             break;
         case "quick":
         case "median":
@@ -63,6 +64,15 @@ async function beginSort() {
             await quickSort(0, arraySize - 1);
             break;
     }
+}
+
+/**
+ * Sorts the array using Dual Pivot Quick Sort
+ * @param {Number} start The start of the current section.
+ * @param {*} end The end of the current section (including).
+ */
+async function dualPivot(start, end) {
+
 }
 
 /**
