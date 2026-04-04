@@ -130,7 +130,7 @@ async function dualPivot(start, end) {
                 // Decrement k and update page
                 clearCursor(k);
                 k--;
-                if(!await startStep(k)) {
+                if (!await startStep(k)) {
                     return false;
                 }
             }
@@ -139,7 +139,7 @@ async function dualPivot(start, end) {
             // Decrement k and update page
             clearCursor(k);
             k--;
-            if(!await startStep(k)) {
+            if (!await startStep(k)) {
                 return false;
             }
 
@@ -149,7 +149,7 @@ async function dualPivot(start, end) {
                 // Increment i and update page
                 clearCursor(i);
                 i++;
-                if(!await startStep(i)) {
+                if (!await startStep(i)) {
                     return false;
                 }
             }
@@ -161,18 +161,18 @@ async function dualPivot(start, end) {
         // Increment j
         j++;
     }
-    
+
     // Move pivots to their final positions
     // Decrement i and update page
     clearCursor(i);
     i--;
-    if(!await startStep(i)) {
+    if (!await startStep(i)) {
         return false;
     }
     // Increment k and update page
     clearCursor(k);
     k++;
-    if(!await startStep(k)) {
+    if (!await startStep(k)) {
         return false;
     }
 
@@ -322,9 +322,12 @@ async function quickSort(start, end) {
     }
     const pivot = i;
 
+    // Set pivot cursor
+    setCursor(pivot, "blue");
+
     // Set Cursors
-    setCursor(i);
-    setCursor(j);
+    setCursor(i, "green");
+    setCursor(j, "red");
 
     // Update page
     await allowUpdate();
@@ -341,8 +344,8 @@ async function quickSort(start, end) {
         i++;
 
         // Update cursor for element i
-        clearCursor(i - 1);
-        setCursor(i);
+        clearCursor(i - 1, "green");
+        setCursor(i, "green");
 
         // Update Page
         await allowUpdate();
@@ -384,7 +387,7 @@ async function quickSort(start, end) {
 
                 // Update cursor for element i
                 clearCursor(j + 1);
-                setCursor(j);
+                setCursor(j, "red");
 
                 // Update Page
                 await allowUpdate();
@@ -405,7 +408,7 @@ async function quickSort(start, end) {
 
         // Update cursor for element i
         clearCursor(j + 1);
-        setCursor(j);
+        setCursor(j, "red");
 
         // Update Page
         await allowUpdate();
@@ -429,6 +432,7 @@ async function quickSort(start, end) {
     }
 
     // Clear Cursors
+    clearCursor(pivot);
     clearCursor(i);
     clearCursor(j);
 
