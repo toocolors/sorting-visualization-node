@@ -229,42 +229,40 @@ async function sortMedian(start, end) {
     // Get middle index
     const middle = Math.max(start, Math.floor((start + end) / 2));
 
+    // Set cursors
+    setCursor(start);
+    setCursor(middle);
+    setCursor(end);
+
     // Compare/Swap first and middle
     if (isGreater(start, middle)) {
         swap(start, middle);
     }
     // Start step
-    setCursor(middle);
-    if (!await startStep(start)) {
+    if (!await startStep(-1, start)) {
         return false;
     }
-    // End step
-    clearCursor(start);
-    clearCursor(middle);
 
     // Compare/Swap first and last
     if (isGreater(start, end)) {
         swap(start, end);
     }
     // Start step
-    setCursor(start);
-    if (!await startStep(end)) {
+    if (!await startStep(-1, end)) {
         return false;
     }
-    // End step
-    clearCursor(start);
-    clearCursor(end);
 
     // Compare/Swap middle and last
     if (isGreater(middle, end)) {
         swap(middle, end);
     }
     // Start step
-    setCursor(end);
-    if (!await startStep(middle)) {
+    if (!await startStep(-1, middle)) {
         return false;
     }
-    // End step
+
+    // Clear cursors
+    clearCursor(start);
     clearCursor(middle);
     clearCursor(end);
 
