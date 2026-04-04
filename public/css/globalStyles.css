@@ -79,7 +79,16 @@ hr {
     margin: 0;
 }
 
-.cursor {
+.cursorBlue {
+    background-color: blue;
+}
+
+.cursorGreen {
+    background-color: green;
+}
+
+.cursor,
+.cursorRed {
     background-color: red;
 }
 
