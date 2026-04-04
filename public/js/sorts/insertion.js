@@ -1,7 +1,7 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
-export let insertionType; // 0 = insertion, 1 = binary insertion
+export let insertionType;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["insertion", "Insertion Sort", beginInsertion],
     ["binary", "Binary Insertion Sort", beginInsertion]
