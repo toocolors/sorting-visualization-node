@@ -79,30 +79,49 @@ async function dualPivot(start, end) {
 
     // Get pivot
     // Sort first/last if needed
-    switch (pivotType) {
-        case "small-large":
-            // Sort first, middle, last
-            if (!await sortMedian(start, end)) {
-                return false;
-            }
-            break;
-        case "first-last":
-        default:
-            // Swap first/last if out of order
-            if (isGreater(start, end)) {
-                swap(start, end);
-            }
-            break;
+    if (isGreater(start, end)) {
+        swap(start, end);
     }
     const pivotLeft = start;
     const pivotRight = end;
 
-    // Initialize i and j
-    let i = pivotLeft;
-    let j = pivotRight;
+    // Initialize i, j, and k
+    let i = pivotLeft + 1; // Separates the left and middle partitions.
+    let j = pivotLeft + 1; // Iterates through the partition.
+    let k = pivotRight - 1; // Separates the middle and right partitions.
 
     // Partition Array
-    // i loop
+    while (j <= k) {
+        // Check if element j is less than the left pivot
+        if (isLess(j, pivotLeft)) {
+            swap(i, j);
+            i++;
+        }
+
+        // Check if element j is greater than or equal to the right pivot
+        else if (isEqualOrGreater(j, pivotRight)) {
+            while (isEqualOrGreater(k, pivotRight) && j < k) {
+                k--;
+            }
+            swap(j, k);
+            k--;
+
+            // Check if element j is less than the left pivot after swapping
+            if (isLess(j, pivotLeft)) {
+                swap(i, j);
+                i++;
+            }
+        }
+
+        // Increment j
+        j++;
+    }
+    
+    // Move pivots to their final positions
+    i--;
+    k++;
+    swap(pivotLeft, i);
+    swap(pivotRight, k);
 
 
     // Call recursive sorts
@@ -126,10 +145,10 @@ async function dualPivot(start, end) {
         if (!await dualPivot(start, i - 1)) {
             return false;
         }
-        if (!await dualPivot(i + 1, j - 1)) {
+        if (!await dualPivot(i + 1, k - 1)) {
             return false;
         }
-        if (!await dualPivot(j + 1, end)) {
+        if (!await dualPivot(k + 1, end)) {
             return false;
         }
     }
