@@ -69,7 +69,7 @@ async function beginSort() {
 /**
  * Sorts the array using Dual Pivot Quick Sort
  * @param {Number} start The start of the current section.
- * @param {*} end The end of the current section (including).
+ * @param {Number} end The end of the current section (including).
  */
 async function dualPivot(start, end) {
     // Return if partition is empty or one element
@@ -90,47 +90,98 @@ async function dualPivot(start, end) {
     let j = pivotLeft + 1; // Iterates through the partition.
     let k = pivotRight - 1; // Separates the middle and right partitions.
 
+    // Set initial cursors for pivots and i, and k
+    setCursor(pivotLeft);
+    setCursor(pivotRight);
+    setCursor(i);
+    setCursor(k);
+
     // Partition Array
     while (j <= k) {
+        // Start step
+        if (!await startStep(j)) {
+            return false;
+        }
+
         // Check if element j is less than the left pivot
         if (isLess(j, pivotLeft)) {
             swap(i, j);
+            clearCursor(i);
             i++;
+            setCursor(i);
         }
 
         // Check if element j is greater than or equal to the right pivot
         else if (isEqualOrGreater(j, pivotRight)) {
             while (isEqualOrGreater(k, pivotRight) && j < k) {
+                // Decrement k and update page
+                clearCursor(k);
                 k--;
+                if(!await startStep(k)) {
+                    return false;
+                }
             }
             swap(j, k);
+
+            // Decrement k and update page
+            clearCursor(k);
             k--;
+            if(!await startStep(k)) {
+                return false;
+            }
 
             // Check if element j is less than the left pivot after swapping
             if (isLess(j, pivotLeft)) {
                 swap(i, j);
+                // Increment i and update page
+                clearCursor(i);
                 i++;
+                if(!await startStep(i)) {
+                    return false;
+                }
             }
         }
+
+        // Clear cursor for j
+        clearCursor(j);
 
         // Increment j
         j++;
     }
     
     // Move pivots to their final positions
+    // Decrement i and update page
+    clearCursor(i);
     i--;
+    if(!await startStep(i)) {
+        return false;
+    }
+    // Increment k and update page
+    clearCursor(k);
     k++;
+    if(!await startStep(k)) {
+        return false;
+    }
+
+    // Swap pivots with i and k and update page
     swap(pivotLeft, i);
     swap(pivotRight, k);
+    await allowUpdate();
 
+    // Clear cursors
+    clearCursor(pivotLeft);
+    clearCursor(pivotRight);
+    clearCursor(i);
+    clearCursor(j);
+    clearCursor(k);
 
     // Call recursive sorts
     if (threaded) {
         // Sort partitions asynchronously
         // Start Recursive Functions
         let left = dualPivot(start, i - 1);
-        let middle = dualPivot(i + 1, j - 1);
-        let right = dualPivot(j + 1, end);
+        let middle = dualPivot(i + 1, k - 1);
+        let right = dualPivot(k + 1, end);
 
         // Wait for recursive functions
         await Promise.all([left, middle, right]);
