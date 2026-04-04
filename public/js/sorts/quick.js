@@ -1,6 +1,8 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
+const insertion = await import("/get/algorithm?id=Insertion");
+let insertionSize;
 let threaded;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["quick", "Quick Sort", beginSort],
@@ -30,11 +32,8 @@ Pivot:
 `;
 // Dual Pivot
 optionsList[sortList[2][0]] = `
-Pivot:
-<select id='dualPivotOptions'>
-    <option value='first-last'>First/Last</option>
-    <option value='small-large'>Smallest/Largest</option>
-</select>
+Insertion Size:
+<input type='number' id='dualPivotOptions' value='0' min='0'>
 `;
 let pivotType;
 
@@ -44,7 +43,6 @@ let pivotType;
 async function beginSort() {
     // Get options
     const options = getSortOptions();
-    pivotType = options[1];
 
     // Get threaded
     if (document?.getElementsByClassName('currentAlgo')[0]?.classList?.contains("async")) {
@@ -56,11 +54,21 @@ async function beginSort() {
     // Begin Quick Sort
     switch (options[0]) {
         case "dual-pivot":
+            // Get and clamp insertion size
+            insertionSize = parseInt(options[1]);
+            if (isNaN(insertionSize) || insertionSize < 0) {
+                insertionSize = 0;
+            } else if (insertionSize > array.length) {
+                insertionSize = array.length - 1;
+            }
+            // Begin sort
             await dualPivot(0, arraySize - 1);
             break;
         case "quick":
         case "median":
         default:
+            // Get pivot type and begin sort
+            pivotType = options[1];
             await quickSort(0, arraySize - 1);
             break;
     }
@@ -75,6 +83,11 @@ async function dualPivot(start, end) {
     // Return if partition is empty or one element
     if (end - start <= 0) {
         return true;
+    }
+
+    // If partition is smaller than insertion size, use insertion sort
+    if (end - start <= insertionSize) {
+        return await insertion.insertionSort(start, end);
     }
 
     // Get pivot
