@@ -103,43 +103,46 @@ async function dualPivot(start, end) {
     let j = pivotLeft + 1; // Iterates through the partition.
     let k = pivotRight - 1; // Separates the middle and right partitions.
 
-    // Set initial cursors for pivots and i, and k
-    setCursor(pivotLeft);
-    setCursor(pivotRight);
-    setCursor(i);
-    setCursor(k);
+    // Set initial cursors for pivots and i, and kf
+    setCursor(pivotRight, "blue");
+    setCursor(pivotLeft, "blue");
+    setCursor(i, "green");
+    setCursor(k, "green");
 
     // Partition Array
     while (j <= k) {
         // Start step
-        if (!await startStep(j)) {
+        setCursor(j, "red");
+        if (!await startStep(-1, j)) {
             return false;
         }
 
         // Check if element j is less than the left pivot
         if (isLess(j, pivotLeft)) {
             swap(i, j);
-            clearCursor(i);
+            clearCursor(i, "green");
             i++;
-            setCursor(i);
+            setCursor(i, "green");
         }
 
         // Check if element j is greater than or equal to the right pivot
         else if (isEqualOrGreater(j, pivotRight)) {
             while (isEqualOrGreater(k, pivotRight) && j < k) {
                 // Decrement k and update page
-                clearCursor(k);
+                clearCursor(k, "green");
                 k--;
-                if (!await startStep(k)) {
+                setCursor(k, "green");
+                if (!await startStep(-1, k)) {
                     return false;
                 }
             }
             swap(j, k);
 
             // Decrement k and update page
-            clearCursor(k);
+            clearCursor(k, "green");
             k--;
-            if (!await startStep(k)) {
+            setCursor(k, "green");
+            if (!await startStep(-1, k)) {
                 return false;
             }
 
@@ -147,16 +150,17 @@ async function dualPivot(start, end) {
             if (isLess(j, pivotLeft)) {
                 swap(i, j);
                 // Increment i and update page
-                clearCursor(i);
+                clearCursor(i, "green");
                 i++;
-                if (!await startStep(i)) {
+                setCursor(i, "green");
+                if (!await startStep(-1, i)) {
                     return false;
                 }
             }
         }
 
         // Clear cursor for j
-        clearCursor(j);
+        clearCursor(j, "red");
 
         // Increment j
         j++;
@@ -164,15 +168,17 @@ async function dualPivot(start, end) {
 
     // Move pivots to their final positions
     // Decrement i and update page
-    clearCursor(i);
+    clearCursor(i, "green");
     i--;
-    if (!await startStep(i)) {
+    setCursor(i, "green");
+    if (!await startStep(-1, i)) {
         return false;
     }
     // Increment k and update page
-    clearCursor(k);
+    clearCursor(k, "green");
     k++;
-    if (!await startStep(k)) {
+    setCursor(k, "green");
+    if (!await startStep(-1, k)) {
         return false;
     }
 
