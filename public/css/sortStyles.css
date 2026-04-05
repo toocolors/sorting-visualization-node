@@ -39,7 +39,8 @@ select {
     cursor: pointer;
 }
 
-#sortOptions {
+#sortOptions,
+#asyncOptions {
     margin-top: 5px;
 }
 
@@ -133,6 +134,7 @@ select {
 
 /* Narrow screens: inputs and buttons on same line */
 @media (max-width: 900px) {
+
     #generate,
     #generateGrayed,
     #shuffle,
@@ -168,7 +170,8 @@ select {
         max-width: 250px;
     }
 
-    #sortOptions {
+    #sortOptions,
+    #asyncOptions {
         flex-direction: column;
         gap: 8px;
     }
@@ -233,7 +236,8 @@ select {
 }
 
 /* Sort Option Stlyes */
-#sortOptions {
+#sortOptions,
+#asyncOptions {
     display: flex;
     justify-content: space-evenly;
 }
@@ -306,7 +310,8 @@ select {
         align-items: stretch;
     }
 
-    #sortOptions {
+    #sortOptions,
+    #asyncOptions {
         flex: 0 0 auto;
         width: 100%;
     }
@@ -442,7 +447,8 @@ select {
         align-items: start;
     }
 
-    #sortOptions {
+    #sortOptions,
+    #asyncOptions {
         grid-column: 1 / -1;
         width: 100%;
     }
@@ -518,6 +524,7 @@ table {
     width: 100%;
 }
 
-th, td {
+th,
+td {
     white-space: nowrap;
 }
