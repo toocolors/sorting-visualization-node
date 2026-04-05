@@ -105,6 +105,8 @@ function allowUpdate(speed = -1) {
  * @returns An array of: 
  *  1. The value of sortSelect
  *  2. The value of the select/input inside optionsDiv
+ *  3. The value of threads count
+ *  4. The value of threads size
  *  Values will be undefined if any options are unavailable.
  */
 function getSortOptions() {
@@ -127,8 +129,16 @@ function getSortOptions() {
         optionsValue = document.querySelector("#optionsDiv input").value;
     }
 
+    // Get threads variables
+    let threadCount = undefined;
+    let threadSize = undefined;
+    if (currentAlgorithm.threads !== undefined) {
+        threadCount = document.getElementById("threadCount").value;
+        threadSize = document.getElementById("threadSize").value;
+    }
+
     // Return values
-    return [sortValue, optionsValue];
+    return [sortValue, optionsValue, threadCount, threadSize];
 }
 
 /**
