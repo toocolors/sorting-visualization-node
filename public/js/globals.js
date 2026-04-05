@@ -130,11 +130,20 @@ function getSortOptions() {
     }
 
     // Get threads variables
-    let threadCount = undefined;
-    let threadSize = undefined;
+    let threadCount = 0;
+    let threadSize = 0;
     if (currentAlgorithm.threads !== undefined) {
-        threadCount = document.getElementById("threadCount").value;
-        threadSize = document.getElementById("threadSize").value;
+        // Thread Count
+        threadCount = Number(document.getElementById("threadCount").value);
+        if (threadCount < 0) {
+            threadCount = 0;
+        }
+
+        // Thread Size
+        threadSize = Number(document.getElementById("threadSize").value);
+        if (threadSize < 0) {
+            threadCount = 0;
+        }
     }
 
     // Return values

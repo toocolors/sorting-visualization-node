@@ -46,12 +46,7 @@ async function beginSort() {
     // Get options
     const options = getSortOptions();
 
-    // Get threaded
-    if (document?.getElementsByClassName('currentAlgo')[0]?.classList?.contains("async")) {
-        threaded = true;
-    } else {
-        threaded = false;
-    }
+    // Get thread options
 
     // Begin Quick Sort
     switch (options[0]) {
