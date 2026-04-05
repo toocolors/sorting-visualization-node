@@ -4,6 +4,8 @@
 const insertion = await import("/get/algorithm?id=Insertion");
 let insertionSize;
 let threaded;
+export let threads = 0;
+export let threadSize = 0;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["quick", "Quick Sort", beginSort],
     ["median", "Median of Three", beginSort],
