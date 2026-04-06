@@ -275,10 +275,32 @@ async function sortMedian(start, end) {
 }
 
 async function quickSort(start, end) {
-    // Return if array is empty or one element
+    // Return if partition is empty or one element
     if (end - start <= 0) {
         return true;
     }
+
+    // Partition array and get new indices for pivots
+    const newIndices = await partition(start, end);
+    
+    // Return if sorting was stopped
+    if (!newIndices) {
+        return false;
+    }
+
+    // Call recursive functions
+    if (!await quickSort(...newIndices[0]) || !await quickSort(...newIndices[1])) {
+        return false;
+    }
+
+    return true;
+}
+
+// ************************************************************************************************
+// Partition Functions
+// ************************************************************************************************
+
+async function partition(start, end) {
 
     // Initialize i and j
     let i = start;
@@ -439,53 +461,5 @@ async function quickSort(start, end) {
     clearCursor(i);
     clearCursor(j);
 
-    // Call recursive functions
-    // Try to create thread
-    if (threads > 0 && j - 1 - start >= threadSize) {
-        threads--;
-        // Create concurrently
-        const left = (async () => {
-            try {
-                return await quickSort(start, j - 1);
-            } finally {
-                threads++;
-            }
-        })();
-        const right = quickSort(j + 1, end);
-        // Wait for calls to finish
-        const [leftResult, rightResult] = await Promise.all([left, right]);
-        // Return false if stopping
-        if (!leftResult || !rightResult) {
-            return false;
-        }
-    }
-
-    // Run synchronously
-    else if (!await quickSort(start, j - 1) || !await quickSort(j + 1, end)) {
-        return false;
-    }
-
-    // if (threaded) {
-    //     // Start Recursive Functions
-    //     let left = quickSort(start, j - 1);
-    //     let right = quickSort(j + 1, end);
-
-    //     // Wait for recursive functions
-    //     await Promise.all([left, right]);
-
-    //     // Check sortstate
-    //     if (sortstate == -1) {
-    //         return false;
-    //     }
-    // } else {
-    //     // Call Recursive Functions
-    //     if (!await quickSort(start, j - 1)) {
-    //         return false;
-    //     }
-    //     if (!await quickSort(j + 1, end)) {
-    //         return false;
-    //     }
-    // }
-
-    return true;
+    return [[start, j - 1], [j + 1, end]];
 }
