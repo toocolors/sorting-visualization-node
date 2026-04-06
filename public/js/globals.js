@@ -143,16 +143,14 @@ function getSortOptions() {
         optionsValue = document.querySelector("#optionsDiv input").value;
     }
 
-    // Get threads variables
+    // Get threadCount
     let threadCount = 0;
-    let threadSize = 0;
     if (currentAlgorithm.threads !== undefined) {
-        // Thread Count
         threadCount = Math.max(1, Math.floor(Number(document.getElementById("threadCount").value)) - 1);
     }
 
     // Return values
-    return [sortValue, optionsValue, threadCount, threadSize];
+    return [sortValue, optionsValue, threadCount];
 }
 
 /**
