@@ -3,9 +3,7 @@
 // ************************************************************************************************
 const insertion = await import("/get/algorithm?id=Insertion");
 let insertionSize;
-let threaded;
-export let threads = 0;
-export let threadSize = 0;
+export let threaded = false;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["quick", "Quick Sort", beginSort],
     ["median", "Median of Three", beginSort],
@@ -45,10 +43,6 @@ let pivotType;
 async function beginSort() {
     // Get options
     const options = getSortOptions();
-
-    // Get thread options
-    threads = options[2];
-    threadSize = options[3];
 
     // Begin Quick Sort
     switch (options[0]) {

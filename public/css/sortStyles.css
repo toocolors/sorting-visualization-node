@@ -39,8 +39,7 @@ select {
     cursor: pointer;
 }
 
-#sortOptions,
-#asyncOptions {
+#sortOptions {
     margin-top: 5px;
 }
 
@@ -170,8 +169,7 @@ select {
         max-width: 250px;
     }
 
-    #sortOptions,
-    #asyncOptions {
+    #sortOptions {
         flex-direction: column;
         gap: 8px;
     }
@@ -236,8 +234,7 @@ select {
 }
 
 /* Sort Option Stlyes */
-#sortOptions,
-#asyncOptions {
+#sortOptions {
     display: flex;
     justify-content: space-evenly;
 }
@@ -310,8 +307,7 @@ select {
         align-items: stretch;
     }
 
-    #sortOptions,
-    #asyncOptions {
+    #sortOptions {
         flex: 0 0 auto;
         width: 100%;
     }
@@ -447,8 +443,7 @@ select {
         align-items: start;
     }
 
-    #sortOptions,
-    #asyncOptions {
+    #sortOptions {
         grid-column: 1 / -1;
         width: 100%;
     }
