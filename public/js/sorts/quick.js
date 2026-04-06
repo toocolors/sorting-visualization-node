@@ -77,6 +77,7 @@ async function beginSort() {
  * Sorts the array using Dual Pivot Quick Sort
  * @param {Number} start The start of the current section.
  * @param {Number} end The end of the current section (including).
+ * @returns true if the sort completed, or false if the sorting was stopped.
  */
 async function dualPivot(start, end) {
     // Return if partition is empty or one element
@@ -105,6 +106,12 @@ async function dualPivot(start, end) {
     return true;
 }
 
+/**
+ * Sorts the array using quick sort.
+ * @param {Number} start The start of the current section.
+ * @param {Number} end The end of the current section.
+ * @returns true if the sort completed, or false if the sorting was stopped.
+ */
 async function quickSort(start, end) {
     // Return if partition is empty or one element
     if (end - start <= 0) {
@@ -184,6 +191,12 @@ async function sortMedian(start, end) {
 // Partition Functions
 // ************************************************************************************************
 
+/**
+ * Partitions the array using dual pivot quick sort, and returns the new indices for the pivots.
+ * @param {Number} start The start of the current section.
+ * @param {Number} end The end of the current section.
+ * @returns The new indices for the pivots, or false if the sorting was stopped.
+ */
 async function dualPivotPartition(start, end) {
     // Get pivot
     // Sort first/last if needed
@@ -293,7 +306,12 @@ async function dualPivotPartition(start, end) {
     return [[start, i - 1], [i + 1, k - 1], [k + 1, end]];
 }
 
-
+/**
+ * Partitions the array using the selected pivot type, and returns the new indices for the pivots.
+ * @param {Number} start The start of the current section.
+ * @param {Number} end The end of the current section.
+ * @returns The new indices for the pivots, or false if the sorting was stopped.
+ */
 async function partition(start, end) {
     // Initialize i and j
     let i = start;
