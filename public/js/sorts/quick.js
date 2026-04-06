@@ -89,6 +89,102 @@ async function dualPivot(start, end) {
         return await insertion.insertionSort(start, end);
     }
 
+    // Partition array and get new indices for pivots
+    const newIndices = await dualPivotPartition(start, end);
+    
+    // Return if sorting was stopped
+    if (!newIndices) {
+        return false;
+    }
+
+    // Call recursive functions
+    if (!await dualPivot(...newIndices[0]) || !await dualPivot(...newIndices[1]) || !await dualPivot(...newIndices[2])) {
+        return false;
+    }
+
+    return true;
+}
+
+async function quickSort(start, end) {
+    // Return if partition is empty or one element
+    if (end - start <= 0) {
+        return true;
+    }
+
+    // Partition array and get new indices for pivots
+    const newIndices = await partition(start, end);
+    
+    // Return if sorting was stopped
+    if (!newIndices) {
+        return false;
+    }
+
+    // Call recursive functions
+    if (!await quickSort(...newIndices[0]) || !await quickSort(...newIndices[1])) {
+        return false;
+    }
+
+    return true;
+}
+
+// ************************************************************************************************
+// Other Functions
+// ************************************************************************************************
+
+/**
+ * Sorts the first, middle, and last elements of the current section.
+ * @param {Number} start The start of the current section.
+ * @param {Number} end The end of the current section (including).
+ */
+async function sortMedian(start, end) {
+    // Get middle index
+    const middle = Math.max(start, Math.floor((start + end) / 2));
+
+    // Set cursors
+    setCursor(start);
+    setCursor(middle);
+    setCursor(end);
+
+    // Compare/Swap first and middle
+    if (isGreater(start, middle)) {
+        swap(start, middle);
+    }
+    // Start step
+    if (!await startStep(-1, start)) {
+        return false;
+    }
+
+    // Compare/Swap first and last
+    if (isGreater(start, end)) {
+        swap(start, end);
+    }
+    // Start step
+    if (!await startStep(-1, end)) {
+        return false;
+    }
+
+    // Compare/Swap middle and last
+    if (isGreater(middle, end)) {
+        swap(middle, end);
+    }
+    // Start step
+    if (!await startStep(-1, middle)) {
+        return false;
+    }
+
+    // Clear cursors
+    clearCursor(start);
+    clearCursor(middle);
+    clearCursor(end);
+
+    return true;
+}
+
+// ************************************************************************************************
+// Partition Functions
+// ************************************************************************************************
+
+async function dualPivotPartition(start, end) {
     // Get pivot
     // Sort first/last if needed
     if (isGreater(start, end)) {
@@ -193,119 +289,12 @@ async function dualPivot(start, end) {
     clearCursor(j);
     clearCursor(k);
 
-    // Call recursive sorts
-    if (threaded) {
-        // Sort partitions asynchronously
-        // Start Recursive Functions
-        let left = dualPivot(start, i - 1);
-        let middle = dualPivot(i + 1, k - 1);
-        let right = dualPivot(k + 1, end);
-
-        // Wait for recursive functions
-        await Promise.all([left, middle, right]);
-
-        // Check sortstate
-        if (sortstate == -1) {
-            return false;
-        }
-
-    } else {
-        // Sort partitions synchronously
-        if (!await dualPivot(start, i - 1)) {
-            return false;
-        }
-        if (!await dualPivot(i + 1, k - 1)) {
-            return false;
-        }
-        if (!await dualPivot(k + 1, end)) {
-            return false;
-        }
-    }
-
-    return true;
+    // Return partition indices
+    return [[start, i - 1], [i + 1, k - 1], [k + 1, end]];
 }
 
-async function quickSort(start, end) {
-    // Return if partition is empty or one element
-    if (end - start <= 0) {
-        return true;
-    }
-
-    // Partition array and get new indices for pivots
-    const newIndices = await partition(start, end);
-    
-    // Return if sorting was stopped
-    if (!newIndices) {
-        return false;
-    }
-
-    // Call recursive functions
-    if (!await quickSort(...newIndices[0]) || !await quickSort(...newIndices[1])) {
-        return false;
-    }
-
-    return true;
-}
-
-// ************************************************************************************************
-// Other Functions
-// ************************************************************************************************
-
-/**
- * Sorts the first, middle, and last elements of the current section.
- * @param {Number} start The start of the current section.
- * @param {Number} end The end of the current section (including).
- */
-async function sortMedian(start, end) {
-    // Get middle index
-    const middle = Math.max(start, Math.floor((start + end) / 2));
-
-    // Set cursors
-    setCursor(start);
-    setCursor(middle);
-    setCursor(end);
-
-    // Compare/Swap first and middle
-    if (isGreater(start, middle)) {
-        swap(start, middle);
-    }
-    // Start step
-    if (!await startStep(-1, start)) {
-        return false;
-    }
-
-    // Compare/Swap first and last
-    if (isGreater(start, end)) {
-        swap(start, end);
-    }
-    // Start step
-    if (!await startStep(-1, end)) {
-        return false;
-    }
-
-    // Compare/Swap middle and last
-    if (isGreater(middle, end)) {
-        swap(middle, end);
-    }
-    // Start step
-    if (!await startStep(-1, middle)) {
-        return false;
-    }
-
-    // Clear cursors
-    clearCursor(start);
-    clearCursor(middle);
-    clearCursor(end);
-
-    return true;
-}
-
-// ************************************************************************************************
-// Partition Functions
-// ************************************************************************************************
 
 async function partition(start, end) {
-
     // Initialize i and j
     let i = start;
     let j = end;
