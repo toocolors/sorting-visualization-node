@@ -225,6 +225,32 @@ async function dualPivot(start, end) {
     return true;
 }
 
+async function quickSort(start, end) {
+    // Return if partition is empty or one element
+    if (end - start <= 0) {
+        return true;
+    }
+
+    // Partition array and get new indices for pivots
+    const newIndices = await partition(start, end);
+    
+    // Return if sorting was stopped
+    if (!newIndices) {
+        return false;
+    }
+
+    // Call recursive functions
+    if (!await quickSort(...newIndices[0]) || !await quickSort(...newIndices[1])) {
+        return false;
+    }
+
+    return true;
+}
+
+// ************************************************************************************************
+// Other Functions
+// ************************************************************************************************
+
 /**
  * Sorts the first, middle, and last elements of the current section.
  * @param {Number} start The start of the current section.
@@ -270,28 +296,6 @@ async function sortMedian(start, end) {
     clearCursor(start);
     clearCursor(middle);
     clearCursor(end);
-
-    return true;
-}
-
-async function quickSort(start, end) {
-    // Return if partition is empty or one element
-    if (end - start <= 0) {
-        return true;
-    }
-
-    // Partition array and get new indices for pivots
-    const newIndices = await partition(start, end);
-    
-    // Return if sorting was stopped
-    if (!newIndices) {
-        return false;
-    }
-
-    // Call recursive functions
-    if (!await quickSort(...newIndices[0]) || !await quickSort(...newIndices[1])) {
-        return false;
-    }
 
     return true;
 }
