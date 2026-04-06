@@ -101,6 +101,21 @@ function allowUpdate(speed = -1) {
 }
 
 /**
+ * "Creates" a thread by updating algorithm threads and calling a function.
+ * @param {Callable} sortFunction The function to call.
+ * @param {Array} sortArgs The arguments to give the function.
+ */
+async function createThread(sortFunction, sortArgs) {
+    let returnValue = false;
+    try {
+        returnValue = await sortFunction(...sortArgs);
+    } finally {
+        currentAlgorithm.threads++;
+    }
+    return returnValue;
+}
+
+/**
  * Attempts to get sort options.
  * @returns An array of: 
  *  1. The value of sortSelect
@@ -134,15 +149,15 @@ function getSortOptions() {
     let threadSize = 0;
     if (currentAlgorithm.threads !== undefined) {
         // Thread Count
-        threadCount = Number(document.getElementById("threadCount").value);
+        threadCount = Math.floor(Number(document.getElementById("threadCount").value)) - 1;
         if (threadCount < 0) {
             threadCount = 0;
         }
 
         // Thread Size
-        threadSize = Number(document.getElementById("threadSize").value);
+        threadSize = Math.floor(Number(document.getElementById("threadSize").value));
         if (threadSize < 0) {
-            threadCount = 0;
+            threadSize = 0;
         }
     }
 

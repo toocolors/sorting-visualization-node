@@ -47,6 +47,8 @@ async function beginSort() {
     const options = getSortOptions();
 
     // Get thread options
+    threads = options[2];
+    threadSize = options[3];
 
     // Begin Quick Sort
     switch (options[0]) {
@@ -437,27 +439,53 @@ async function quickSort(start, end) {
     clearCursor(i);
     clearCursor(j);
 
-    if (threaded) {
-        // Start Recursive Functions
-        let left = quickSort(start, j - 1);
-        let right = quickSort(j + 1, end);
-
-        // Wait for recursive functions
-        await Promise.all([left, right]);
-
-        // Check sortstate
-        if (sortstate == -1) {
-            return false;
-        }
-    } else {
-        // Call Recursive Functions
-        if (!await quickSort(start, j - 1)) {
-            return false;
-        }
-        if (!await quickSort(j + 1, end)) {
+    // Call recursive functions
+    // Try to create thread
+    if (threads > 0 && j - 1 - start >= threadSize) {
+        threads--;
+        // Create concurrently
+        const left = (async () => {
+            try {
+                return await quickSort(start, j - 1);
+            } finally {
+                threads++;
+            }
+        })();
+        const right = quickSort(j + 1, end);
+        // Wait for calls to finish
+        const [leftResult, rightResult] = await Promise.all([left, right]);
+        // Return false if stopping
+        if (!leftResult || !rightResult) {
             return false;
         }
     }
+
+    // Run synchronously
+    else if (!await quickSort(start, j - 1) || !await quickSort(j + 1, end)) {
+        return false;
+    }
+
+    // if (threaded) {
+    //     // Start Recursive Functions
+    //     let left = quickSort(start, j - 1);
+    //     let right = quickSort(j + 1, end);
+
+    //     // Wait for recursive functions
+    //     await Promise.all([left, right]);
+
+    //     // Check sortstate
+    //     if (sortstate == -1) {
+    //         return false;
+    //     }
+    // } else {
+    //     // Call Recursive Functions
+    //     if (!await quickSort(start, j - 1)) {
+    //         return false;
+    //     }
+    //     if (!await quickSort(j + 1, end)) {
+    //         return false;
+    //     }
+    // }
 
     return true;
 }
