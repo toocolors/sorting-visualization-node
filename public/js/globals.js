@@ -111,8 +111,8 @@ async function createThread(sortFunction, sortArgs) {
         returnValue = await sortFunction(...sortArgs);
     } finally {
         currentAlgorithm.threads++;
+        return returnValue;
     }
-    return returnValue;
 }
 
 /**
@@ -121,7 +121,6 @@ async function createThread(sortFunction, sortArgs) {
  *  1. The value of sortSelect
  *  2. The value of the select/input inside optionsDiv
  *  3. The value of threads count
- *  4. The value of threads size
  *  Values will be undefined if any options are unavailable.
  */
 function getSortOptions() {
@@ -149,16 +148,7 @@ function getSortOptions() {
     let threadSize = 0;
     if (currentAlgorithm.threads !== undefined) {
         // Thread Count
-        threadCount = Math.floor(Number(document.getElementById("threadCount").value)) - 1;
-        if (threadCount < 0) {
-            threadCount = 0;
-        }
-
-        // Thread Size
-        threadSize = Math.floor(Number(document.getElementById("threadSize").value));
-        if (threadSize < 0) {
-            threadSize = 0;
-        }
+        threadCount = Math.max(1, Math.floor(Number(document.getElementById("threadCount").value)) - 1);
     }
 
     // Return values
