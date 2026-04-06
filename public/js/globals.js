@@ -55,9 +55,29 @@ async function checkSortstate() {
 /**
  * Removes the cursor class from the box at index.
  * @param {Number} index An array index.
+ * @param {String} color The color to clear from the element. Defaults to all colors.
  */
-function clearCursor(index) {
-    elements[index].classList.remove("cursor");
+function clearCursor(index, color = "") {
+    // Get color
+    switch (color) {
+        case "blue":
+            color = "Blue";
+            break;
+        case "green":
+            color = "Green";
+            break;
+        case "red":
+            color = "Red";
+            break;
+        default:
+            clearCursor(index, "blue");
+            clearCursor(index, "green");
+            clearCursor(index, "red");
+            return;
+    }
+
+    // Remove cursor class
+    elements[index].classList.remove(`cursor${color}`);
 }
 
 /**
@@ -81,22 +101,38 @@ function allowUpdate(speed = -1) {
 }
 
 /**
+ * "Creates" a thread by updating algorithm threads and calling a function.
+ * @param {Callable} sortFunction The function to call.
+ * @param {Array} sortArgs The arguments to give the function.
+ */
+async function createThread(sortFunction, sortArgs) {
+    let returnValue = false;
+    try {
+        returnValue = await sortFunction(...sortArgs);
+    } finally {
+        currentAlgorithm.threads++;
+        return returnValue;
+    }
+}
+
+/**
  * Attempts to get sort options.
  * @returns An array of: 
  *  1. The value of sortSelect
  *  2. The value of the select/input inside optionsDiv
+ *  3. The value of threads count
  *  Values will be undefined if any options are unavailable.
  */
 function getSortOptions() {
     // Check if sortOptions exists
     if (document.getElementById("sortOptions") === null) {
-        return [undefined, undefined]
+        return [undefined, undefined];
     }
 
     // Get sortSelect
     let sortValue = undefined;
-    if (document.getElementById("sortOptions") !== null) {
-        sortValue = document.getElementById("sortOptions").value;
+    if (document.getElementById("sortSelect") !== null) {
+        sortValue = document.getElementById("sortSelect").value;
     }
 
     // Get optionsDiv
@@ -135,9 +171,26 @@ function playAudio(value) {
 /**
  * Sets the box at the listed array as a cursor.
  * @param {Number} index An array index.
+ * @param {String} color The color to set the element to 
+ * (blue, green, red). Defaults to red.
  */
-function setCursor(index) {
-    elements[index].classList.add("cursor");
+function setCursor(index, color = "") {
+    // Get color
+    switch (color) {
+        case "blue":
+            color = "Blue";
+            break;
+        case "green":
+            color = "Green";
+            break;
+        case "red":
+        default:
+            color = "Red";
+            break;
+    }
+
+    // Update element at index
+    elements[index].classList.add(`cursor${color}`);
 }
 
 /**

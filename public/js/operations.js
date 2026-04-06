@@ -254,6 +254,15 @@ function isLess(a, b) {
  * Removes all elements in the passed in class.
  */
 function clearClass(className) {
+    // Try to clear cursors
+    if (className === "cursor") {
+        for (let i = 0; i < array.length; i++) {
+            clearCursor(i);
+        }
+        return;
+    }
+
+    // Clear other class
     let classElements = document.querySelectorAll(`.${className}`);
     for (let i = 0; i < classElements.length; i++) {
         classElements[i].classList.remove(className);

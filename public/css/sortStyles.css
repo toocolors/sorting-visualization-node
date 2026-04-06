@@ -133,6 +133,7 @@ select {
 
 /* Narrow screens: inputs and buttons on same line */
 @media (max-width: 900px) {
+
     #generate,
     #generateGrayed,
     #shuffle,
@@ -518,6 +519,7 @@ table {
     width: 100%;
 }
 
-th, td {
+th,
+td {
     white-space: nowrap;
 }
