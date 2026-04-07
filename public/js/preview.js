@@ -74,7 +74,15 @@ async function runPreview() {
     // Get initial Algorithm
     await updateAlgorithm();
 
+    // Set initial sortstate to 2 (play)
+    sortstate = 2;
+
     while (true) {
+        // Wait until user presses play or skip
+        while (sortstate == 0) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        
         // Generate Array if needed
         if (!generated || hasDeletion || array.length < previewArraySize) {
             array = new Array(previewArraySize);
@@ -90,30 +98,42 @@ async function runPreview() {
         await shuffleArray(0, array.length);
 
         // Play Algorithm
-        sorting = true;
-        // Update sortstate if user pressed skip while algorithm was running
-        if (sortstate == -1) {
+        if(sortstate == 2) {
+            sorting = true;
+
+            // Enable pause button, disable play button
+            document.getElementById("play").classList.add("hide");
+            document.getElementById("pause").classList.remove("hide");
+
+            // Run algorithm
+            await algorithm.sortList[0][2]();
+
+            // Cleanup after running algorithm
+            clearClass("cursor");
+            if (sortstate != -1); {
+                await allowUpdate(0);
+            }
+            sorting = false;
+
+            
+
+            // Pause execution until user presses play or skip (if skip was not already pressed)
+            if(sortstate != -1) {
+                sortstate = 0;
+
+                // Enable play button, disable pause button
+                document.getElementById("play").classList.remove("hide");
+                document.getElementById("pause").classList.add("hide");
+
+            }
+        }
+    
+        // Get new Algorithm
+        if(sortstate == -1) {
+            await updateAlgorithm();
             sortstate = 2;
         }
-        // Enable skip button
-        document.getElementById("skip").classList.remove("hide");
-        document.getElementById("skipGrayed").classList.add("hide");
 
-        // Run algorithm
-        await algorithm.sortList[0][2]();
-
-        // Cleanup after running algorithm
-        clearClass("cursor");
-        if (sortstate != -1); {
-            await allowUpdate(0);
-        }
-        sorting = false;
-        // Disable skip button
-        document.getElementById("skip").classList.add("hide");
-        document.getElementById("skipGrayed").classList.remove("hide");
-
-        // Get new Algorithm
-        await updateAlgorithm();
     }
 }
 
