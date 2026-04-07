@@ -13,8 +13,6 @@ export const sortList = [ // 0 = id, 1 = name, 2 = main function
  * Sorts array using bubble sort.
  */
 export async function bubbleSort() {
-    console.log("Starting Bubble Sort");
-
     sorted = false;
     for(let i = 0; !sorted && i < arraySize; i++) {
         // Reset sorted
@@ -30,16 +28,12 @@ export async function bubbleSort() {
             await bubbleStep(j);
         }
     }
-
-    console.log("Finished Bubble Sort");
 }
 
 /**
  * Sorts the array using Cocktail Shaker Sort
  */
 export async function cocktailSort() {
-    console.log("Starting Cocktail Shaker Sort");
-
     sorted = false;
     for(let i = 0; !sorted && i < arraySize; i++) {
         // Reset sorted
@@ -70,8 +64,6 @@ export async function cocktailSort() {
             await cocktailStep(j);
         }
     }
-
-    console.log("Finished Cocktail Shaker Sort");
 }
 
 // ************************************************************************************************
