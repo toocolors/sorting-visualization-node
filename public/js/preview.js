@@ -74,10 +74,6 @@ async function runPreview() {
     // Get initial Algorithm
     await updateAlgorithm();
 
-    // Wait for user to press play
-    sortstate = 0;
-    await checkSortstate();
-
     while (true) {
         // Generate Array if needed
         if (!generated || hasDeletion || array.length < previewArraySize) {
