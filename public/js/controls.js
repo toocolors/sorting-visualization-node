@@ -174,11 +174,13 @@ async function beginSort() {
     handleDeletions();
 
     // Start Sort
+    console.log(`Starting ${document.getElementById("sortSelect").value} Sort...`);
     for (let i = 0; i < currentAlgorithm.sortList.length; i++) {
         if (currentAlgorithm.sortList[i][0] === document.getElementById("sortSelect").value) {
             await currentAlgorithm.sortList[i][2]();
         }
     }
+    console.log(`Finished ${document.getElementById("sortSelect").value} Sort`);
 
     // Clear Cursors
     clearClass("cursor");
