@@ -106,7 +106,9 @@ async function runPreview() {
             document.getElementById("pause").classList.remove("hide");
 
             // Run algorithm
+            console.log(`Starting ${currentAlgoId} Sort...`);
             await algorithm.sortList[0][2]();
+            console.log(`Finished ${currentAlgoId} Sort`);
 
             // Cleanup after running algorithm
             clearClass("cursor");
