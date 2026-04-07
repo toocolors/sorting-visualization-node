@@ -32,7 +32,7 @@ Pivot:
 `;
 // Dual Pivot
 optionsList[sortList[2][0]] = `
-Insertion Size:
+Insertion Threshold:
 <input type='number' id='dualPivotOptions' value='0' min='0'>
 `;
 let pivotType;

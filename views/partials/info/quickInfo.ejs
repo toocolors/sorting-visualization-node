@@ -32,7 +32,7 @@
     If you want to see the worst case, try running Quick Sort on an ascending or descending array!
     <br>
     <br>
-    Although Quick Sort doe not make a copy of the array, 
+    Although Quick Sort does not make a copy of the array, 
     it uses extra data based on how many times it splits the array, 
     making it use more memory for larger arrays.
     <br>
@@ -56,7 +56,63 @@
     in front of the first element.
     <br>
     <br>
-    This process helps avoid the worst case of Quick Sort, where the pivot is the smallest or largest element
-    in that section. This gives Median of Three a better average Time Complexity than regular Quick Sort,
+    This process helps avoid the worst case of Quick Sort, 
+    where the pivot is the smallest or largest element in that section.
+    Try comparing regular Quick Sort and Median of Three on an ascending or descending array to see the difference!
+    This gives Median of Three a better average Time Complexity than regular Quick Sort,
     although its best and worst case Time Complexities are the same.
+    <br>
+    <br>
+    This visualization also lets you choose the smallest or largest of the three elements as the pivot, 
+    although these elments would not be chosen in real life.
 </p>
+
+<h2>Dual Pivot Quick Sort</h2>
+<p>
+    Dual Pivot Quick Sort is a variant of Quick Sort that uses two pivots instead of one.
+    <br>
+    It starts by selecting two pivots, which are represented by the two blue bars in the visualization.
+    Usually these pivots are the first and last elements of the current section, 
+    and they are swapped so that the smaller pivot is in front of the larger one.
+    <br>
+    <br>
+    Then, it uses three variables, which we will call <b>A</b>, <b>C</b>, and <b>B</b>.
+</p>
+    <ul>
+        <li>
+            <b>A</b>, which is represented by the left-most, green bar in the visualization,
+            starts at the second element of the current section, just in front of the smaller pivot.
+            The section in between the smaller pivot and <b>A</b> represents all of the elements that are smaller than the smaller pivot.
+        </li>
+        <li>
+            <b>C</b>, which is represented by the right-most, green bar in the visualization,
+            starts at the second-to-last element of the current section, just behind the larger pivot.
+            The section in between <b>B</b> and the larger pivot represents all of the elements that are larger than the larger pivot.
+        </li>
+        <li>
+            <b>B</b>, which is represented by the red bar in the visualization, starts at the same place as <b>A</b>.
+            It then loops through the array. 
+            When it finds an element that is smaller than the smaller pivot, 
+            it swaps that element with the element at <b>A</b> and moves <b>A</b> forward.
+            When it finds an element that is larger than the larger pivot, 
+            it swaps that element with the element at <b>C</b> and moves <b>C</b> backward.
+            <b>B</b> stops once it reaches <b>C</b>.
+        </li>
+    </ul>
+
+<p>
+    Once <b>B</b> reaches <b>C</b>, 
+    the smaller pivot is swapped with the element just behind <b>A</b>, 
+    and the larger pivot is swapped with the element just in front of <b>C</b>.
+    <br>
+    <br>
+    At this point the array is split into three sections. 
+    Dual Pivot Quick Sort then repeats the process for the each of the three sections,
+    similar to regular Quick Sort.
+    <br>
+    <br>
+    Dual Pivot Quick Sort is used in Java's built in sorting method,
+    which additionally uses Insertion Sort for smaller sections of the array (usually ~47 elements or less).
+</p>
+
+<%- include('hybridInsertionInfo') %>
