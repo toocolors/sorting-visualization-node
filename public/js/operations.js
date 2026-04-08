@@ -301,6 +301,24 @@ async function endSorting() {
     }
 }
 
+/**
+ * Returns the index and value of the largest number in the array.
+ * @returns An object with the index and value of the largest number in the array.
+ */
+function getLargest() {
+    let largestIndex = 0;
+    let largestValue = array[0];
+
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] > largestValue) {
+            largestValue = array[i];
+            largestIndex = i;
+        }
+    }
+
+    return { index: largestIndex, value: largestValue };
+}
+
 function getWidth() {
     return Math.max(1, arrayDiv.clientWidth / arraySize);
 }
