@@ -1,6 +1,7 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
+let digits; // Number of digits in the largest number
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["lsd", "LSD Radix Sort", beginSort], 
     ["msd", "MSD Radix Sort", beginSort],
@@ -17,8 +18,6 @@ Write Type:
 </select>
 `;
 
-
-
 // ************************************************************************************************
 // Sort Functions
 // ************************************************************************************************
@@ -29,6 +28,9 @@ Write Type:
 async function beginSort() {
     // Get sort options
     const options = getSortOptions();
+
+    // Get number of digits
+    digits = getLargest().value.toString().length;
 
     // Begin sort
     switch(options[0]) {
