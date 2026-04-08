@@ -8,6 +8,7 @@ export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["inplace", "In-Place Radix Sort", beginSort]
 ];
 export const optionsList = new Object();
+let writeType; // Type of write to use (buckets or counting)
 
 // Options
 optionsList["default"] = `
@@ -28,6 +29,9 @@ Write Type:
 async function beginSort() {
     // Get sort options
     const options = getSortOptions();
+
+    // Get write type
+    writeType = options[1];
 
     // Get number of digits
     digits = getLargest().value.toString().length;
