@@ -3,7 +3,8 @@
 // ************************************************************************************************
 let digits; // Number of digits in the largest number
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
-    ["lsd-radix", "LSD Radix Sort", beginSort]
+    ["lsd-radix", "LSD Radix Sort", beginSort],
+    ["msd-radix", "MSD Radix Sort", beginSort]
 ];
 export const optionsList = new Object();
 let writeType; // Type of write to use (buckets or counting)
@@ -58,17 +59,19 @@ async function lsdRadix() {
 
 /**
  * Puts each element in the array into buckts for digits 0-9 based on the value of their digit at exp.
+ * @param {Number} start The start of the section to build buckets for.
+ * @param {Number} end The end of the section to build buckets for (including).
  * @param {Number} exp The place of the current digit.
  * @returns Buckets for digits 0-9.
  */
-async function getBuckets(exp) {
+async function getBuckets(start, end, exp) {
     // Create buckets
     const buckets = [
         [], [], [], [], [], [], [], [], [], []
     ];
 
     // Loop through array and add to buckets
-    for(let i = 0; i < array.length; i++) {
+    for(let i = start; i <= end; i++) {
         // Start step
         if(!await startStep(i)) {
             return false;
@@ -88,15 +91,17 @@ async function getBuckets(exp) {
 
 /**
  * Counts the frequencies of values at the current digit and returns a distributions array.
+ * @param {Number} start The start of the section to build counts for.
+ * @param {Number} end The end of the section to build counts for (including).
  * @param {Number} exp The place of the current digit.
  * @returns An array containing indices for each value to be used for Counting Sort.
  */
-async function getCount(exp) {
+async function getCount(start, end, exp) {
     // Create count array
     const count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     // Loop through array and count occurrences of each digit
-    for(let i = 0; i < array.length; i++) {
+    for(let i = start; i <= end; i++) {
         // Start step
         if(!await startStep(i)) {
             return false;
@@ -130,26 +135,26 @@ async function radixStep(exp) {
     switch(writeType) {
         case "counting":
             // Get count array
-            const count = await getCount(exp);
+            const count = await getCount(0, array.length - 1, exp);
             // Check if count is false (if the sort was stopped)
             if(count === false) {
                 return false;
             }
             // Write to array using count array
-            if(!await setCount(count, exp)) {
+            if(!await setCount(0, array.length - 1, count, exp)) {
                 return false;
             }
             break;
         case "buckets":
         default:
             // Get buckets
-            const buckets = await getBuckets(exp);
+            const buckets = await getBuckets(0, array.length - 1, exp);
             // Check if buckets is false (if the sort was stopped)
             if(buckets === false) {
                 return false;
             }
             // Write to array using buckets
-            if(!await setBuckets(buckets)) {
+            if(!await setBuckets(0, buckets)) {
                 return false;
             }
             break;
@@ -160,13 +165,14 @@ async function radixStep(exp) {
 
 /**
  * Writes to the array using the contents of the buckets array.
+ * @param {Number} start The start of the section to overwrite using buckets.
  * @param {Array} buckets The array containing buckets for values 0-9.
  * @returns True to continue sorting, False to stop sorting.
  */
-async function setBuckets(buckets) {
+async function setBuckets(start, buckets) {
     // Write buckets to array
     let index = 0;
-    for(let i = 0; i < buckets.length; i++) {
+    for(let i = start; i < buckets.length; i++) {
         for(let j = 0; j < buckets[i].length; j++) {
             // Set element at index to bucket value
             set(index, buckets[i][j]);
@@ -189,18 +195,20 @@ async function setBuckets(buckets) {
 /**
  * Creates a copy of the array, loops backwards through it, 
  *  and places each element according to the corresponding value in count array.
+ * @param {Number} start The start of the section to overwrite using counts.
+ * @param {Number} end The end of the section to overwrite using counts (including).
  * @param {Array} count The array containing indices for each value.
  * @param {Number} exp The place of the current digit.
  * @returns True to continue sorting, False to stop sorting.
  */
-async function setCount(count, exp) {
+async function setCount(start, end, count, exp) {
     // Duplicate array
     const temp = array.slice();
     incrementOperation("reads", array.length);
     incrementOperation("writes", array.length);
 
     // Write to array using count array
-    for(let i = array.length - 1; i >= 0; i--) {
+    for(let i = end; i >= start; i--) {
         // Get digit
         const digit = Math.floor((temp[i] / exp) % 10);
 
