@@ -56,6 +56,11 @@ async function lsdRadix() {
 // Secondary Sort Functions
 // ************************************************************************************************
 
+/**
+ * Puts each element in the array into buckts for digits 0-9 based on the value of their digit at exp.
+ * @param {Number} exp The place of the current digit.
+ * @returns Buckets for digits 0-9.
+ */
 async function getBuckets(exp) {
     // Create buckets
     const buckets = [
@@ -81,6 +86,11 @@ async function getBuckets(exp) {
     return buckets;
 }
 
+/**
+ * Counts the frequencies of values at the current digit and returns a distributions array.
+ * @param {Number} exp The place of the current digit.
+ * @returns An array containing indices for each value to be used for Counting Sort.
+ */
 async function getCount(exp) {
     // Create count array
     const count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -111,6 +121,11 @@ async function getCount(exp) {
     return count;
 }
 
+/**
+ * Makes one pass through the array using LSD Radix Sort.
+ * @param {Number} exp The digit for the current pass.
+ * @returns True to continue sorting, False to stop sorting.
+ */
 async function radixStep(exp) {
     switch(writeType) {
         case "counting":
@@ -143,6 +158,11 @@ async function radixStep(exp) {
     return true;
 }
 
+/**
+ * Writes to the array using the contents of the buckets array.
+ * @param {Array} buckets The array containing buckets for values 0-9.
+ * @returns True to continue sorting, False to stop sorting.
+ */
 async function setBuckets(buckets) {
     // Write buckets to array
     let index = 0;
@@ -166,6 +186,13 @@ async function setBuckets(buckets) {
     return true;
 }
 
+/**
+ * Creates a copy of the array, loops backwards through it, 
+ *  and places each element according to the corresponding value in count array.
+ * @param {Array} count The array containing indices for each value.
+ * @param {Number} exp The place of the current digit.
+ * @returns True to continue sorting, False to stop sorting.
+ */
 async function setCount(count, exp) {
     // Duplicate array
     const temp = array.slice();
