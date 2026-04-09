@@ -36,7 +36,15 @@ async function beginSort() {
     digits = getLargest().value.toString().length;
 
     // Begin sort
-    await lsdRadix();
+    switch(options[0]) {
+        case "msd-radix":
+            await msdRadix(0, array.length - 1, digits - 1);
+            break;
+        case "lsd-radix":
+        default:
+            await lsdRadix();
+            break;
+    }
 }
 
 /**
@@ -48,6 +56,41 @@ async function lsdRadix() {
         if(!await radixStep(Math.pow(10, i))) {
             return false;
         }
+    }
+
+    return true;
+}
+
+/**
+ * Sorts the array recusively using MSD Radix Sort.
+ * @param {Number} start The start of the section to sort.
+ * @param {Number} end The end of the section to sort (including).
+ * @param {Number} exp The current exponent/digit to sort.
+ * @returns True to continue sorting, False to stop sorting.
+ */
+async function msdRadix(start, end, exp) {
+    // Break Recursion
+    if(end <= start || exp < 0) {
+        return true;
+    }
+
+    // Make pass through array segment
+    const arr = await msdRadixStep(start, end, Math.pow(10, exp));
+
+    // Return if sorting is stopping
+    if(arr === false) {
+        return false;
+    }
+
+    // Call Recursive Functions
+    let prev = start;
+    for(let i = 0; i < arr.length; i++) {
+        if(!await msdRadix(prev, arr[i] - 1, exp - 1)) {
+            return false;
+        }
+
+        // Increment prev
+        prev = arr[i];
     }
 
     return true;
@@ -116,6 +159,7 @@ async function getCount(start, end, exp) {
     }
 
     // Update count array to contain position of each digit in output array
+    count[0] += start;
     for(let i = 1; i < count.length; i++) {
         count[i] += count[i - 1];
         incrementOperation("reads");
@@ -124,6 +168,46 @@ async function getCount(start, end, exp) {
 
     // Return count array
     return count;
+}
+
+async function msdRadixStep(start, end, exp) {
+    switch(writeType) {
+        case "counting":
+            // Get Counts
+            const count = await getCount(start, end, exp);
+            const boundaries = count.slice();
+            // Check if sorting is stopping
+            if (count === false) {
+                return false;
+            }
+            // Write counts
+            if(!await setCount(start, end, count, exp)) {
+                return false;
+            }
+            // Return count
+            return boundaries;
+        case "buckets":
+        default:
+            // Get buckets
+            const buckets = await getBuckets(start, end, exp);
+            // Check if sorting is stopping
+            if (buckets === false) {
+                return false;
+            }
+            // Write buckets
+            if(!await setBuckets(start, buckets)) {
+                return false;
+            }
+            // Get bucket lengths and put them into array
+            const arr = new Array(10);
+            let sum = start;
+            for(let i = 0; i < buckets.length; i++) {
+                sum += buckets[i].length;
+                arr[i] = sum;
+            }
+            // Return bucket lengths
+            return arr;
+    }
 }
 
 /**
@@ -171,8 +255,8 @@ async function radixStep(exp) {
  */
 async function setBuckets(start, buckets) {
     // Write buckets to array
-    let index = 0;
-    for(let i = start; i < buckets.length; i++) {
+    let index = start;
+    for(let i = 0; i < buckets.length; i++) {
         for(let j = 0; j < buckets[i].length; j++) {
             // Set element at index to bucket value
             set(index, buckets[i][j]);
@@ -203,14 +287,15 @@ async function setBuckets(start, buckets) {
  */
 async function setCount(start, end, count, exp) {
     // Duplicate array
-    const temp = array.slice();
+    const temp = array.slice(start, end + 1);
     incrementOperation("reads", array.length);
     incrementOperation("writes", array.length);
 
     // Write to array using count array
-    for(let i = end; i >= start; i--) {
+    for(let i = temp.length - 1; i >= 0; i--) {
         // Get digit
         const digit = Math.floor((temp[i] / exp) % 10);
+        incrementOperation("reads");
 
         // Set element at count[digit] - 1 to temp value
         set(count[digit] - 1, temp[i]);
