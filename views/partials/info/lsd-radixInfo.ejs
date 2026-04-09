@@ -1,4 +1,131 @@
+<!-- Radix Sort Explanation -->
+<%- include('radixInfo') %>
+
 <h2>LSD Radix Sort</h2>
+<p>
+    Least Significant Digit (LSD) Radix Sort is a sorting algorithm 
+    that sorts numbers based on their least significant digit,
+    up to their most significant digit.
+    <br>
+    There are two common variants of LSD Radix Sort:
+    <br>
+    <br>
+    The first variant, which is labeled as 'Buckets' in the visualizer settings,
+    places elements into 'buckets' based on the value of the current digit.
+</p>
+
+<ol>
+    <li>
+        <p>
+            For example, if we are sorting the array <b>[1234, 4321, 2134]</b> 
+            based on the least significant digit, or ones place,
+            we would end up with one bucket for ones, containing <b>4321</b>, 
+            and one bucket for fours, containing <b>1234</b> and <b>2134</b>.
+        </p>
+    </li>
+
+    <li>
+        <p>
+            After getting all of the buckets, we would write the contents each of each to the array in order, 
+            starting with the bucket for 0s, then 1s, and so on.
+        </p>
+    </li>
+
+    <li>
+        <p>
+            This results in the array being <b>[4321, 1234, 2134]</b> after the first pass.
+        </p>
+    </li>
+
+    <li>
+
+            We repeat this process for each digit.
+
+    </li>
+</ol>
+
+<p>
+    The second variant, which is labeled as 'Counting' in the visualizer settings,
+    counts how many times each number appears for the current digit.
+</p>
+
+<ol>
+    <li>
+        <p>
+            If we had the same array <b>[1234, 4321, 2134]</b>,
+            after counting the least significant digit, 
+            we would see that <b>1</b> appears once and <b>4</b> appears twice.
+        </p>
+    </li>
+
+    <li>
+        <p>
+            We can show this as a second array <b>[1, 2]</b>, 
+            with the values representing the occurences of <b>1</b> and <b>4</b> respectively.
+        </p>
+    </li>
+
+    <li>
+        <p>
+            Then, we go through the 'occurances' array, 
+            setting each value to the sum of itself and the previous value.
+            This turns the 'occurances' array into <b>[1, 3]</b>.
+        </p>
+    </li>
+
+    <li>
+        <p>
+            Then, we create an empty array <b>[-, -, -]</b> and loop backwards through the main array. 
+            For each element, we place it at the value listed in the ocurrances array for its current digit.
+        </p>
+    </li>
+
+    <li>
+        <p>
+            The first element we find is <b>2134</b>. 
+            We see that its current digit (the least significant digit) is <b>4</b>.
+            The value for four in the occurances array is <b>3</b>, 
+            so we put <b>2134</b> in the third position in the array, making it <b>[-, -, 2134]</b>.
+        </p>
+    </li>
+
+    <li>
+        <p>
+            Then, we reduce the value of that digit in the occurances array by <b>1</b>, 
+            making it <b>[1, 2]</b>.
+        </p>
+
+    </li>
+
+    <li>
+        We repeat the process for <b>4321</b>, which results in <b>[4321, -, 2134]</b> and <b>[1, 1]</b>,
+        and <b>1234</b>, which results in <b>[4321, 1234, 2134]</b> and <b>[0, 1]</b>.
+    </li>
+
+    <li>
+        <p>
+            Finally, we set the array to the new array we just created, 
+            and we repeat the process again for each digit.
+        </p>
+    </li>
+</ol>
+
+<p>
+    LSD Radix Sort loops through the array based on the maximum number of digits in the array,
+    or the number of digits in the largest number. 
+    In addition, it spends additional time each pass depending on the base system it is using 
+    (e.g. Binary, Decimal, Hexadecimal), with higher bases being more costly.
+    This gives LSD Radix Sort a Time Complexity of <b>(n + b) &#215; d</b>, 
+    where <b>n</b> is the size of the array, <b>b</b> is the base system, 
+    and <b>d</b> is the maximum number of digits.
+    <br>
+    <br>
+    Whether it is split across multiple buckets or stored in a separate array,
+    LSD Radix Sort has to store a copy of the main array. 
+    In addition, it has to create extra data, either the buckets themselves or the occurances array.
+    The memory that these take up is based on the base system that is being used.
+    These give Radix Sort a Space Complexity of <b>n + d</b>.
+</p>
 
 <!-- LSD Radix Sort Table -->
 <%- include('../tableHead') %>
