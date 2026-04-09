@@ -71,6 +71,7 @@ async function getBuckets(exp) {
 
         // Add element i to bucket
         buckets[Math.floor((get(i) / exp) % 10)].push(get(i));
+        incrementOperation("writes");
 
         // End step
         clearCursor(i);
@@ -93,6 +94,7 @@ async function getCount(exp) {
 
         // Increment count of digit
         count[Math.floor((get(i) / exp) % 10)]++;
+        incrementOperation("writes");
 
         // End step
         clearCursor(i);
@@ -101,6 +103,8 @@ async function getCount(exp) {
     // Update count array to contain position of each digit in output array
     for(let i = 1; i < count.length; i++) {
         count[i] += count[i - 1];
+        incrementOperation("reads");
+        incrementOperation("writes");
     }
 
     // Return count array
@@ -146,6 +150,7 @@ async function setBuckets(buckets) {
         for(let j = 0; j < buckets[i].length; j++) {
             // Set element at index to bucket value
             set(index, buckets[i][j]);
+            incrementOperation("reads");
             
             // Start and end step
             if(!await startStep(index)) {
@@ -164,6 +169,8 @@ async function setBuckets(buckets) {
 async function setCount(count, exp) {
     // Duplicate array
     const temp = array.slice();
+    incrementOperation("reads", array.length);
+    incrementOperation("writes", array.length);
 
     // Write to array using count array
     for(let i = array.length - 1; i >= 0; i--) {
@@ -172,6 +179,7 @@ async function setCount(count, exp) {
 
         // Set element at count[digit] - 1 to temp value
         set(count[digit] - 1, temp[i]);
+        incrementOperation("reads");
 
         // Start and end step
         if(!await startStep(count[digit] - 1)) {
@@ -181,6 +189,7 @@ async function setCount(count, exp) {
 
         // Decrement count of digit
         count[digit]--;
+        incrementOperation("writes");
     }
 
     return true;
