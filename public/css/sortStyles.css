@@ -131,6 +131,10 @@ select {
     max-width: 240px;
 }
 
+li {
+    margin-right: 5px;
+}
+
 /* Narrow screens: inputs and buttons on same line */
 @media (max-width: 900px) {
 

@@ -251,25 +251,6 @@ function isLess(a, b) {
 // ************************************************************************************************
 
 /**
- * Removes all elements in the passed in class.
- */
-function clearClass(className) {
-    // Try to clear cursors
-    if (className === "cursor") {
-        for (let i = 0; i < array.length; i++) {
-            clearCursor(i);
-        }
-        return;
-    }
-
-    // Clear other class
-    let classElements = document.querySelectorAll(`.${className}`);
-    for (let i = 0; i < classElements.length; i++) {
-        classElements[i].classList.remove(className);
-    }
-}
-
-/**
  * Loops through the array while turning each element green. Clears colors after.
  */
 async function arrayCompleteLoop() {
@@ -290,6 +271,25 @@ async function arrayCompleteLoop() {
 }
 
 /**
+ * Removes all elements in the passed in class.
+ */
+function clearClass(className) {
+    // Try to clear cursors
+    if (className === "cursor") {
+        for (let i = 0; i < array.length; i++) {
+            clearCursor(i);
+        }
+        return;
+    }
+
+    // Clear other class
+    let classElements = document.querySelectorAll(`.${className}`);
+    for (let i = 0; i < classElements.length; i++) {
+        classElements[i].classList.remove(className);
+    }
+}
+
+/**
  * Ends the sorting algorithm.
  * Waits until sorting is false to return.
  */
@@ -299,6 +299,24 @@ async function endSorting() {
     while (sorting) {
         await new Promise(resolve => setTimeout(resolve, 100));
     }
+}
+
+/**
+ * Returns the index and value of the largest number in the array.
+ * @returns An object with the index and value of the largest number in the array.
+ */
+function getLargest() {
+    let largestIndex = 0;
+    let largestValue = array[0];
+
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] > largestValue) {
+            largestValue = array[i];
+            largestIndex = i;
+        }
+    }
+
+    return { index: largestIndex, value: largestValue };
 }
 
 function getWidth() {

@@ -1,0 +1,47 @@
+<h2>Basics of Radix Sort</h2>
+<p>
+    Radix Sort works by looping through the array multiple times, 
+    sorting elements based on the value of a certain digit each loop.
+    <br>
+    <br>
+    For example, let's look at the number <b>1234</b>.
+    The least significant digit of <b>1234</b> is 4.
+    Then, 3 would be the next least significant digit, followed by 2, 
+    and finally 1 would be the most significant digit.
+    <br>
+    <br>
+    Let's say we have the array <b>[1234, 4321, 2134]</b>, 
+    and that we wanted to sort it starting from the least significant digit.
+    <ol>
+        <li>
+            <p>
+                The first pass, which will sort the array on the least significant digit, the ones place, 
+                will sort the array into <b>[4321, 1234, 2134]</b>.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                Then, the second pass will sort the array based on the tens palce,
+                which results in <b>[4321, 1234, 2134]</b>. Notice how <b>1234</b> and <b>2134</b> are in the same order as they were before.
+                Radix Sort is a stable algorithm, so elements with the same value will be in the same order.
+            </p>
+        </li>
+
+        <li>
+            <p>
+                Then, the third pass will sort the array based on the hundreds place,
+                which results in <b>[2134, 1234, 4321]</b>.
+            </p>
+            
+        </li>
+
+        <li>
+            <p>
+                Finally, the third pass will sort the array based on the thounsands place, 
+                which is the most significant digit for this array.
+                The final pass results in <b>[1234, 2134, 4321]</b>
+            </p>
+        </li>
+    </ol>
+</p>
