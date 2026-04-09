@@ -10,7 +10,7 @@
     There are two common variants of LSD Radix Sort:
     <br>
     <br>
-    The first variant, which is labeled as 'Buckets' in the visualizer settings,
+    The first variant, which is labeled as <b>'Buckets'</b> in the visualizer settings,
     places elements into 'buckets' based on the value of the current digit.
 </p>
 
@@ -45,7 +45,7 @@
 </ol>
 
 <p>
-    The second variant, which is labeled as 'Counting' in the visualizer settings,
+    The second variant, which is labeled as <b>'Counting'</b> in the visualizer settings,
     counts how many times each number appears for the current digit.
 </p>
 
@@ -127,7 +127,34 @@
     These give Radix Sort a Space Complexity of <b>n + d</b>.
 </p>
 
-<!-- LSD Radix Sort Table -->
+<h2>MSD Radix Sort</h2>
+<p>
+    Most Significant Digit (MSD) Radix Sort is a version of Radix Sort
+    that sorts arrays starting from the most significant digit
+    down to the least significant digit.
+    <br>
+    MSD Radix Sort begins by sorting the array based on its most significant digit
+    using the <b>Buckets</b> or <b>Counting</b> methods described in LSD Radix Sort.
+    <br>
+    <br>
+    This effectively splits the array into multiple sections.
+    The number of sections depends on the base system being used. 
+    Base ten, or decimal, would split the array into ten sections, 
+    while hexidecmial would split it into sixteen sections.
+    <br>
+    <br>
+    MSD Radix Sort then sorts the first section by the next most significant digit.
+    Like before, this splits the section into smaller sub-sections.
+    MSD Radix Sort repeats this process for all sections and subsections, 
+    skipping sections if they are empty or when the least significant digit has been sorted.
+    <br>
+    <br>
+    There are variations of both LSD and MSD Radix Sort that give them varying 
+    time and space complexities for different workloads.
+    This visualization's versions of both algorithms have the same time and space complexities.
+</p>
+
+<!-- Radix Sort Table -->
 <%- include('../tableHead') %>
     <%- include('../tables/RadixTable') %>
 </table>
