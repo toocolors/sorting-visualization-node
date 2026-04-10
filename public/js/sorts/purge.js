@@ -40,5 +40,47 @@ async function beginSort() {
  *  by deleting each elements if they are smaller than the last.
  */
 async function purgeSort() {
+    // Loop through array
+    let i = 1;
+    let largest = 0;
+    while(i < array.length) {
+        // Start Step
+        if(!await startStep(i)) {
+            return false;
+        }
+        clearCursor(i);
 
+        // Check if element is out of place
+        if(isLess(i, largest)) {
+            // Delete element
+            switch(deletion) {
+                case "instant":
+                    remove(i);
+                    continue;
+                case "swapping":
+                    if(!await removeSwap(i)) {
+                        return false;
+                    }
+                    continue;
+                case "gaps":
+                    setZero(i);
+                    break;
+                case "shifting":
+                default:
+                    if(!await removeSlowly(i)) {
+                        return false;
+                    }
+                    continue;
+            }
+        }
+
+        // Current element is either largest or equal to largest
+        else {
+            // Update largest
+            largest = i;
+        }
+
+        // Increment index
+        i++;
+    }
 }
