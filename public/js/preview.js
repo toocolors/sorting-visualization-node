@@ -5,7 +5,7 @@ let algorithm;
 let currentAlgoId;
 let played = [];
 const previewArraySize = 100;
-const unplayable = ["Bogo"];
+const unplayable = ["Bogo", "Miracle"];
 let playlist = [];
 
 
