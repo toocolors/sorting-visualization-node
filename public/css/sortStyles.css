@@ -237,6 +237,10 @@ li {
     margin-left: 5px;
 }
 
+#information p {
+    margin-right: 5px;
+}
+
 /* Sort Option Stlyes */
 #sortOptions {
     display: flex;
