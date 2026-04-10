@@ -258,15 +258,24 @@
                             it can be useful and fun to learn and watch these algorithms.
                             <br>
                             <br>
-                            <b>Note:</b> Some of these algorithms overwrite or delete data from the array.
+                            <b>Note:</b>
+                            Some of these algorithms overwrite or delete data from the array,
+                            or otherwise cannot guarantee that array values are not changed.
                             These are marked with a <b>Stability</b> of <b>N/A</b>.
                         </p>
 
                         <!-- Table -->
                         <%- include('partials/tableHead.ejs') %>
+
+                            <!-- Bogo Sort -->
                             <%- include('partials/tables/bogoTable.ejs') %>
-                                <%- include('partials/tables/thanosTable.ejs') %>
-                                    </table>
+
+                            <!-- Miracle Sort -->
+                            <%- include('partials/tables/miracleTable.ejs') %>
+
+                            <!-- Thanos Sort -->
+                            <%- include('partials/tables/thanosTable.ejs') %>
+                        </table>
                     </div>
                 </div>
 
