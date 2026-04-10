@@ -97,6 +97,29 @@ async function removeSlowly(index) {
 }
 
 /**
+ * Swaps the element at index with the last element, then removes it from the array.
+ * @param {Number} index The index of the element to remove.
+ * @returns True to continue sorting, False to stop sorting
+ */
+async function removeSwap(index) {
+    console.log(`Moving ${index}/${array.length} to ${array.length - 1} and removing it`);
+    // Swap Elements
+    swap(index, array.length - 1);
+
+    // Start and end step
+    setCursor(index);
+    if(!await startStep(array.length - 1)) {
+        return false;
+    }
+    clearCursor(index);
+
+    // Remove element
+    remove(array.length - 1);
+
+    return true;
+}
+
+/**
  * Writes the element at index to value and updates the corresponding box.
  * @param {Number} index The index of the array element to write.
  * @param {Number} value The value to write to the array.

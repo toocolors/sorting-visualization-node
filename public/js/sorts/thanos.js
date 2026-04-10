@@ -15,6 +15,7 @@ Deletion Type:
 <select id='thanosOptions'>
     <option value='shifting'>Shifting</option>
     <option value='instant'>Shifting (Instant)</option>
+    <option value='swapping'>Swapping</option>
     <option value='gaps'>Gaps</option>
 </select>
 `;
@@ -75,11 +76,14 @@ async function snap() {
             case "instant":
                 remove(index);
                 // Fix indices after shift
-                for (let j = 0; j < indices.length; j++) {
-                    if (indices[j] > index) {
-                        indices[j]--;
-                    }
+                fixIndices(indices, index);
+                break;
+            case "swapping":
+                if(!await removeSwap(index)) {
+                    return false;
                 }
+                // Fix indices after shift
+                fixIndices(indices, index);
                 break;
             case "shifting":
             default:
@@ -88,11 +92,7 @@ async function snap() {
                     return false;
                 }
                 // Fix indices after shift
-                for (let j = 0; j < indices.length; j++) {
-                    if (indices[j] > index) {
-                        indices[j]--;
-                    }
-                }
+                fixIndices(indices, index);
                 break;
         }
     }
@@ -133,4 +133,24 @@ async function thanosSort() {
     }
 
     return true;
+}
+
+// ************************************************************************************************
+// Helper Functions
+// ************************************************************************************************
+
+/**
+ * Increments all indices larger than index by 1.
+ * @param {Array} indices An array containing a list of indices.
+ * @param {Number} index The index of the most recently removde element.
+ * @returns The updated indices array.
+ */
+function fixIndices(indices, index) {
+    for (let j = 0; j < indices.length; j++) {
+        if (indices[j] > index) {
+            indices[j]--;
+        }
+    }
+
+    return indices;
 }
