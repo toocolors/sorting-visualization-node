@@ -10,7 +10,7 @@ export const sortList = [ // 0 = id, 1 = name, 2 = main function
 // ************************************************************************************************
 
 /**
- * Sorts the array using Bogo Sort.
+ * Sorts the array using Miracle Sort.
  */
 async function miracleSort() {
     do {
