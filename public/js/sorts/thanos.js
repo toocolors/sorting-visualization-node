@@ -13,8 +13,8 @@ const waitTime = 750;
 optionsList["default"] = `
 Deletion Type:
 <select id='thanosOptions'>
-    <option value='realistic'>Realistic</option>
-    <option value='instant'>Instant</option>
+    <option value='shifting'>Shifting</option>
+    <option value='instant'>Shifting (Instant)</option>
     <option value='gaps'>Gaps</option>
 </select>
 `;
@@ -81,7 +81,7 @@ async function snap() {
                     }
                 }
                 break;
-            case "realistic":
+            case "shifting":
             default:
                 clearCursor(index);
                 if (!await removeSlowly(index)) {
