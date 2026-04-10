@@ -4,12 +4,14 @@
     If it is not sorted it removes half of the array elements at random.
     It repeats this process until the array is sorted.
     This usually results in only a couple of elements being left over from the original array.
-    <br><br>
-    Each time Thanos Sort removes an element, all elements afterwards must be shifted to fill the empty space.
-    Since Thanos Sort typically removes most of the array, this results in it
-    having an average and worst Time Complexity of <b>n<sup>2</sup></b>.
+    <br>
+    <br>
+    The Time Complexity of Thanos Sort depends on which method is being used to delete elements,
+    with <b>Shifting</b> giving it a Time Complexity of <b>n<sup>2</sup></b>,
+    and <b>Swapping</b> and <b>Gaps</b> giving it a Time Complexity of <b>n</b>.
 </p>
 
+<!-- Thanos Table -->
 <%- include('../tableHead') %>
     <%- include('../tables/thanosTable') %>
 </table>
