@@ -1,19 +1,48 @@
-<h2>Options</h2>
+<h2>Element Deletion Options</h2>
 <p>
-    This visualization has three options for Thanos Sort: <b>Realistic</b>, <b>Instant</b>, and <b>Gaps</b>.
+    This visualization has four options for element deletion: 
+    <b>Shifting</b>, <b>Shifting (Instant)</b>, 
+    <b>Swap Deletion</b> and <b>Gaps</b>.
     <ol>
         <li>
-            <b>Realistic</b>: When removing elements from an array, 
-            everything after the element must be moved to fill the empty space.
-            This setting shows this process in the visualization.
+            <p>
+                <b>Shifting</b>: 
+                In some array implementations, when removing elements from an array
+                everything after the element must be moved to fill the empty space.
+                This is common in languages such as C or Java.
+            </p>
+
         </li>
         <li>
-            <b>Instant</b>: This setting skips the shifting process described in <b>Realistic</b>,
-            making the removal happen instantly in the visualization.
+            <p>
+                <b>Shifting (Instant)</b>: 
+                This setting skips the shifting process described in <b>Shifting</b>,
+                making the removal happen instantly in the visualization
+                while keeping the read and writes counts the same.
+            </p>
         </li>
         <li>
-            <b>Gaps</b>: This setting also skips the shifting process and also leaves the empty space
-            created by the removed element. This makes it easier to see where elements have been removed.
+            <p>
+                <b>Swapping</b>:
+                A common optimization used in some languages is swapping the element to be removed
+                with the last element in the array, 
+                then removing the element after swapping it to the end of the array.
+                This makes deleting elements much faster by eliminating unecessary reads and writes
+                compared to <b>Shifting</b>,
+                but it also changes the order of the elements inside of the array.
+            </p>
+
+        </li>
+        <li>
+            <p>
+                <b>Gaps</b>: 
+                Another way to handle element deletion
+                is to mark an element as deleted, 
+                then remove all deleted elements at the same time later.
+                This method effectively creates empty gaps in the array, 
+                which is represented in the visualization as empty space inbetween elements.
+            </p>
+
         </li>
     </ol>
 </p>
