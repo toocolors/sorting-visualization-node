@@ -175,11 +175,11 @@ async function msdRadixStep(start, end, exp) {
         case "counting":
             // Get Counts
             const count = await getCount(start, end, exp);
-            const boundaries = count.slice();
             // Check if sorting is stopping
             if (count === false) {
                 return false;
             }
+            const boundaries = count.slice();
             // Write counts
             if(!await setCount(start, end, count, exp)) {
                 return false;
