@@ -9,6 +9,8 @@
                 <b>Shifting</b>: 
                 In some array implementations, when removing elements from an array
                 everything after the element must be moved to fill the empty space.
+                Overall this method of deleting elements has a Time Complexity of <b>n</b>,
+                with the Time Complexity of individual deletions depending on where the element is in the array.
                 This is common in languages such as C or Java.
             </p>
 
@@ -27,8 +29,8 @@
                 A common optimization used in some languages is swapping the element to be removed
                 with the last element in the array, 
                 then removing the element after swapping it to the end of the array.
-                This makes deleting elements much faster by eliminating unecessary reads and writes
-                compared to <b>Shifting</b>,
+                This makes deleting elements much faster by eliminating unecessary reads and writes when
+                compared to <b>Shifting</b>, giving this method a Time Complexity of <b>1</b>,
                 but it also changes the order of the elements inside of the array.
             </p>
 
@@ -41,6 +43,8 @@
                 then remove all deleted elements at the same time later.
                 This method effectively creates empty gaps in the array, 
                 which is represented in the visualization as empty space inbetween elements.
+                This method has a Time Complexity of <b>1</b> for the deletion itself,
+                with the catch that extra work will have to be performed later.
             </p>
 
         </li>
