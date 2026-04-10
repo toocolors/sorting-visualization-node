@@ -125,19 +125,7 @@ function set(index, value = null, updateOperation = true) {
 function setZero(index) {
     // Set element to zero
     hasDeletion = true;
-    set(index, 0, false);
-
-    // Get zeroes between index and array end
-    let zeroCount = 0;
-    for (let i = index + 1; i < array.length; i++) {
-        if (array[i] < 1) {
-            zeroCount++;
-        }
-    }
-
-    // Update operations
-    incrementOperation("writes", array.length - index - zeroCount);
-    incrementOperation("reads", array.length - index - zeroCount);
+    set(index, 0);
 }
 
 /**
