@@ -10,10 +10,10 @@ export const optionsList = new Object();
 
 // Options
 optionsList["default"] = `
-Show Heapify Colors:
+Heapify Colors:
 <select id='heapOptions'>
-    <option value='no'>No</option>
-    <option value='yes'>Yes</option>
+    <option value='no'>Hide</option>
+    <option value='yes'>Show</option>
 </select>
 `;
 
