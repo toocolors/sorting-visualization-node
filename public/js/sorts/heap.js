@@ -1,10 +1,21 @@
 // ************************************************************************************************
 // Script variables
 // ************************************************************************************************
+let heapifyCursors;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["max", "Max Heap Sort", beginSort],
     ["min", "Min Heap Sort", beginSort]
 ];
+export const optionsList = new Object();
+
+// Options
+optionsList["default"] = `
+Show Heapify Colors:
+<select id='heapOptions'>
+    <option value='no'>No</option>
+    <option value='yes'>Yes</option>
+</select>
+`;
 
 // ************************************************************************************************
 // Main Sort Functions
@@ -16,6 +27,12 @@ export const sortList = [ // 0 = id, 1 = name, 2 = main function
 async function beginSort() {
     // Get options
     const options = getSortOptions();
+
+    // Get heapifyCursors
+    heapifyCursors = false;
+    if(options[1] === 'yes') {
+        heapifyCursors = true;
+    }
 
     // Begin Heap Sort
     switch(options[0]) {
@@ -41,14 +58,14 @@ async function maxHeapSort() {
 
     // Extract heap root (largest element) one by one
     for(let i = array.length - 1; i > 0; i--) {
-        // Move heap root to end of array (putting it in place)
-        swap(0, i);
-
         // Start and end step
         if(!await startStep(0)) {
             return false;
         }
         clearCursor(0);
+        
+        // Move heap root to end of array (putting it in place)
+        swap(0, i);
 
         // Re-Heapify the heap
         if(!await maxHeapify(0, i)) {
@@ -78,7 +95,9 @@ async function maxHeapify(root, end) {
 
     // Check if left child is larger than root
     if (left < end) {
-        setCursor(left, "green");
+        if(heapifyCursors) {
+            setCursor(left, "green");
+        }
         if(isGreater(left, largest)) { 
             largest = left;
         }
@@ -86,14 +105,17 @@ async function maxHeapify(root, end) {
 
     // Check if right child is larger than root or left child
     if (right < end) {
-        setCursor(right, "blue");
+        if(heapifyCursors) {
+            setCursor(right, "blue");
+        }
+
         if(isGreater(right, largest)) { 
             largest = right;
         }
     }
 
     // Start Step
-    if(!await startStep(root)) {
+    if(!await startStep(heapifyCursors ? root : -1)) {
         return false;
     }
 
@@ -103,7 +125,7 @@ async function maxHeapify(root, end) {
         swap(largest, root);
 
         // Show swap and clear cursors
-        if(!await startStep(root)) {
+        if(!await startStep(heapifyCursors ? root : -1, root)) {
             return false;
         }
         clearClass("cursor");
