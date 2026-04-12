@@ -37,6 +37,7 @@ async function beginSort() {
     // Begin Heap Sort
     switch (options[0]) {
         case "min":
+            await minHeapSort();
             break;
         case "max":
         default:
@@ -68,6 +69,36 @@ async function maxHeapSort() {
 
         // Re-Heapify the heap
         if (!await maxHeapify(0, i)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Sorts the array using Min Heap Sort.
+ */
+async function minHeapSort() {
+    // Build heap
+    for (let i = Math.floor(array.length / 2) - 1; i < array.length; i++) {
+        if (!await minHeapify(i, 0)) {
+            return false;
+        }
+    }
+
+    // Extract heap root (largest element) one by one
+    for (let i = 0; i < array.length - 1; i++) {
+        // Start and end step
+        if (!await startStep(array.length - 1)) {
+            return false;
+        }
+
+        // Move heap root to end of array (putting it in place)
+        swap(array.length - 1, i);
+
+        // Re-Heapify the heap
+        if (!await minHeapify(array.length - 1, i)) {
             return false;
         }
     }
@@ -140,6 +171,72 @@ async function maxHeapify(root, end) {
 
     // Recusively heapify the sub-tree at largest
     if (root != largest && !await maxHeapify(largest, end)) {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Turns the array into a minimum heap.
+ * @param {Number} root The root of the current sub-tree.
+ * @param {Number} end The end of the section to heapify (including).
+ * @returns True to continue sorting, False to stop sorting.
+ */
+async function minHeapify(root, end) {
+    // Initialize Largest, left and right indices
+    let smallest = root;
+    const right = Math.floor(root / 2 - 1);
+    const left = Math.floor(root / 2 - 2);
+
+    // Check if left child is larger than root
+    if (left >= end) {
+        if (heapifyCursors) {
+            setCursor(left, "green");
+        }
+        if (isLess(left, smallest)) {
+            smallest = left;
+        }
+    }
+
+    // Check if right child is larger than root or left child
+    if (right >= end) {
+        if (heapifyCursors) {
+            setCursor(right, "blue");
+        }
+
+        if (isLess(right, smallest)) {
+            smallest = right;
+        }
+    }
+
+    // Start Step
+    if (heapifyCursors && !await startStep(root)) {
+        return false;
+    }
+
+    // If root is not smallest
+    if (root != smallest) {
+        // Swap root and smallest
+        swap(smallest, root);
+
+        // Show swap
+        if (!await startStep(heapifyCursors ? root : -1, root)) {
+            return false;
+        }
+    }
+
+    // Clear Cursors
+    if (heapifyCursors) {
+        clearCursor(left);
+        clearCursor(right);
+        if (root != 0) {
+            clearCursor(root);
+        }
+    }
+
+    // Recusively heapify the sub-tree at smallest
+    if (root != smallest && !await minHeapify(smallest, end)) {
         return false;
     }
 
