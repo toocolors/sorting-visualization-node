@@ -30,12 +30,12 @@ async function beginSort() {
 
     // Get heapifyCursors
     heapifyCursors = false;
-    if(options[1] === 'yes') {
+    if (options[1] === 'yes') {
         heapifyCursors = true;
     }
 
     // Begin Heap Sort
-    switch(options[0]) {
+    switch (options[0]) {
         case "min":
             break;
         case "max":
@@ -50,25 +50,24 @@ async function beginSort() {
  */
 async function maxHeapSort() {
     // Build heap
-    for(let i = Math.floor(array.length / 2) - 1; i >= 0; i--) {
-        if(!await maxHeapify(i, array.length)) {
+    for (let i = Math.floor(array.length / 2) - 1; i >= 0; i--) {
+        if (!await maxHeapify(i, array.length)) {
             return false;
         }
     }
 
     // Extract heap root (largest element) one by one
-    for(let i = array.length - 1; i > 0; i--) {
+    for (let i = array.length - 1; i > 0; i--) {
         // Start and end step
-        if(!await startStep(0)) {
+        if (!await startStep(0)) {
             return false;
         }
-        clearCursor(0);
-        
+
         // Move heap root to end of array (putting it in place)
         swap(0, i);
 
         // Re-Heapify the heap
-        if(!await maxHeapify(0, i)) {
+        if (!await maxHeapify(0, i)) {
             return false;
         }
     }
@@ -95,49 +94,54 @@ async function maxHeapify(root, end) {
 
     // Check if left child is larger than root
     if (left < end) {
-        if(heapifyCursors) {
+        if (heapifyCursors) {
             setCursor(left, "green");
         }
-        if(isGreater(left, largest)) { 
+        if (isGreater(left, largest)) {
             largest = left;
         }
     }
 
     // Check if right child is larger than root or left child
     if (right < end) {
-        if(heapifyCursors) {
+        if (heapifyCursors) {
             setCursor(right, "blue");
         }
 
-        if(isGreater(right, largest)) { 
+        if (isGreater(right, largest)) {
             largest = right;
         }
     }
 
     // Start Step
-    if(!await startStep(heapifyCursors ? root : -1)) {
+    if (heapifyCursors && !await startStep(root)) {
         return false;
     }
 
     // If root is not largest
-    if(root != largest) {
+    if (root != largest) {
         // Swap root and largest
         swap(largest, root);
 
-        // Show swap and clear cursors
-        if(!await startStep(heapifyCursors ? root : -1, root)) {
-            return false;
-        }
-        clearClass("cursor");
-
-        // Recusively heapify the sub-tree at largest
-        if(!await maxHeapify(largest, end)) {
+        // Show swap
+        if (!await startStep(heapifyCursors ? root : -1, root)) {
             return false;
         }
     }
 
     // Clear Cursors
-    clearClass("cursor");
+    if (heapifyCursors) {
+        clearCursor(left);
+        clearCursor(right);
+        if (root != 0) {
+            clearCursor(root);
+        }
+    }
+
+    // Recusively heapify the sub-tree at largest
+    if (root != largest && !await maxHeapify(largest, end)) {
+        return false;
+    }
 
     return true;
 }
