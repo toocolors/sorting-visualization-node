@@ -81,8 +81,8 @@ async function maxHeapSort() {
  */
 async function minHeapSort() {
     // Build heap
-    for (let i = Math.floor(array.length / 2) - 1; i < array.length; i++) {
-        if (!await minHeapify(i, 0)) {
+    for (let i = Math.floor((array.length) / 2); i < array.length; i++) {
+        if (!await minHeapify(i, -1)) {
             return false;
         }
     }
@@ -180,17 +180,17 @@ async function maxHeapify(root, end) {
 /**
  * Turns the array into a minimum heap.
  * @param {Number} root The root of the current sub-tree.
- * @param {Number} end The end of the section to heapify (including).
+ * @param {Number} start The start of the section to heapify (including).
  * @returns True to continue sorting, False to stop sorting.
  */
-async function minHeapify(root, end) {
+async function minHeapify(root, start) {
     // Initialize Largest, left and right indices
     let smallest = root;
-    const right = Math.floor(root / 2 - 1);
-    const left = Math.floor(root / 2 - 2);
+    const left = array.length - ((array.length - root) * 2);
+    const right = array.length - ((array.length - root) * 2) - 1;
 
     // Check if left child is larger than root
-    if (left >= end) {
+    if (left > start) {
         if (heapifyCursors) {
             setCursor(left, "green");
         }
@@ -200,7 +200,7 @@ async function minHeapify(root, end) {
     }
 
     // Check if right child is larger than root or left child
-    if (right >= end) {
+    if (right > start) {
         if (heapifyCursors) {
             setCursor(right, "blue");
         }
@@ -230,13 +230,13 @@ async function minHeapify(root, end) {
     if (heapifyCursors) {
         clearCursor(left);
         clearCursor(right);
-        if (root != 0) {
+        if (root != array.length - 1) {
             clearCursor(root);
         }
     }
 
     // Recusively heapify the sub-tree at smallest
-    if (root != smallest && !await minHeapify(smallest, end)) {
+    if (root != smallest && !await minHeapify(smallest, start)) {
         return false;
     }
 
