@@ -1,0 +1,131 @@
+<h2>Heaps</h2>
+<p>
+    Heaps are a type of complete binary tree.
+    <br>
+    <br>
+    A binary tree is a common type of data structure.
+    Binary trees are made up of elements called nodes,
+    with the first node often called the root node.
+    Each node can have up to two child nodes, 
+    which can then go on to have up to two child nodes of their own.
+    <br>
+    A complete binary tree is a binary tree that has every level, 
+    except possibly the last, completely filled. Additionally, 
+    all nodes in the last level are as far left as possible.
+    <br>
+    <br>
+    There are two types of heaps: Maximum and Minimum Heaps.
+</p>
+
+<ul>
+    <li>
+        <p>
+            In Maximum Heaps, each node is greater or equal to both of its children nodes.
+            This results in the largest element in the heap being the root node, 
+            elements getting smaller the farther down the tree they are,
+            and the smallest elements being at the bottom of the heap.
+        </p>
+    </li>
+    <li>
+        <p>
+            In Minimum Heaps, each node is less than or equal to both of its children nodes.
+            This results in the smallest element in the heap being the root node,
+            elements getting larger the farther down the tree they are,
+            and the largest elements being at the bottom of the heap.
+        </p>
+    </li>
+</ul>
+
+<p>
+    Arrays are often used to represent heaps. 
+    When doing so, we make a couple of assumptions: 
+</p>
+
+<ul>
+    <li>
+        <p>
+            To find a node's children in an array we multiply the node by two and then add one or two
+            to find the left and right child nodes respectively.
+            So the left child node is at Root*2 + 1,
+            and the right child node is at Root*2 + 2.
+        </p>
+    </li>
+    <li>
+        <p>
+            All of the nodes with children are located in the first half of the array,
+            and all of the nodes in the bottom level of the heap are in the second half of the array.
+        </p>
+    </li>
+</ul>
+    
+<p>
+    To turn an array into a heap we start at the last parent node and its child nodes.
+    Then we check if the parent is less than either of its children (if we are making a max heap),
+    or greater than either of its children (if we are making a min heap).
+    If it is, we swap the parent node with the corresponding child node.
+    <br>
+    <br>
+    We move backward through the parent nodes, repeating this process for each one.
+    Any time we swap a parent and either of its child nodes,
+    we jump to that child node and repeat the process there before continuing to the next parent node.
+    Once this process is complete, we have a heap!
+</p>
+
+<h2>Max Heap Sort</h2>
+<p>
+    Max Heap Sort begins by turning the array into a max heap. 
+    This process is described above.
+    <br>
+    <br>
+    After turning the array into a max heap, the largest element in the array is now
+    at the beginning of the heap. 
+    Then we switch the first element of the heap with the last element of the array.
+    This puts the largest element of the array in its correct place at the end of the array.
+    <br>
+    <br>
+    This also places the last element in the heap, 
+    which will be one of the smallest elements in the array,
+    at the beginning of the heap. This means that the array is no longer a heap.
+    To turn it into a heap again we do the same process as described in the Heaps section above:
+    we switch the root with the larger child node, then do the same thing with that child node.
+    This turns the array into a max heap again.
+    <br>
+    <br>
+    We repeat this entire process until the heap is just one element, 
+    the smallest element in the array.
+    At this point the array is sorted.
+</p>
+
+<h2>Min Heap Sort</h2>
+<p>
+    Min Heap Sort uses the same process described in Max Heap Sort,
+    but using min heaps instead of max heaps.
+    However, this results in the array now being backwards, 
+    starting with the largest element and ending with the smallest.
+    To finish the sort, we reverse the array to put it in order.
+    This makes it slower than Max Heap Sort.
+</p>
+
+<h2>Reverse Min Heap Sort</h2>
+<p>
+    Reverse Min Heap Sort is the same of Min Heap Sort,
+    but it builds the heap so that it starts at the end of the array
+    and ends at the start of the array.
+    This builds the array starting from smallest to largest, 
+    avoiding the need to reverse the array like in Min Heap Sort.
+</p>
+
+<h2>Time Complexity of Heap Sort</h2>
+<p>
+    The process of building the heap takes <b>logn</b> time.
+    Then, the process of extracting the root element from the heap takes <b>n</b> time.
+    This gives Heap Sort and its variations a Time Complexity of <b>nlogn</b>.
+    <br>
+    <br>
+    Although Min Heap Sort has to spend extra time reversing the array,
+    it still has a Time Complexity of <b>nlogn</b>.
+</p>
+
+<%- include('../tableHead') %>
+    <%- include('../tables/heapTable') %>
+</table>

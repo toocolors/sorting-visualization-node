@@ -58,6 +58,11 @@ async function checkSortstate() {
  * @param {String} color The color to clear from the element. Defaults to all colors.
  */
 function clearCursor(index, color = "") {
+    // Exit early if index is out of bounds
+    if (index < 0 || array.length <= index) {
+        return;
+    }
+
     // Get color
     switch (color) {
         case "blue":
@@ -175,6 +180,11 @@ function playAudio(value) {
  * (blue, green, red). Defaults to red.
  */
 function setCursor(index, color = "") {
+    // Exit early if index is out of bounds
+    if (index < 0 || array.length <= index) {
+        return;
+    }
+
     // Get color
     switch (color) {
         case "blue":
