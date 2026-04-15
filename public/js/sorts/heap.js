@@ -34,7 +34,11 @@ async function beginSort() {
     heapType = options[0];
 
     // Get heapifyCursors
-    heapifyCursors = false;
+    if (options[1] === "yes") {
+        heapifyCursors = true;
+    } else {
+        heapifyCursors = false;
+    }
 
     // Begin Heap Sort
     switch (heapType) {
