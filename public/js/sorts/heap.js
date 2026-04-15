@@ -3,8 +3,9 @@
 // ************************************************************************************************
 let heapifyCursors;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
-    ["max", "Max Heap Sort", beginSort],
-    ["min", "Min Heap Sort", beginSort]
+    ["max", "Max Heap", beginSort],
+    ["min", "Min Heap", beginSort],
+    ["reverse", "Reverse Min Heap", beginSort]
 ];
 export const optionsList = new Object();
 
@@ -37,7 +38,9 @@ async function beginSort() {
     // Begin Heap Sort
     switch (options[0]) {
         case "min":
-            await minHeapSort();
+            break;
+        case "reverse":
+            await reverseMinHeapSort();
             break;
         case "max":
         default:
@@ -79,10 +82,10 @@ async function maxHeapSort() {
 /**
  * Sorts the array using Min Heap Sort.
  */
-async function minHeapSort() {
+async function reverseMinHeapSort() {
     // Build heap
     for (let i = Math.floor((array.length) / 2); i < array.length; i++) {
-        if (!await minHeapify(i, -1)) {
+        if (!await reverseMinHeapify(i, -1)) {
             return false;
         }
     }
@@ -98,7 +101,7 @@ async function minHeapSort() {
         swap(array.length - 1, i);
 
         // Re-Heapify the heap
-        if (!await minHeapify(array.length - 1, i)) {
+        if (!await reverseMinHeapify(array.length - 1, i)) {
             return false;
         }
     }
@@ -183,7 +186,7 @@ async function maxHeapify(root, end) {
  * @param {Number} start The start of the section to heapify (including).
  * @returns True to continue sorting, False to stop sorting.
  */
-async function minHeapify(root, start) {
+async function reverseMinHeapify(root, start) {
     // Initialize Largest, left and right indices
     let smallest = root;
     const left = array.length - ((array.length - root) * 2);
@@ -236,7 +239,7 @@ async function minHeapify(root, start) {
     }
 
     // Recusively heapify the sub-tree at smallest
-    if (root != smallest && !await minHeapify(smallest, start)) {
+    if (root != smallest && !await reverseMinHeapify(smallest, start)) {
         return false;
     }
 
