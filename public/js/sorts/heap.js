@@ -35,9 +35,6 @@ async function beginSort() {
 
     // Get heapifyCursors
     heapifyCursors = false;
-    if (options[1] === 'yes') {
-        heapifyCursors = true;
-    }
 
     // Begin Heap Sort
     switch (heapType) {
@@ -46,7 +43,10 @@ async function beginSort() {
             break;
         case "max":
         case "min":
+            await heapSort();
+            break;
         default:
+            heapType = 'max';
             await heapSort();
             break;
     }
