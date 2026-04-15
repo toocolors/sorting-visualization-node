@@ -2,6 +2,7 @@
 // Script variables
 // ************************************************************************************************
 let heapifyCursors;
+let heapType;
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["max", "Max Heap", beginSort],
     ["min", "Min Heap", beginSort],
@@ -29,6 +30,9 @@ async function beginSort() {
     // Get options
     const options = getSortOptions();
 
+    // Get heapType
+    heapType = options[0];
+
     // Get heapifyCursors
     heapifyCursors = false;
     if (options[1] === 'yes') {
@@ -36,26 +40,27 @@ async function beginSort() {
     }
 
     // Begin Heap Sort
-    switch (options[0]) {
-        case "min":
-            break;
+    switch (heapType) {
         case "reverse":
             await reverseMinHeapSort();
             break;
         case "max":
+        case "min":
         default:
-            await maxHeapSort();
+            await heapSort();
             break;
     }
 }
 
 /**
- * Sorts the array using Max Heap Sort.
+ * Sorts the array using Heap Sort.
+ * Does Max Heap Sort if heapType is 'max'.
+ * Does Min Heap Sort if heapType is 'min'.
  */
-async function maxHeapSort() {
+async function heapSort() {
     // Build heap
     for (let i = Math.floor(array.length / 2) - 1; i >= 0; i--) {
-        if (!await maxHeapify(i, array.length)) {
+        if (!await heapify(i, array.length)) {
             return false;
         }
     }
@@ -71,16 +76,21 @@ async function maxHeapSort() {
         swap(0, i);
 
         // Re-Heapify the heap
-        if (!await maxHeapify(0, i)) {
+        if (!await heapify(0, i)) {
             return false;
         }
+    }
+
+    // Reverse array if doing Min Heap Sort
+    if(heapType === "min" && !await reverse()) {
+        return false;
     }
 
     return true;
 }
 
 /**
- * Sorts the array using Min Heap Sort.
+ * Sorts the array using Reverse Min Heap Sort.
  */
 async function reverseMinHeapSort() {
     // Build heap
@@ -120,7 +130,7 @@ async function reverseMinHeapSort() {
  * @param {Number} end The end of the section to heapify (excluding).
  * @returns True to continue sorting, False to stop sorting.
  */
-async function maxHeapify(root, end) {
+async function heapify(root, end) {
     // Initialize Largest, left and right indices
     let largest = root;
     const left = 2 * root + 1;
@@ -131,7 +141,9 @@ async function maxHeapify(root, end) {
         if (heapifyCursors) {
             setCursor(left, "green");
         }
-        if (isGreater(left, largest)) {
+        if (heapType === "max" && isGreater(left, largest)) {
+            largest = left;
+        } else if(heapType === "min" && isLess(left, largest)) {
             largest = left;
         }
     }
@@ -142,7 +154,9 @@ async function maxHeapify(root, end) {
             setCursor(right, "blue");
         }
 
-        if (isGreater(right, largest)) {
+        if (heapType === "max" && isGreater(right, largest)) {
+            largest = right;
+        } else if(heapType === "min" && isLess(right, largest)) {
             largest = right;
         }
     }
@@ -173,8 +187,33 @@ async function maxHeapify(root, end) {
     }
 
     // Recusively heapify the sub-tree at largest
-    if (root != largest && !await maxHeapify(largest, end)) {
+    if (root != largest && !await heapify(largest, end)) {
         return false;
+    }
+
+    return true;
+}
+
+/**
+ * Reverses the array.
+ * Called if doing Min Heap Sort.
+ * @returns True if continuing sort, False if stopping sort.
+ */
+async function reverse() {
+    for(let i = 0; i < Math.floor(array.length / 2); i++) {
+        // Get index of last element
+        let index = array.length - 1 - i;
+
+        // Swap first and last elements
+        swap(i, index);
+
+        // Start and end step
+        setCursor(i)
+        if(!await startStep(index)) {
+            return false;
+        }
+        clearCursor(index);
+        clearCursor(i);
     }
 
     return true;
