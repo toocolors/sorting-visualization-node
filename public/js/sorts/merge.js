@@ -35,6 +35,43 @@ async function beginSort() {
     switch (options[0]) {
         case "merge":
         default:
+            await mergeSort(0, array.length - 1);
             break;
+    }
+}
+
+/**
+ * Sorts a section of the array using Merge Sort.
+ * @param {Number} start The start of the section to sort.
+ * @param {Number} end The end of the section to sort (including).
+ * @returns A sorted subarray to coninue sorting, False to stop sorting.
+ */
+async function mergeSort(start, end) {
+    // End recursion if section is empty or one element
+    if (end - start <= 0) {
+        return [];
+    }
+
+    // Do Insertion Sort on section if section is smaller than threshold
+    if (end - start <= insertionSize) {
+        if (!await insertion.insertionSort(start, end)) {
+            return false;
+        } else {
+            return [start, end];
+        }
+    }
+
+    // Call recursive functions
+    const middle = start + Math.floor((end - start) / 2);
+    // Run Merge Sort on left half of section.
+    const left = await mergeSort(start, middle);
+    if (left === false) {
+        return false;
+    }
+
+    // Run Merge Sort on right half of section.
+    const right = await mergeSort(middle, end);
+    if (right === false) {
+        return false;
     }
 }
