@@ -79,24 +79,51 @@ async function mergeSort(start, end) {
     const arr = [];
     let l = 0; // Iterator for left
     let r = 0; // Iterator for right
+    setCursor(start + l);
+    setCursor(middle + r);
     for (let i = 0; i < end - start; i++) {
         // Try to get element from left
         if (l < left.length && (r >= right.length || left[l] <= right[r])) {
-            // Write left element to arr, increment l
+            // Write left element to arr, increment l, update left cursor
             arr.push(left[l]);
-            set(start + i, left[l]);
+            clearCursor(start + l);
             l++;
+
+            // Update Page
+            if(!await startStep(start + l)) {
+                return false;
+            }
         }
         // Try to get element from right
         else if (r < right.length) {
             // Write right element to arr, increment r
             arr.push(right[r]);
-            set(start + i, right[r]);
+            clearCursor(middle + r);
             r++;
+
+            // Update Page
+            if(!await startStep(middle + r)) {
+                return false;
+            }
         }
     }
 
+    // Clear cursors
+    clearCursor(start + l);
+    clearCursor(middle + r);
+
+    // Write array to current segment for visualization
+    for(let i = 0; i < arr.length; i++) {
+        // Write element i to array segment
+        set(start + i, arr[i]);
+
+        // Update page
+        if(!await startStep(start + i)) {
+            return false;
+        }
+        clearCursor(start + i);
+    }
+
     // Return arr
-    console.log("Returning " + arr);
     return arr;
 }
