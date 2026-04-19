@@ -35,7 +35,7 @@ async function beginSort() {
     switch (options[0]) {
         case "merge":
         default:
-            await mergeSort(0, array.length - 1);
+            await mergeSort(0, array.length);
             break;
     }
 }
@@ -43,22 +43,22 @@ async function beginSort() {
 /**
  * Sorts a section of the array using Merge Sort.
  * @param {Number} start The start of the section to sort.
- * @param {Number} end The end of the section to sort (including).
+ * @param {Number} end The end of the section to sort (excluding).
  * @returns A sorted subarray to coninue sorting, False to stop sorting.
  */
 async function mergeSort(start, end) {
     // End recursion if section is empty or one element
-    if (end - start <= 0) {
-        return [];
+    if (end - start <= 1) {
+        return array.slice(start, end);
     }
 
     // Do Insertion Sort on section if section is smaller than threshold
     if (end - start <= insertionSize) {
-        if (!await insertion.insertionSort(start, end)) {
+        if (!await insertion.insertionSort(start, end - 1)) {
             return false;
-        } else {
-            return [start, end];
         }
+        // Return section
+        return array.slice(start, end);
     }
 
     // Call recursive functions
@@ -74,4 +74,29 @@ async function mergeSort(start, end) {
     if (right === false) {
         return false;
     }
+
+    // Sort section and build sorted array
+    const arr = [];
+    let l = 0; // Iterator for left
+    let r = 0; // Iterator for right
+    for (let i = 0; i < end - start; i++) {
+        // Try to get element from left
+        if (l < left.length && (r >= right.length || left[l] <= right[r])) {
+            // Write left element to arr, increment l
+            arr.push(left[l]);
+            set(start + i, left[l]);
+            l++;
+        }
+        // Try to get element from right
+        else if (r < right.length) {
+            // Write right element to arr, increment r
+            arr.push(right[r]);
+            set(start + i, right[r]);
+            r++;
+        }
+    }
+
+    // Return arr
+    console.log("Returning " + arr);
+    return arr;
 }
