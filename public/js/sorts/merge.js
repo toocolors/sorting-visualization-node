@@ -31,6 +31,9 @@ async function beginSort() {
         insertionSize = array.length - 1;
     }
 
+    // Set insertionType
+    insertion.setInsertionType("insert");
+
     // Begin Merge Sort
     switch (options[0]) {
         case "merge":
