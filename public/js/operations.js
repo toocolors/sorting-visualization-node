@@ -335,7 +335,9 @@ function getWidth() {
 }
 
 /**
- * Increments the passed in operation by 1.
+ * Increments the passed in operation by increment (1 by default).
+ * Valid operation names are reads, writes, and comparisons.
+ * Also increments accesses if operation is reads or writes.
  * @param {String} operation The name of an operation (without 'Span').
  * @param {Number} increment The amount to increment by.
  */
