@@ -92,6 +92,11 @@ async function mergeSort(start, end) {
             clearCursor(start + l);
             l++;
 
+            // Increment operations
+            incrementOperation("reads", 3);
+            incrementOperation("writes");
+            incrementOperation("comparisons");
+
             // Update Page
             if(!await startStep(start + l)) {
                 return false;
@@ -103,6 +108,11 @@ async function mergeSort(start, end) {
             arr.push(right[r]);
             clearCursor(middle + r);
             r++;
+
+            // Increment operations
+            incrementOperation("reads", 3);
+            incrementOperation("writes");
+            incrementOperation("comparisons");
 
             // Update Page
             if(!await startStep(middle + r)) {
