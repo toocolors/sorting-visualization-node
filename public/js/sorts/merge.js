@@ -128,7 +128,7 @@ async function mergeSort(start, end) {
     // Write array to current segment for visualization
     for(let i = 0; i < arr.length; i++) {
         // Write element i to array segment
-        set(start + i, arr[i]);
+        set(start + i, arr[i], false);
 
         // Update page
         if(!await startStep(start + i)) {
