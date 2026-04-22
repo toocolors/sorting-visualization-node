@@ -141,9 +141,9 @@ function set(index, value = null, updateOperation = true) {
         elements[index].style.backgroundColor = `
         hsl(${(value / maxHeight) * 320}, 100%, 50%)`;
     } else if (graphType === "scatter") {
+        const percent = Math.max(0, Math.min(100, (value - 1) / (maxHeight - 1) * 95));
         elements[index].style.bottom = `
-        ${Math.floor((value / maxHeight) * 100)}%`;
-
+        ${percent}%`;
     } else { // "bar" or other value
         elements[index].style.height = `
         ${(value / maxHeight) * 100}%`;
