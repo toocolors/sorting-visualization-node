@@ -2,6 +2,7 @@
 // Call Functions
 // ************************************************************************************************
 InitializeControls();
+document.getElementById("graphSelect").value = "bar";
 
 // ************************************************************************************************
 // Add Event Listeners
@@ -31,8 +32,14 @@ document.getElementById("graphSelect").addEventListener("change", async () => {
     // Get graph type select
     const select = document.getElementById("graphSelect");
 
+    // Remove current graph type from visualization classes
+    arrayDiv.classList.remove(graphType);
+
     // Update graphType
     graphType = select.value;
+
+    // Add new graph type to visualization classes
+    arrayDiv.classList.add(graphType);
 
     // Regenerate Array
     await regenerateArray();
