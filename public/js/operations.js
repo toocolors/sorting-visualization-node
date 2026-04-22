@@ -108,7 +108,7 @@ async function removeSwap(index) {
 
     // Start and end step
     setCursor(index);
-    if(!await startStep(array.length - 1)) {
+    if (!await startStep(array.length - 1)) {
         return false;
     }
     clearCursor(index);
@@ -137,9 +137,9 @@ function set(index, value = null, updateOperation = true) {
     }
 
     // Update box
-    if(graphType === "scatter") {
+    if (graphType === "scatter") {
         elements[index].style.bottom = `
-        ${(value / maxHeight) * 100 - 1}%`
+        ${Math.floor((value / maxHeight) * 100)}%`;
 
     } else { // "bar" or other value
         elements[index].style.height = `
