@@ -27,12 +27,15 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
     }
 });
 
-document.getElementById("graphSelect").addEventListener("change", () => {
+document.getElementById("graphSelect").addEventListener("change", async () => {
     // Get graph type select
     const select = document.getElementById("graphSelect");
 
     // Update graphType
     graphType = select.value;
+
+    // Regenerate Array
+    await regenerateArray();
 });
 
 document.getElementById("sortSelect").addEventListener("change", getOptions);

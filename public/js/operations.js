@@ -137,8 +137,13 @@ function set(index, value = null, updateOperation = true) {
     }
 
     // Update box
-    elements[index].style.height = `
+    if(graphType === "scatter") {
+
+    } else { // "bar" or other value
+        elements[index].style.height = `
         ${(value / maxHeight) * 100}%`;
+    }
+
 }
 
 /**
@@ -413,7 +418,6 @@ async function regenerateArray() {
         switch (sortstate) {
             case 2:
                 wasSorting = true;
-                break;
             case 1:
             case 0:
                 sortstate = 0;
@@ -431,12 +435,9 @@ async function regenerateArray() {
 
     await allowUpdate();
 
-    // Calculate width
-    const width = getWidth();
-
-    // Copy temp
-    for (let i = 0; i < arraySize; i++) {
-        createElement(i, array[i], width);
+    // Recreate element divs
+    for (let i = 0; i < array.length; i++) {
+        createElement(i, array[i]);
     }
 
     // Resume Sorting
