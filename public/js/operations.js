@@ -15,7 +15,7 @@ function createElement(index, value) {
     arrayDiv.appendChild(el);
 
     // Write Element
-    set(index, value);
+    set(index, value, generated ? false : true);
 
     // Play Sound
     playAudio(value);
