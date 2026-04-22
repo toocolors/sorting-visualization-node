@@ -88,10 +88,20 @@ hr {
     overflow: hidden;
 }
 
+#visualization.scatter {
+    background: black;
+}
+
 .element {
     background-color: black;
     flex: 1;
     margin: 0;
+}
+
+#visualization.scatter .element {
+    aspect-ratio: 1/1;
+    background-color: white;
+    position: relative;
 }
 
 .cursorBlue {

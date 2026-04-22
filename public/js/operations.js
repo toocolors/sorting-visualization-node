@@ -138,12 +138,13 @@ function set(index, value = null, updateOperation = true) {
 
     // Update box
     if(graphType === "scatter") {
+        elements[index].style.bottom = `
+        ${(value / maxHeight) * 100 - 1}%`
 
     } else { // "bar" or other value
         elements[index].style.height = `
         ${(value / maxHeight) * 100}%`;
     }
-
 }
 
 /**
