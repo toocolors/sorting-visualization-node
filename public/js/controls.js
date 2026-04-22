@@ -27,6 +27,14 @@ document.getElementById("arraySize").addEventListener("input", (event) => {
     }
 });
 
+document.getElementById("graphSelect").addEventListener("change", () => {
+    // Get graph type select
+    const select = document.getElementById("graphSelect");
+
+    // Update graphType
+    graphType = select.value;
+});
+
 document.getElementById("sortSelect").addEventListener("change", getOptions);
 
 document.getElementById("shuffle").addEventListener("click", async () => {
