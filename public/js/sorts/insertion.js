@@ -149,7 +149,7 @@ async function binarySearch(index, start) {
  */
 async function insert(index, start) {
     // Loop until element is in place
-    while(index >= start && isGreater(index - 1, index)) {
+    while(index > start && isGreater(index - 1, index)) {
         // Swap Elements
         swap(index - 1, index);
 
@@ -164,4 +164,16 @@ async function insert(index, start) {
     }
 
     return true;
+}
+
+// ************************************************************************************************
+// Helper Functions
+// ************************************************************************************************
+
+/**
+ * Setter function for insertionType.
+ * @param {String} type The new value for insertionType.
+ */
+export function setInsertionType(type) {
+    insertionType = type;
 }
