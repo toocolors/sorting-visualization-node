@@ -135,6 +135,10 @@ li {
     margin-right: 5px;
 }
 
+#graphTypeDiv {
+    margin-top: 5px;
+}
+
 /* Narrow screens: inputs and buttons on same line */
 @media (max-width: 900px) {
 
@@ -304,6 +308,7 @@ li {
     }
 
     #options {
+        margin-top: 30px;
         grid-area: controls;
     }
 
@@ -417,6 +422,7 @@ li {
 /* Landscape Styling */
 @media (orientation: landscape) {
     #flexbox {
+        margin-bottom: 40px;
         grid-template-columns: 2fr 1fr;
         grid-template-areas:
             "visualization options";

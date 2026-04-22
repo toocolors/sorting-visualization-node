@@ -15,7 +15,7 @@ function createElement(index, value) {
     arrayDiv.appendChild(el);
 
     // Write Element
-    set(index, value);
+    set(index, value, generated ? false : true);
 
     // Play Sound
     playAudio(value);
@@ -108,7 +108,7 @@ async function removeSwap(index) {
 
     // Start and end step
     setCursor(index);
-    if(!await startStep(array.length - 1)) {
+    if (!await startStep(array.length - 1)) {
         return false;
     }
     clearCursor(index);
@@ -137,8 +137,17 @@ function set(index, value = null, updateOperation = true) {
     }
 
     // Update box
-    elements[index].style.height = `
+    if (graphType === "colors") {
+        elements[index].style.backgroundColor = `
+        hsl(${(value / maxHeight) * 320}, 100%, 50%)`;
+    } else if (graphType === "scatter") {
+        const percent = Math.max(0, Math.min(100, (value - 1) / (maxHeight - 1) * 95));
+        elements[index].style.bottom = `
+        ${percent}%`;
+    } else { // "bar" or other value
+        elements[index].style.height = `
         ${(value / maxHeight) * 100}%`;
+    }
 }
 
 /**
@@ -413,7 +422,6 @@ async function regenerateArray() {
         switch (sortstate) {
             case 2:
                 wasSorting = true;
-                break;
             case 1:
             case 0:
                 sortstate = 0;
@@ -429,14 +437,9 @@ async function regenerateArray() {
     // Reset visualization
     arrayDiv.innerHTML = '';
 
-    await allowUpdate();
-
-    // Calculate width
-    const width = getWidth();
-
-    // Copy temp
-    for (let i = 0; i < arraySize; i++) {
-        createElement(i, array[i], width);
+    // Recreate element divs
+    for (let i = 0; i < array.length; i++) {
+        createElement(i, array[i]);
     }
 
     // Resume Sorting

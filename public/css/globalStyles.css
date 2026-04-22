@@ -37,7 +37,7 @@ body {
 
     background: #7faec0;
     border-bottom: 3px solid #d9eaf0;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 
     z-index: 1005;
 }
@@ -88,28 +88,48 @@ hr {
     overflow: hidden;
 }
 
+#visualization.scatter {
+    background: black;
+}
+
 .element {
     background-color: black;
     flex: 1;
     margin: 0;
 }
 
-.cursorBlue {
+.scatter .element {
+    aspect-ratio: 1/1;
+    background-color: white;
+    position: relative;
+}
+
+.colors .element {
+    height: 100%;
+}
+
+.element.cursorBlue {
     background-color: blue;
 }
 
-.cursorGreen {
+.element.cursorGreen {
     background-color: green;
 }
 
-.cursor,
-.cursorRed {
+.element.cursor,
+.element.cursorRed {
     background-color: red;
 }
 
-.complete {
+.element.complete {
     background-color: green;
 }
+
+/* .colors .cursor,
+.colors .cursorRed,
+.colors .cursorGreen .colors .cursorBlue {
+    background-color: black;
+} */
 
 /* Button Styles */
 /* Universal Button Styles */
