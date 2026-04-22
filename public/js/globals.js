@@ -10,6 +10,7 @@ let maxHeight;
 const elements = document.getElementsByClassName("element");
 const gain = audio.createGain();
 let generated = false;
+let graphType = "bar"
 let hasDeletion = false;
 let maxArraySize;
 const maxSpeed = 1000;
