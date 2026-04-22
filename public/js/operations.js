@@ -434,8 +434,6 @@ async function regenerateArray() {
     // Reset visualization
     arrayDiv.innerHTML = '';
 
-    await allowUpdate();
-
     // Recreate element divs
     for (let i = 0; i < array.length; i++) {
         createElement(i, array[i]);
