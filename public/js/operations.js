@@ -137,7 +137,10 @@ function set(index, value = null, updateOperation = true) {
     }
 
     // Update box
-    if (graphType === "scatter") {
+    if (graphType === "colors") {
+        elements[index].style.backgroundColor = `
+        hsl(${(value / maxHeight) * 320}, 100%, 50%)`;
+    } else if (graphType === "scatter") {
         elements[index].style.bottom = `
         ${Math.floor((value / maxHeight) * 100)}%`;
 
