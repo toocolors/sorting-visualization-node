@@ -98,26 +98,26 @@ hr {
     margin: 0;
 }
 
-#visualization.scatter .element {
+.scatter .element {
     aspect-ratio: 1/1;
     background-color: white;
     position: relative;
 }
 
-.cursorBlue {
+.element.cursorBlue {
     background-color: blue;
 }
 
-.cursorGreen {
+.element.cursorGreen {
     background-color: green;
 }
 
-.cursor,
-.cursorRed {
+.element.cursor,
+.element.cursorRed {
     background-color: red;
 }
 
-.complete {
+.element.complete {
     background-color: green;
 }
 
