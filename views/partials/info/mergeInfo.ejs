@@ -1,6 +1,40 @@
 <h2>Merge Sort</h2>
 <p>
-
+    Merge Sort, often spelled Mergesort, 
+    is a divide-and-conquer algorithm that sorts parts of the array, then combines them.
+    <br>
+    <br>
+    Merge Sort begins by splitting the array into two halves.
+    Then, it goes into one of the sub-sections and splits it into two halves as well.
+    It continues to do for every sub-section until new sub-sections are either empty or only have one element.
+    This is the "divide" portion of the algorithm.
+    <br>
+    <br>
+    When a sub-section has one or no elements, it returns its contents as an array 
+    (either an empty array or one containing one element).
+    Merge Sort then takes these results for two sub-sections and creates a new array.
+    Then, it loops through both of the arrays.
+    For each step it places the next element from the left sub-section in the new array if it is 
+    equal to or smaller than the next element from the right sub-section. 
+    Otherwise, it places the next element from the right sub-section in the new array.
+    The next elements in the left and right sub-sections are represented by the left and right red bars in the visualization.
+    <br>
+    <br>
+    At this point, Merge Sort has an array that combines all elements from the left and right sub-sections in order.
+    This array is then returned as the result for the parent sub-section of the left and right sub-sections.
+    Merge Sort repeats this process for each sub-section until it finishes it for the initial two halves of the array.
+    This is the "conquer" portion of the algorithm.
+    Now Merge Sort has the original array and the sorted array.
+    To finish the sort, it simply sets the original array to point towards the new one, and deletes the old array.
+    <br>
+    <br>
+    Since Merge Sort has to make a new array for each section, 
+    the largest of which being the same size as the original array, its Space Complexity is <b>n</b>.
+    <br>
+    <br>
+    This visualization shows the sorted array for each sub-section by overwriting
+    the sub-section's two halves with the sorted array.
+    This helps visualize each section being sorted, but slows down the visualization itself.
 </p>
 
 <%- include('../tableHead') %>
@@ -9,9 +43,27 @@
 
 <h2>In-Place Merge Sort</h2>
 <p>
-
+    Merge Sort's biggest flaw is its large Space Complexity.
+    Several variantions exist to make Merge Sort in-place.
+    Instead of writing to an additional array, 
+    the in-place variant that this visualization uses 
+    simply continues to the next left element (represented by the red bar) 
+    if it is smaller than or equal to the next right element (represented by the blue bar).
+    Otherwise, it shifts all elements in the sub-section that are inbetween the next left and right elements one space to the right,
+    then places the next right element where the next left element was.
+    <br>
+    <br>
+    This variantion acts similarly to <a href="/algorithm?id=Insertion">Binary Insertion Sort</a>, 
+    which moves all elements between the current element and the target position to the right,
+    then places the current element in the target position.
+    <br>
+    <br>
+    This variation of In-Place Merge Sort has a worse overall Time Complexity of <b>n<sup>2</sup></b> in the average and worst cases,
+    but has a lower Space Complexity of <b>logn</b>.
 </p>
 
 <%- include('../tableHead') %>
     <%- include('../tables/mergeInPlaceTable') %>
 </table>
+
+<%- include('hybridInsertionInfo') %>
