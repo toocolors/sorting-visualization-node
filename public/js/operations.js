@@ -138,10 +138,13 @@ function set(index, value = null, updateOperation = true) {
 
     // Update box
     if (graphType === "colors") {
-        elements[index].style.backgroundColor = `
-        hsl(${(value / maxHeight) * 320}, 100%, 50%)`;
+        elements[index].style.backgroundColor = value > 0 
+        ? `hsl(${(value / maxHeight) * 320}, 100%, 50%)`
+        : "black";
     } else if (graphType === "scatter") {
-        const percent = Math.max(0, Math.min(100, (value - 1) / (maxHeight - 1) * 95));
+        const percent = value > 0
+        ? Math.max(0, Math.min(100, (value - 1) / (maxHeight - 1) * 95))
+        : 100;
         elements[index].style.bottom = `
         ${percent}%`;
     } else { // "bar" or other value
