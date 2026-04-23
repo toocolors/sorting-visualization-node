@@ -5,7 +5,7 @@
     It repeats this process until the entire array is sorted.
     <br>
     <br>
-    Needless to say, Bogo Sort performs terribly. 
+    Needless to say, Bogo Sort performs terribly.
     Because it uses probability to sort the array it is possible that the array will never be sorted,
     giving Bogo Sort a worst case of infinity.
     <br>
@@ -15,4 +15,20 @@
 
 <%- include('../tableHead') %>
     <%- include('../tables/bogoTable') %>
-</table>
+        </table>
+
+        <h2>Bozo Sort</h2>
+        <p>
+            Bozo Sort is a variant of Bogo Sort that swaps two random
+            elements in the array instead of shuffling it in its entirety if it is not sorted.
+            <br>
+            <br>
+            Bozo Sort has better average Time Complexity than
+            Bogo Sort at <b>n!</b>,
+            but still has a worst case of <b>&infin;</b>
+            since it relies on random chance.
+        </p>
+
+        <%- include('../tableHead') %>
+            <%- include('../tables/bozoTable') %>
+                </table>
