@@ -278,7 +278,7 @@ function isLess(a, b) {
  */
 async function arrayCompleteLoop() {
     // Loop through array
-    for (let i = 0; sortstate == 2 && i < array.length; i++) {
+    for (let i = 0; sortstate == 2 && i < array.length && graphType !== "colors"; i++) {
         // Check if element i is valid
         if (array[i] < 1) {
             continue;
