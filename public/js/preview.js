@@ -5,7 +5,6 @@ let algorithm;
 let currentAlgoId;
 let played = [];
 const previewArraySize = 100;
-const unplayable = ["Bogo", "Miracle"];
 let playlist = [];
 
 
@@ -172,11 +171,9 @@ function selectAlgorithm() {
  */
 function setupPlaylist() {
     // Get algoLinks
-    const links = document.getElementsByClassName("algoLink");
+    const links = document.querySelectorAll(".algoLink:not(.joke)");
     for(let i = 0; i < links.length; i++) {
-        if(!unplayable.includes(links[i].id)) {
-            playlist.push(links[i].id);
-        }
+        playlist.push(links[i].id);
     }
 }
 
