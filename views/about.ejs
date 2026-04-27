@@ -223,7 +223,7 @@
                         <p>
                             These are Sorting Algorithms that are widely used, often used for comparing to other
                             algorithms,
-                            or are notable in some other way.
+                            or are otherwise particularly well known.
                         </p>
 
                         <!-- Table -->
@@ -248,6 +248,25 @@
 
                             <!-- Quick Sort -->
                             <%- include('partials/tables/quickTable.ejs') %>
+                        </table>
+                    </div>
+
+                    Weird Sorts
+                    <div class="border table-section">
+                        <!-- Heading -->
+                        <h2>Weird Sorts</h2>
+
+                        <!-- Description -->
+                        <p>
+                            These are Sorting Algorithms that are less commonly known or used
+                            than the principle algorithms
+                            but that are still noteworthy.
+                        </p>
+
+                        <!-- Table -->
+                        <%- include('partials/tableHead.ejs') %>
+                            <!-- Odd-Even Sort -->
+                            <%- include('partials/tables/odd-evenTable.ejs') %>
                         </table>
                     </div>
 
