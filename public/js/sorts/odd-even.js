@@ -2,34 +2,20 @@
 // Script variables
 // ************************************************************************************************
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
-    ["odd-even", "Odd-Even Sort", beginSort],
-    ["concurrent-odd-even", "Concurrent Odd-Even", beginSort]
+    ["odd-even", "Odd-Even Sort", oddEvenSort]
 ];
 
 // ************************************************************************************************
 // Sort Functions
 // ************************************************************************************************
 
-/**
- * Gets sorting options and begins Odd-Even Sort.
- */
-async function beginSort() {
-    // Get sort options
-    const options = getSortOptions();
-
-    // Start sorting
-    await oddEvenSort(options[0] === "concurrent-odd-even" ? true : false);
-}
-
-async function oddEvenSort(concurrent) {
+async function oddEvenSort() {
     // Reset sorted
     sorted = false;
 
     while(!sorted) {
         // Reset sorted
         sorted = true;
-
-        // Run asynchronously
 
         // Run synchronously
         if (!await loop(0) || !await loop(1)) {
@@ -39,10 +25,6 @@ async function oddEvenSort(concurrent) {
 
     return true;
 }
-
-// ************************************************************************************************
-// Synchronous Sort Functions
-// ************************************************************************************************
 
 async function loop(start) {
     // Loop through array
