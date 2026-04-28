@@ -3,7 +3,8 @@
 // ************************************************************************************************
 const sorts = await import("/get/algorithm?id=OffsetSorts");
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
-    ["insertion", "Weave (Insertion)", beginSort]
+    ["insertion", "Weave (Insertion)", beginSort],
+    ["bubble", "Weave (Bubble)", beginSort]
 ];
 export const optionsList = new Object();
 let threadCount;
@@ -29,7 +30,7 @@ async function beginSort() {
     sortType = options[0];
     threadCount = parseInt(options[1]);
     // Clamp threadCount
-    if(isNaN(threadCount) || threadCount < 2) {
+    if (isNaN(threadCount) || threadCount < 2) {
         threadCount = 2;
     }
 
@@ -45,8 +46,11 @@ async function beginSort() {
 async function weaveSort() {
     // Create threads
     const threads = [];
-    for(let i = 0; i < threadCount; i++) {
-        switch(sortType) {
+    for (let i = 0; i < threadCount; i++) {
+        switch (sortType) {
+            case "bubble":
+                threads.push(sorts.bubbleSort(i, array.length - 1, threadCount));
+                break;
             case "insertion":
             default:
                 threads.push(sorts.insertionSort(i, array.length - 1, threadCount, threadCount));
@@ -58,15 +62,20 @@ async function weaveSort() {
     await Promise.all(threads);
 
     // Exit if sorting has stopped
-    if(!await checkSortstate()) {
+    if (!await checkSortstate()) {
         return false;
     }
 
     // Perform final pass
-    switch(sortType) {
+    switch (sortType) {
+        case "bubble":
+            if (!await sorts.bubbleSort(0, array.length - 1, 1)) {
+                return false;
+            }
+            break;
         case "insertion":
         default:
-            if(!await sorts.insertionSort(0, array.length - 1, 1, 1));
+            if (!await sorts.insertionSort(0, array.length - 1, 1, 1));
             break;
     }
 
