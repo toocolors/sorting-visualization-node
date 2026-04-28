@@ -12,7 +12,7 @@
  */
 export async function insertionSort(start, end, increment, insertDecrement) {
         // Outer Loop
-        for(let i = start + 1; i <= end; i += increment) {
+        for(let i = start + increment; i <= end; i += increment) {
             // Start Step
             if(!await startStep(i)) {
                 return false;
@@ -20,7 +20,7 @@ export async function insertionSort(start, end, increment, insertDecrement) {
     
             // Loop until element is in place
             let index = i;
-            while(index > start && index - insertDecrement >= start && isGreater(index - insertDecrement, index)) {
+            while(index - insertDecrement >= start && isGreater(index - insertDecrement, index)) {
                 // Swap Elements
                 swap(index - insertDecrement, index);
 
