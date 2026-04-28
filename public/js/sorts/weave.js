@@ -4,7 +4,8 @@
 const sorts = await import("/get/algorithm?id=OffsetSorts");
 export const sortList = [ // 0 = id, 1 = name, 2 = main function
     ["insertion", "Weave (Insertion)", beginSort],
-    ["bubble", "Weave (Bubble)", beginSort]
+    ["bubble", "Weave (Bubble)", beginSort],
+    ["selection", "Weave (Selection)", beginSort]
 ];
 export const optionsList = new Object();
 let threadCount;
@@ -51,6 +52,9 @@ async function weaveSort() {
             case "bubble":
                 threads.push(sorts.bubbleSort(i, array.length - 1, threadCount));
                 break;
+            case "selection":
+                threads.push(sorts.selectionSort(i, array.length, threadCount));
+                break;
             case "insertion":
             default:
                 threads.push(sorts.insertionSort(i, array.length - 1, threadCount, threadCount));
@@ -74,6 +78,7 @@ async function weaveSort() {
             }
             break;
         case "insertion":
+        case "selection":
         default:
             if (!await sorts.insertionSort(0, array.length - 1, 1, 1));
             break;

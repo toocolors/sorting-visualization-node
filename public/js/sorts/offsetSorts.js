@@ -86,3 +86,46 @@ export async function insertionSort(start, end, increment, insertDecrement) {
 
     return true;
 }
+
+/**
+ * Sorts a portion of the array using Selection Sort.
+ * @param {Number} start The beginning index of the section to sort.
+ * @param {*} end The last index of the section to sort.
+ * @param {*} increment The value to increment by each loop iteration.
+ * @returns True to continue sorting, False to stop sorting.
+ */
+export async function selectionSort(start, end, increment) {
+    // Outer Loop
+    for (let i = start; i <= end; i += increment) {
+        // Initialize Smallest
+        let smallest = i;
+
+        // Inner Loop - Get Smallest Element
+        for (let j = i + increment; j <= end; j += increment) {
+            // Update page
+            if (!await startStep(j)) {
+                return false;
+            }
+            clearCursor(j);
+
+            if (isLess(j, smallest)) {
+                smallest = j;
+            }
+        }
+
+        // Update page
+        if (!await startStep(i)) {
+            return false;
+        }
+
+        // Swap Smallest
+        swap(i, smallest);
+
+        // Update page
+        if (!await startStep(i)) {
+            return false;
+        }
+        clearCursor(smallest);
+        clearCursor(i);
+    }
+}
