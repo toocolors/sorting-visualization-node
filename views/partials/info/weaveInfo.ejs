@@ -1,5 +1,39 @@
 <h1>Weave Sort</h1>
 <p>
+    Weave Sort works by running Insertion Sort over different portions of the array,
+    then running Insertion sort again on the entire array to finish sorting it.
+    <br>
+    <br>
+    Weave Sort begins by creating a number of threads,
+    programs that run simultaneously and independently of one another.
+    Each thread starts running Insertion Sort, 
+    with each thread starting one step ahead of each other.
+    In addition, each thread chooses the next element to look at based on how many threads there are.
+    For example, if we had two threads the first thread would start on the first element of the array,
+    and the second thread would start on the second element. 
+    Then, when moving to the next element each thread would move forward by two spaces.
+    This results in each thread sorting a portion of the array without interfering with other threads.
+    Like with normal Insertion Sort, each thread stops when they reach the end of the array.
+    <br>
+    <br>
+    After all of the threads finish the array will be partially sorted.
+    Then, Weave Sort runs Insertion Sort on the entire array, which finishes sorting it.
+    <br>
+    <br>
+    The overall time complexity of Weave Sort is <b>n<sup>2</sup></b>, the same as Insertion Sort.
+    However, pre-sorting the array using threads and then sorting it again is usually faster than Insertion Sort.
+    In general, using more threads speeds up the pre-sorting, 
+    but makes the final pass slower as the pre-sorting is less accurate,
+    while using less threads makes the pre-sorting slower, 
+    but makes the final pass faster.
+    Weave Sort's performance varies based on the array being sorted and the number of threads used.
+    <br>
+    <br>
+    Weave Sort avoids using extra memory on auixiliary arrays by
+    having each thread work on the original array. 
+    However, it uses a small amount of memory for each thread it uses.
+    This makes the space complexity of Weave Sort <b>t</b>, 
+    with t being the number of threads being used.
 
 </p>
 
