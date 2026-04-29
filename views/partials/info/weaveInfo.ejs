@@ -1,27 +1,33 @@
 <h1>Weave Sort</h1>
 <p>
-    Weave Sort works by running Insertion Sort over different portions of the array,
-    then running Insertion sort again on the entire array to finish sorting it.
+    Weave Sort works by running 
+    <a href='/algorithm?id=Insertion'>Insertion Sort</a> 
+    over different portions of the array,
+    then running <a href='/algorithm?id=Insertion'>Insertion Sort</a> again on the entire array to finish sorting it.
     <br>
     <br>
     Weave Sort begins by creating a number of threads,
     programs that run simultaneously and independently of one another.
-    Each thread starts running Insertion Sort, 
+    Each thread starts running <a href='/algorithm?id=Insertion'>Insertion Sort</a>, 
     with each thread starting one step ahead of each other.
     In addition, each thread chooses the next element to look at based on how many threads there are.
     For example, if we had two threads the first thread would start on the first element of the array,
     and the second thread would start on the second element. 
     Then, when moving to the next element each thread would move forward by two spaces.
     This results in each thread sorting a portion of the array without interfering with other threads.
-    Like with normal Insertion Sort, each thread stops when they reach the end of the array.
+    Like with normal <a href='/algorithm?id=Insertion'>Insertion Sort</a>, 
+    each thread stops when they reach the end of the array.
     <br>
     <br>
     After all of the threads finish the array will be partially sorted.
-    Then, Weave Sort runs Insertion Sort on the entire array, which finishes sorting it.
+    Then, Weave Sort runs <a href='/algorithm?id=Insertion'>Insertion Sort</a> on the entire array, 
+    which finishes sorting it.
     <br>
     <br>
-    The overall time complexity of Weave Sort is <b>n<sup>2</sup></b>, the same as Insertion Sort.
-    However, pre-sorting the array using threads and then sorting it again is usually faster than Insertion Sort.
+    The overall time complexity of Weave Sort is <b>n<sup>2</sup></b>, the same as 
+    <a href='/algorithm?id=Insertion'>Insertion Sort</a>.
+    However, pre-sorting the array using threads and then sorting it again is usually faster than 
+    <a href='/algorithm?id=Insertion'>Insertion Sort</a>.
     In general, using more threads speeds up the pre-sorting, 
     but makes the final pass slower as the pre-sorting is less accurate,
     while using less threads makes the pre-sorting slower, 
@@ -36,8 +42,11 @@
     with t being the number of threads being used.
     <br>
     <br>
-    While Insertion Sort is the primary sorting algorithm used by Weave Sort,
-    this visualization has options to use Bubble Sort and Selection Sort instead of Insertion Sort.
+    While <a href='/algorithm?id=Insertion'>Insertion Sort</a> 
+    is the primary sorting algorithm used by Weave Sort,
+    this visualization has options to use <a href='/algorithm?id=Bubble'>Bubble Sort</a>
+    and <a href='/algorithm?id=Selection'>Selection Sort</a> instead of 
+    <a href='/algorithm?id=Insertion'>Insertion Sort</a>.
 </p>
 
 <%- include('../tableHead') %>
