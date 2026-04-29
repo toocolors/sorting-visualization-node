@@ -90,8 +90,8 @@ export async function insertionSort(start, end, increment, insertDecrement) {
 /**
  * Sorts a portion of the array using Selection Sort.
  * @param {Number} start The beginning index of the section to sort.
- * @param {*} end The last index of the section to sort.
- * @param {*} increment The value to increment by each loop iteration.
+ * @param {Number} end The last index of the section to sort.
+ * @param {Number} increment The value to increment by each loop iteration.
  * @returns True to continue sorting, False to stop sorting.
  */
 export async function selectionSort(start, end, increment) {
