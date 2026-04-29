@@ -53,7 +53,7 @@ async function weaveSort() {
                 threads.push(sorts.bubbleSort(i, array.length - 1, threadCount));
                 break;
             case "selection":
-                threads.push(sorts.selectionSort(i, array.length, threadCount));
+                threads.push(sorts.selectionSort(i, array.length - 1, threadCount));
                 break;
             case "insertion":
             default:
