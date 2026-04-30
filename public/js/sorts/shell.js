@@ -17,6 +17,7 @@ Gap Sequence:
     <option value='/2'>n/2</option>
     <option value='/3'>n/3</option>
     <option value='/4'>n/4</option>
+    <option value='sqrt'>&#8730;n</option>
     <option value='-1'>n-1</option>
 </select>
 `;
@@ -52,6 +53,9 @@ async function shellSort() {
             case "-1":
                 gap--;
                 break;
+            case "sqrt":
+                gap = Math.floor(Math.sqrt(gap));
+                break;
             case "/4":
                 gap = Math.floor(gap / 4);
                 break;
@@ -64,19 +68,14 @@ async function shellSort() {
                 break;
         }
 
-        // Break if gap is 1 or below
-        if(gap <= 1) {
-            break;
+        // Clamp gap to 1 or above
+        if(gap < 1) {
+            gap = 1;
         }
 
         // Run sort with gap
         if(!await sorts.insertionSort(0, array.length - 1, 1, gap)) {
             return false;
         }
-    }
-    
-    // Run final gap sequence
-    if(!await sorts.insertionSort(0, array.length - 1, 1, 1)) {
-        return false;
     }
 }
