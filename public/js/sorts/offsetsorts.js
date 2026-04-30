@@ -56,7 +56,7 @@ export async function bubbleSort(start, end, increment) {
  */
 export async function insertionSort(start, end, increment, insertDecrement) {
     // Outer Loop
-    for (let i = start + increment; i <= end; i += increment) {
+    for (let i = start + Math.max(increment, insertDecrement); i <= end; i += increment) {
         // Start Step
         if (!await startStep(i)) {
             return false;
