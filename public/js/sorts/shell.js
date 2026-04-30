@@ -64,6 +64,11 @@ async function shellSort() {
                 break;
         }
 
+        // Break if gap is 1 or below
+        if(gap <= 1) {
+            break;
+        }
+
         // Run sort with gap
         if(!await sorts.insertionSort(0, array.length - 1, 1, gap)) {
             return false;
