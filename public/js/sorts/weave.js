@@ -33,6 +33,8 @@ async function beginSort() {
     // Clamp threadCount
     if (isNaN(threadCount) || threadCount < 2) {
         threadCount = 2;
+    } else if (threadCount > array.length) {
+        threadCount = array.length;
     }
 
 
