@@ -17,8 +17,6 @@ Gap Sequence:
     <option value='/2'>n/2</option>
     <option value='/3'>n/3</option>
     <option value='/4'>n/4</option>
-    <option value='/8'>n/8</option>
-    <option value='/10'>n/10</option>
     <option value='-1'>n-1</option>
 </select>
 `;
@@ -53,12 +51,6 @@ async function shellSort() {
         switch(gapType) {
             case "-1":
                 gap--;
-                break;
-            case "/10":
-                gap = Math.floor(gap / 10);
-                break;
-            case "/8":
-                gap = Math.floor(gap / 8);
                 break;
             case "/4":
                 gap = Math.floor(gap / 4);
