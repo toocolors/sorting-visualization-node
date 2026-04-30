@@ -1,0 +1,53 @@
+<h1>Shell Sort</h1>
+<p>
+    Shell Sort is a variation of 
+    <a href="/algorithm?id=Insertion">Insertion Sort</a>
+    that has better time complexity on average.
+    <br>
+    <br>
+    Shell Sort begins by selecting a gap.
+    For this example we will say that we have an array of 100 elements, 
+    and that Shell Sort chooses a gap of 50.
+    Then it runs a modified version of
+    <a href="/algorithm?id=Insertion">Insertion Sort</a>
+    that iterates over each element of the array like normal,
+    but attempts to move the element by 50 spaces when inserting it instead of moving it by one space.
+    Once it finishes running this modified
+    <a href="/algorithm?id=Insertion">Insertion Sort</a>
+    it reduces the gap size.
+    We will say that it halves the gap size, making the new gap 25 spaces.
+    Then it runs the modified Insertion Sort again with the new gap size.
+    It then repeats this process.
+    Following the same pattern, the next gap sizes would be 12, 6, 3, and 1.
+    Using a gap size of one, the modified
+    <a href="/algorithm?id=Insertion">Insertion Sort</a>
+    is identical to regular
+    <a href="/algorithm?id=Insertion">Insertion Sort</a>,
+    so after reaching a gap size of one the array is sorted.
+    <br>
+    <br>
+    Shell Sort often uses mathematical formulas to figure out which gap sizes to use.
+    These formulas are called gap sequences.
+    In the above example we had an array of 100 elements, 
+    and the gap sizes were 50, 25, 12, 6, 3, and 1.
+    Notice how the gap size started half of of the size of the array,
+    and that it shrank by half in each step.
+    In this example the gap sequence would be <b>n/2</b>, with <b>n</b> being the size of the array,
+    and <b>/2</b> being how the gap size is changed each iteration.
+    Using another example, if the gap sizes were 25, 6, and 1, the gap sequence would be <b>n/4</b>.
+    This visualization currently supports gap sequences ranging from <b>n/2</b> to <b>n-1</b>.
+    <br>
+    <br>
+    The time complexity of Shell Sort largely depends on which gap sequence is being used.
+    On average, Shell Sort has an average time complexity of <b>n<sup>1.25</sup></b> to <b>n<sup>1.5</sup></b>,
+    but some gap sequences can have a time complexity of <b>n<sup>2</sup></b>.
+    With optimal gap sequences, Shell Sort's best-case time complexity is <b>n logn</b>.
+    <br>
+    <br>
+    Shell Sort was first published in 1959, and was the first sorting algortihm to reach a time complexity
+    lower than <b>n<sup>2</sup></b>.
+</p>
+
+<%- include('../tableHead') %>
+    <%- include('../tables/shellTable') %>
+</table>
