@@ -140,16 +140,19 @@ nav a {
 /* Landscape Styling */
 @media (orientation: landscape) {
     #container {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 1fr;
         transition: grid-template-columns 0.3s ease;
-        overflow: hidden;
     }
 
     nav {
-        position: relative;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        height: calc(100vh - 60px);
         width: 0;
         min-width: 0;
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
         transition: width 0.3s ease;
     }
 
@@ -163,6 +166,17 @@ nav a {
 
     #container:not(.sidebarOpen) nav {
         width: 0;
+        transition: margin-left 0.3s ease;
+    }
+
+    #container:not(.sidebarOpen) {
+        margin-left: 0;
+        transition: margin-left 0.3s ease;
+    }
+
+    #container.sidebarOpen {
+        margin-left: 200px;
+        transition: margin-left 0.3s ease;
     }
 
     #menuToggle {
